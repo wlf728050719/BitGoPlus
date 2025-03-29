@@ -1,0 +1,12 @@
+server:
+  port: @user.service.port@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_user?useSSL=false
+    username: root
+    password: 15947035212
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  type-aliases-package: cn.bit.userservice.bean.po
+  configuration:
+    map-underscore-to-camel-case: true

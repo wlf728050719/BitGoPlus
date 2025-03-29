@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: user-service
+  profiles:
+    active: @profile.active@
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        cluster-name: HZ
+        namespace: @namespace@
+      config:
+        file-extension: yaml
+        namespace: @namespace@

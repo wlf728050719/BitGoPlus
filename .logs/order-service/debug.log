@@ -1,0 +1,156 @@
+2025-02-14 20:37:45,560 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-14 20:37:45,685 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-14 20:37:45,700 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-14 20:37:45,709 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-14 20:58:01,155 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-14 20:58:01,265 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-14 20:58:01,278 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-14 20:58:01,286 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-14 20:58:01,289 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-14 20:58:01,289 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> END HTTP (0-byte body)
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (192ms)
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] connection: keep-alive
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] content-type: application/json
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] date: Fri, 14 Feb 2025 12:58:01 GMT
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] keep-alive: timeout=60
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] transfer-encoding: chunked
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] 
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] {"code":1111111,"msg":null,"data":{"id":1,"username":"testuser1","account":"13800138000"}}
+2025-02-14 20:58:01,482 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- END HTTP (90-byte body)
+2025-02-14 20:58:01,488 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-14 20:58:01,488 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> END HTTP (0-byte body)
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (2ms)
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] connection: keep-alive
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] content-type: application/json
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] date: Fri, 14 Feb 2025 12:58:01 GMT
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] keep-alive: timeout=60
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] transfer-encoding: chunked
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] 
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] {"code":1111111,"msg":null,"data":{"id":2,"username":"testuser2","account":"13900139000"}}
+2025-02-14 20:58:01,490 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- END HTTP (90-byte body)
+2025-02-14 20:59:09,776 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-14 20:59:09,886 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-14 20:59:09,898 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-14 20:59:09,906 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-14 20:59:09,909 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-14 20:59:10,105 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (194ms)
+2025-02-14 20:59:10,110 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-14 20:59:10,112 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (2ms)
+2025-02-15 13:25:16,012 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 13:25:16,130 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 13:25:16,142 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 13:25:16,151 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 13:25:16,155 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 13:25:16,345 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (188ms)
+2025-02-15 13:25:16,349 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-15 13:25:16,352 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200 (2ms)
+2025-02-15 13:35:24,275 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 13:35:24,383 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 13:35:24,400 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 13:35:24,409 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 13:35:24,412 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 13:35:24,618 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (206ms)
+2025-02-15 13:35:24,624 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-15 13:35:24,627 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (2ms)
+2025-02-15 14:51:07,696 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 14:51:07,814 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 14:51:07,827 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 14:51:07,836 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 14:51:07,838 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 14:51:08,046 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (206ms)
+2025-02-15 14:54:10,155 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 14:54:10,264 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 14:54:10,276 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 14:54:10,289 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 14:54:10,292 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 14:54:10,495 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (203ms)
+2025-02-15 14:55:40,509 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 14:55:40,617 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 14:55:40,630 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 14:55:40,638 [http-nio-1235-exec-4] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 14:55:40,641 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 14:55:40,838 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (196ms)
+2025-02-15 14:55:40,845 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-15 14:55:40,848 [http-nio-1235-exec-4] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (2ms)
+2025-02-15 14:56:49,059 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 14:56:49,168 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 14:56:49,180 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 14:56:49,189 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 14:56:49,192 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 14:56:49,396 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (203ms)
+2025-02-15 15:04:30,902 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 15:04:31,010 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 15:04:31,023 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 15:04:31,032 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 15:04:31,034 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/1 HTTP/1.1
+2025-02-15 15:04:31,244 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (209ms)
+2025-02-15 15:04:31,251 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] ---> GET http://user-service/user/baseInfo/2 HTTP/1.1
+2025-02-15 15:04:31,254 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.client.UserClient] - [UserClient#getUserBaseInfo] <--- HTTP/1.1 200  (2ms)
+2025-02-15 15:23:58,405 [http-nio-1235-exec-2] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 15:23:58,515 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 15:23:58,527 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 15:23:58,536 [http-nio-1235-exec-2] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-15 15:25:00,079 [http-nio-1235-exec-5] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-15 15:25:00,079 [http-nio-1235-exec-5] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-15 15:25:00,080 [http-nio-1235-exec-5] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-15 15:25:00,080 [http-nio-1235-exec-5] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 14:06:27,459 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 14:06:27,576 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 14:06:27,589 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-16 14:06:27,597 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 14:40:39,822 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 14:40:39,988 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 14:40:40,010 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 14:40:40,027 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 14:42:41,356 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 14:42:41,467 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 14:42:41,481 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 14:42:41,495 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 14:45:02,935 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 14:45:03,060 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 14:45:03,074 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 14:45:03,094 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 15:10:15,022 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 15:10:15,146 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 15:10:15,159 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 15:10:15,168 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 15:12:53,184 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 15:12:53,185 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 15:12:53,185 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 15:12:53,186 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 15:28:17,162 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 15:28:17,349 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 15:28:17,371 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 15:28:17,388 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 15:31:57,699 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 15:31:57,814 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 15:31:57,826 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 15:31:57,836 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 15:55:51,814 [http-nio-1235-exec-3] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 15:55:51,923 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 15:55:51,936 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 1(Integer)
+2025-02-16 15:55:51,945 [http-nio-1235-exec-3] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 16:01:08,617 [http-nio-1235-exec-7] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 16:01:08,618 [http-nio-1235-exec-7] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 16:01:08,618 [http-nio-1235-exec-7] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 16:01:08,618 [http-nio-1235-exec-7] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 16:02:08,793 [http-nio-1235-exec-10] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 16:02:08,794 [http-nio-1235-exec-10] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 16:02:08,794 [http-nio-1235-exec-10] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 16:02:08,795 [http-nio-1235-exec-10] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 16:12:51,834 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 16:12:51,960 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 16:12:51,975 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 16:12:51,986 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-02-16 17:11:31,686 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-02-16 17:11:31,797 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-02-16 17:11:31,814 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-02-16 17:11:31,823 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-03-01 21:55:52,382 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-03-01 21:55:52,512 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-03-01 21:55:52,526 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-03-01 21:55:52,547 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1
+2025-03-01 22:00:25,139 [http-nio-1235-exec-1] DEBUG [cn.bit.orderservice.controller.OrderController] - debug
+2025-03-01 22:00:25,254 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==>  Preparing: select * from tb_order where id=? 
+2025-03-01 22:00:25,267 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - ==> Parameters: 5(Integer)
+2025-03-01 22:00:25,277 [http-nio-1235-exec-1] DEBUG [c.b.orderservice.mapper.OrderMapper.getOrderPOById] - <==      Total: 1

@@ -1,0 +1,27 @@
+package cn.bit.quartz.core.events.publisher;
+
+
+import cn.bit.quartz.core.entity.Task;
+import cn.bit.quartz.core.events.event.TaskInvokeEvent;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
+
+@AllArgsConstructor
+@Slf4j
+@Component
+public class TaskInvokePublisher implements Job {
+
+    private final ApplicationEventPublisher publisher;
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext){
+        Task task = (Task) jobExecutionContext.getJobDetail().getJobDataMap().get("task");
+        //发布事件异步执行任务
+        TaskInvokeEvent event =new TaskInvokeEvent(task.getTaskName(),task.getTaskGroup());
+        publisher.publishEvent(event);
+        log.info("任务执行事件发布:{}",event);
+    }
+}

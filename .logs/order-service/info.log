@@ -1,0 +1,48 @@
+2025-03-29 17:59:25,366 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 6.1.7.Final
+2025-03-29 17:59:25,562 [main] INFO  [cn.bit.orderservice.OrderServiceApplication] - No active profile set, falling back to default profiles: default
+2025-03-29 17:59:25,829 [main] INFO  [o.springframework.cloud.context.scope.GenericScope] - BeanFactory id=0cff93b5-8dbd-39a5-8abd-dc8bcb5ae5a4
+2025-03-29 17:59:25,960 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 1235 (http)
+2025-03-29 17:59:25,964 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-1235"]
+2025-03-29 17:59:25,964 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2025-03-29 17:59:25,964 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2025-03-29 17:59:26,007 [main] INFO  [o.a.c.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2025-03-29 17:59:26,007 [main] INFO  [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 433 ms
+2025-03-29 17:59:26,354 [main] INFO  [com.netflix.config.sources.URLConfigurationSource] - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2025-03-29 17:59:26,358 [main] INFO  [com.netflix.config.sources.URLConfigurationSource] - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2025-03-29 17:59:26,402 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] - Initializing ExecutorService 'applicationTaskExecutor'
+2025-03-29 17:59:26,485 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskScheduler] - Initializing ExecutorService 'Nacos-Watch-Task-Scheduler'
+2025-03-29 17:59:26,600 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-1235"]
+2025-03-29 17:59:26,614 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 1235 (http) with context path ''
+2025-03-29 17:59:26,624 [main] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - nacos registry, DEFAULT_GROUP order-service 192.168.200.1:1235 register finished
+2025-03-29 17:59:26,633 [main] INFO  [cn.bit.orderservice.OrderServiceApplication] - Started OrderServiceApplication in 1.443 seconds (JVM running for 1.725)
+2025-03-29 17:59:26,707 [main] INFO  [com.netflix.loadbalancer.BaseLoadBalancer] - Client: user-service instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2025-03-29 17:59:26,710 [main] INFO  [c.n.loadbalancer.DynamicServerListLoadBalancer] - Using serverListUpdater PollingServerListUpdater
+2025-03-29 17:59:26,717 [main] INFO  [c.n.loadbalancer.DynamicServerListLoadBalancer] - DynamicServerListLoadBalancer for client user-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:com.alibaba.cloud.nacos.ribbon.NacosServerList@43756cb
+2025-03-29 18:00:35,227 [Thread-25] INFO  [com.netflix.loadbalancer.PollingServerListUpdater] - Shutting down the Executor Pool for PollingServerListUpdater
+2025-03-29 18:00:35,241 [SpringContextShutdownHook] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskScheduler] - Shutting down ExecutorService 'Nacos-Watch-Task-Scheduler'
+2025-03-29 18:00:35,242 [SpringContextShutdownHook] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - De-registering from Nacos Server now...
+2025-03-29 18:00:35,246 [SpringContextShutdownHook] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - De-registration finished.
+2025-03-29 18:15:32,296 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 6.1.7.Final
+2025-03-29 18:15:32,484 [main] INFO  [cn.bit.orderservice.OrderServiceApplication] - No active profile set, falling back to default profiles: default
+2025-03-29 18:15:32,776 [main] INFO  [o.springframework.cloud.context.scope.GenericScope] - BeanFactory id=0cff93b5-8dbd-39a5-8abd-dc8bcb5ae5a4
+2025-03-29 18:15:32,898 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 1235 (http)
+2025-03-29 18:15:32,902 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-1235"]
+2025-03-29 18:15:32,902 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2025-03-29 18:15:32,903 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2025-03-29 18:15:32,952 [main] INFO  [o.a.c.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2025-03-29 18:15:32,952 [main] INFO  [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 444 ms
+2025-03-29 18:15:33,249 [main] INFO  [com.netflix.config.sources.URLConfigurationSource] - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2025-03-29 18:15:33,252 [main] INFO  [com.netflix.config.sources.URLConfigurationSource] - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2025-03-29 18:15:33,295 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskExecutor] - Initializing ExecutorService 'applicationTaskExecutor'
+2025-03-29 18:15:33,389 [main] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskScheduler] - Initializing ExecutorService 'Nacos-Watch-Task-Scheduler'
+2025-03-29 18:15:33,503 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-1235"]
+2025-03-29 18:15:33,526 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 1235 (http) with context path ''
+2025-03-29 18:15:33,535 [main] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - nacos registry, DEFAULT_GROUP order-service 192.168.200.1:1235 register finished
+2025-03-29 18:15:33,543 [main] INFO  [cn.bit.orderservice.OrderServiceApplication] - Started OrderServiceApplication in 1.398 seconds (JVM running for 2.559)
+2025-03-29 18:15:33,594 [main] INFO  [com.netflix.loadbalancer.BaseLoadBalancer] - Client: user-service instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2025-03-29 18:15:33,597 [main] INFO  [c.n.loadbalancer.DynamicServerListLoadBalancer] - Using serverListUpdater PollingServerListUpdater
+2025-03-29 18:15:33,603 [main] INFO  [c.n.loadbalancer.DynamicServerListLoadBalancer] - DynamicServerListLoadBalancer for client user-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:com.alibaba.cloud.nacos.ribbon.NacosServerList@73a49597
+2025-03-29 18:16:39,846 [Thread-25] INFO  [com.netflix.loadbalancer.PollingServerListUpdater] - Shutting down the Executor Pool for PollingServerListUpdater
+2025-03-29 18:16:39,864 [SpringContextShutdownHook] INFO  [o.s.scheduling.concurrent.ThreadPoolTaskScheduler] - Shutting down ExecutorService 'Nacos-Watch-Task-Scheduler'
+2025-03-29 18:16:39,869 [SpringContextShutdownHook] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - De-registering from Nacos Server now...
+2025-03-29 18:16:39,873 [SpringContextShutdownHook] INFO  [c.a.cloud.nacos.registry.NacosServiceRegistry] - De-registration finished.

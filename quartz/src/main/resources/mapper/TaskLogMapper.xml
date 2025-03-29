@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bit.quartz.core.mapper.TaskLogMapper">
+
+    <resultMap id="TaskLogResultMap" type="cn.bit.quartz.core.entity.TaskLog">
+        <id property="id" column="id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="executeTime" column="execute_time"/>
+        <result property="result" column="result"/>
+        <result property="message" column="message"/>
+        <result property="exceptionInfo" column="exception_info"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.bit.quartz.core.entity.TaskLog">
+        INSERT INTO tb_task_log(task_id, start_time, execute_time, result, message, exception_info)
+        VALUES (#{taskId}, #{startTime}, #{executeTime}, #{result}, #{message}, #{exceptionInfo})
+    </insert>
+
+    <select id="selectByTaskId" resultMap="TaskLogResultMap">
+        SELECT * FROM tb_task_log WHERE task_id = #{taskId}
+    </select>
+</mapper>

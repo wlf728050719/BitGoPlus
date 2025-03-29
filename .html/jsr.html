@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件上传示例</title>
+</head>
+<body>
+<h1>文件上传</h1>
+<form id="uploadForm">
+    <input type="file" id="fileInput" name="file" required>
+    <button type="submit">上传</button>
+</form>
+
+<p id="responseMessage"></p>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('http://localhost:1235/order/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('responseMessage').textContent = '文件上传成功: ' + data;
+                })
+                .catch(error => {
+                    document.getElementById('responseMessage').textContent = '文件上传失败: ' + error.message;
+                });
+        } else {
+            document.getElementById('responseMessage').textContent = '请选择一个文件';
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+2025-03-29 17:59:26,354 [main] WARN  [com.netflix.config.sources.URLConfigurationSource] - No URLs will be polled as dynamic configuration sources.
+2025-03-29 17:59:26,358 [main] WARN  [com.netflix.config.sources.URLConfigurationSource] - No URLs will be polled as dynamic configuration sources.
+2025-03-29 18:00:35,227 [Thread-13] WARN  [com.alibaba.nacos.common.http.HttpClientBeanHolder] - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-03-29 18:00:35,227 [Thread-19] WARN  [com.alibaba.nacos.common.notify.NotifyCenter] - [NotifyCenter] Start destroying Publisher
+2025-03-29 18:00:35,227 [Thread-19] WARN  [com.alibaba.nacos.common.notify.NotifyCenter] - [NotifyCenter] Destruction of the end
+2025-03-29 18:00:35,227 [Thread-13] WARN  [com.alibaba.nacos.common.http.HttpClientBeanHolder] - [HttpClientBeanHolder] Destruction of the end
+2025-03-29 18:15:33,249 [main] WARN  [com.netflix.config.sources.URLConfigurationSource] - No URLs will be polled as dynamic configuration sources.
+2025-03-29 18:15:33,252 [main] WARN  [com.netflix.config.sources.URLConfigurationSource] - No URLs will be polled as dynamic configuration sources.
+2025-03-29 18:16:39,846 [Thread-13] WARN  [com.alibaba.nacos.common.http.HttpClientBeanHolder] - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-03-29 18:16:39,846 [Thread-19] WARN  [com.alibaba.nacos.common.notify.NotifyCenter] - [NotifyCenter] Start destroying Publisher
+2025-03-29 18:16:39,846 [Thread-19] WARN  [com.alibaba.nacos.common.notify.NotifyCenter] - [NotifyCenter] Destruction of the end
+2025-03-29 18:16:39,846 [Thread-13] WARN  [com.alibaba.nacos.common.http.HttpClientBeanHolder] - [HttpClientBeanHolder] Destruction of the end

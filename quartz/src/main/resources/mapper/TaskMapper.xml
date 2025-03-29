@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bit.quartz.core.mapper.TaskMapper">
+    <resultMap id="TaskResultMap" type="cn.bit.quartz.core.entity.Task">
+        <result property="id" column="id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="taskGroup" column="task_group"/>
+        <result property="type" column="type"/>
+        <result property="beanName" column="bean_name"/>
+        <result property="className" column="class_name"/>
+        <result property="path" column="path"/>
+        <result property="methodName" column="method_name"/>
+        <result property="params" column="params"/>
+        <result property="cronExpression" column="cron_expression"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="result" column="result"/>
+    </resultMap>
+    <insert id="insertTask">
+        INSERT INTO tb_task (
+            task_name,
+            task_group,
+            type,
+            bean_name,
+            class_name,
+            path,
+            method_name,
+            params,
+            cron_expression,
+            description
+        ) VALUES (
+                     #{task.taskName},
+                     #{task.taskGroup},
+                     #{task.type},
+                     #{task.beanName},
+                     #{task.className},
+                     #{task.path},
+                     #{task.methodName},
+                     #{task.params},
+                     #{task.cronExpression},
+                     #{task.description}
+                 )
+    </insert>
+    <delete id="deleteTask">
+        delete from tb_task
+        where
+            task_name = #{task.taskName} and
+            task_group = #{task.taskGroup};
+    </delete>
+
+
+    <select id="selectAllTask" resultMap="TaskResultMap">
+        SELECT * FROM tb_task;
+    </select>
+    <select id="selectTaskByNameAndGroup" resultMap="TaskResultMap">
+        select * from tb_task
+        where
+            task_name = #{name} and
+            task_group = #{group}
+    </select>
+
+    <update id="updateTaskInfo">
+        UPDATE tb_task
+        SET
+            type = #{task.type},
+            bean_name = #{task.beanName},
+            class_name = #{task.className},
+            path = #{task.path},
+            method_name = #{task.methodName},
+            params = #{task.params},
+            cron_expression = #{task.cronExpression},
+            description = #{task.description}
+        WHERE
+            task_name = #{task.taskName} and
+            task_group = #{task.taskGroup};
+    </update>
+    <update id="updateTaskStatus">
+        UPDATE tb_task
+        SET
+            status = #{task.status}
+        WHERE
+            task_name = #{task.taskName} and
+            task_group = #{task.taskGroup};
+    </update>
+    <update id="setTaskResult">
+        update tb_task
+        set
+            result = #{task.result}
+        where
+            task_name = #{task.taskName} and
+            task_group = #{task.taskGroup};
+    </update>
+</mapper>

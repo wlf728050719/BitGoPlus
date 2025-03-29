@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: quartz
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        cluster-name: HZ
+        namespace: @namespace@
