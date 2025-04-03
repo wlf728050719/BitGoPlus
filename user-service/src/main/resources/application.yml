@@ -6,7 +6,3 @@ spring:
     username: root
     password: 15947035212
     driver-class-name: com.mysql.jdbc.Driver
-mybatis:
-  type-aliases-package: cn.bit.userservice.bean.po
-  configuration:
-    map-underscore-to-camel-case: true

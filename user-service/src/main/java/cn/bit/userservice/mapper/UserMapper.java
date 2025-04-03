@@ -1,13 +1,8 @@
 package cn.bit.userservice.mapper;
 
+import cn.bit.pojo.po.UserPO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import cn.bit.common.pojo.po.UserPO;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
+public interface UserMapper extends BaseMapper<UserPO> {
 
-@Repository
-public interface UserMapper {
-    @Select("select * from tb_user where id = #{id}")
-    UserPO getUserPOById(@Param("id") Integer id);
 }

@@ -5,34 +5,38 @@
     <parent>
         <groupId>cn.bit</groupId>
         <artifactId>BitGoPlus</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>user-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>user-service</name>
     <description>user-service</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- nacos客户端依赖包 -->
+        <!-- nacos服务注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- nacos配置管理依赖 -->
+        <!-- nacos配置管理 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!-- common-core -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-core</artifactId>
         </dependency>
     </dependencies>
     <build>

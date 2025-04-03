@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cn.bit</groupId>
+  <artifactId>common-bom</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+
+  <name>common-bom</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <bitgo.version>1.0.0</bitgo.version>
+    <mybatis-plus.version>3.3.2</mybatis-plus.version>
+    <mysql.connector.version>8.0.20</mysql.connector.version>
+    <druid.version>1.1.22</druid.version>
+    <openfeign.version>2.2.5.RELEASE</openfeign.version>
+    <gateway.version>2.2.5.RELEASE</gateway.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--mybatis-->
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>${mybatis-plus.version}</version>
+      </dependency>
+      <!--mysql 驱动-->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.connector.version}</version>
+      </dependency>
+      <!-- druid 连接池 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <!-- openfeign -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+        <version>${openfeign.version}</version>
+      </dependency>
+      <!-- gateway -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-gateway</artifactId>
+        <version>${gateway.version}</version>
+      </dependency>
+      <!-- =============内部依赖版本号============== -->
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-core</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-jsr303</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-redis</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-snowflake</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-feign</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
