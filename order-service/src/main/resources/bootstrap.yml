@@ -1,5 +1,5 @@
 server:
-  port: @profiles.user-service.port@
+  port: @profiles.order-service.port@
 
 spring:
   profiles:

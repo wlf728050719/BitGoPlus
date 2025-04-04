@@ -38,7 +38,7 @@ target/
 *.tar.gz
 
 ### logs ####
-
+.logs
 ### temp ignore ###
 *.cache
 *.diff
