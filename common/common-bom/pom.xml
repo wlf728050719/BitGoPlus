@@ -12,34 +12,34 @@
 
   <properties>
     <bitgo.version>1.0.0</bitgo.version>
-    <mybatis-plus.version>3.3.2</mybatis-plus.version>
-    <mysql.connector.version>8.0.20</mysql.connector.version>
-    <druid.version>1.1.22</druid.version>
+    <mybatis-plus.version>3.5.1</mybatis-plus.version>
+    <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
+    <mysql.connector.version>8.0.28</mysql.connector.version>
     <openfeign.version>2.2.5.RELEASE</openfeign.version>
     <gateway.version>2.2.5.RELEASE</gateway.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <!--mybatis-->
+<!--      &lt;!&ndash; shardingSphere &ndash;&gt;-->
+<!--      <dependency>-->
+<!--        <groupId>org.apache.shardingsphere</groupId>-->
+<!--        <artifactId>sharding-jdbc-spring-boot-starter</artifactId>-->
+<!--        <version>${sharding-jdbc.version}</version>-->
+<!--      </dependency>-->
+      <!-- mybatisPlus -->
       <dependency>
         <groupId>com.baomidou</groupId>
         <artifactId>mybatis-plus-boot-starter</artifactId>
         <version>${mybatis-plus.version}</version>
       </dependency>
-      <!--mysql 驱动-->
+      <!-- mysql -->
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql.connector.version}</version>
       </dependency>
-      <!-- druid 连接池 -->
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>druid-spring-boot-starter</artifactId>
-        <version>${druid.version}</version>
-      </dependency>
-      <!-- openfeign -->
+      <!-- openFeign -->
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-openfeign</artifactId>

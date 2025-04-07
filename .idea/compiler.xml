@@ -21,17 +21,17 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="BitGoPlus" options="-parameters" />
-      <module name="common" options="-parameters" />
-      <module name="common-core" options="-parameters" />
-      <module name="common-feign" options="-parameters" />
-      <module name="common-jsr303" options="-parameters" />
-      <module name="common-redis" options="-parameters" />
-      <module name="common-snowflake" options="-parameters" />
-      <module name="gateway" options="-parameters" />
-      <module name="order-service" options="-parameters" />
-      <module name="quartz-service" options="-parameters" />
-      <module name="user-service" options="-parameters" />
+      <module name="BitGoPlus" options="" />
+      <module name="common" options="" />
+      <module name="common-core" options="" />
+      <module name="common-feign" options="" />
+      <module name="common-jsr303" options="" />
+      <module name="common-redis" options="" />
+      <module name="common-snowflake" options="" />
+      <module name="gateway" options="" />
+      <module name="order-service" options="" />
+      <module name="quartz-service" options="" />
+      <module name="user-service" options="" />
     </option>
   </component>
 </project>

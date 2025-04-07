@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "user-service")
 public interface UserClient {
     @GetMapping("/user/test/{text}")
-    String test(@PathVariable String text);
+    String test(@PathVariable("text") String text);
 }

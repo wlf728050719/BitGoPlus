@@ -19,6 +19,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
+        <!-- =======公共依赖======= -->
         <!-- nacos服务注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -29,6 +30,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!-- =======内部依赖======= -->
     </dependencies>
 
     <build>
