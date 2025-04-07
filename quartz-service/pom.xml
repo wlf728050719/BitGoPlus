@@ -19,22 +19,22 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
         <!-- =======公共依赖======= -->
-        <!-- Web -->
+        <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- nacos服务注册 -->
+        <!-- nacos discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- nacos配置管理 -->
+        <!-- nacos config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- feign依赖 -->
+        <!-- open feign  -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -45,6 +45,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <!-- =======内部依赖======= -->
+        <!-- common-core -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>

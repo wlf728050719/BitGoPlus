@@ -14,48 +14,63 @@
 
     <dependencies>
         <!-- =======公共依赖======= -->
-        <!-- Web -->
+        <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- nacos服务注册 -->
+        <!-- nacos discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- nacos配置管理 -->
+        <!-- nacos config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- feign依赖 -->
+        <!-- open feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-<!--        &lt;!&ndash; mybatis plus &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <!-- sharding jdbc -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
         <!-- =======内部依赖======= -->
+        <!-- common-core -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
+        <!-- common-snowflake -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-snowflake</artifactId>
         </dependency>
+        <!-- common-cache -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
+        <!-- common-jsr303 -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-jsr303</artifactId>
         </dependency>
+        <!-- common-feign -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-feign</artifactId>

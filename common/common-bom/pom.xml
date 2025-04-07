@@ -21,13 +21,13 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- shardingJdbc -->
+      <!-- sharding jdbc -->
       <dependency>
         <groupId>org.apache.shardingsphere</groupId>
         <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
         <version>${sharding-jdbc.version}</version>
       </dependency>
-      <!-- mybatisPlus -->
+      <!-- mybatis plus -->
       <dependency>
         <groupId>com.baomidou</groupId>
         <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -39,7 +39,7 @@
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql.connector.version}</version>
       </dependency>
-      <!-- openFeign -->
+      <!-- open feign -->
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-openfeign</artifactId>

@@ -20,12 +20,12 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <!-- =======公共依赖======= -->
-        <!-- nacos服务注册 -->
+        <!-- nacos discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- nacos配置管理 -->
+        <!-- nacos config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>

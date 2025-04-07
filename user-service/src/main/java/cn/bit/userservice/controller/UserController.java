@@ -19,7 +19,7 @@ public class UserController {
     @GetMapping("/register/{username}")
     public int register(@PathVariable String username) {
         UserPO user = new UserPO();
-        user.setUsername("wlf").setPassword(username).setSalt("654321");
+        user.setUsername(username).setPassword("654321").setSalt("654321");
         return userService.register(user);
     }
 }
