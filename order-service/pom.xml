@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>cn.bit</groupId>
-            <artifactId>common-redis</artifactId>
+            <artifactId>common-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.bit</groupId>

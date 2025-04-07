@@ -7,15 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common-data" />
         <module name="common-feign" />
         <module name="common-jsr303" />
         <module name="user-service" />
         <module name="order-service" />
         <module name="common-snowflake" />
-        <module name="common-redis" />
         <module name="gateway" />
         <module name="common-core" />
         <module name="quartz-service" />
+        <module name="common-cache" />
       </profile>
     </annotationProcessing>
   </component>
@@ -23,10 +24,10 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BitGoPlus" options="" />
       <module name="common" options="" />
+      <module name="common-cache" options="" />
       <module name="common-core" options="" />
       <module name="common-feign" options="" />
       <module name="common-jsr303" options="" />
-      <module name="common-redis" options="" />
       <module name="common-snowflake" options="" />
       <module name="gateway" options="" />
       <module name="order-service" options="" />

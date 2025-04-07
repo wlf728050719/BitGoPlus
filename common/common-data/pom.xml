@@ -7,10 +7,10 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>common-redis</artifactId>
+    <artifactId>common-data</artifactId>
     <packaging>jar</packaging>
 
-    <name>common-redis</name>
+    <name>common-mybatis</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -18,10 +18,9 @@
     </properties>
 
     <dependencies>
-        <!-- redis -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>
