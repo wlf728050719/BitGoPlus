@@ -55,10 +55,10 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
-        <!-- common-snowflake -->
+        <!-- common-data -->
         <dependency>
             <groupId>cn.bit</groupId>
-            <artifactId>common-snowflake</artifactId>
+            <artifactId>common-data</artifactId>
         </dependency>
         <!-- common-data -->
         <dependency>

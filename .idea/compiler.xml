@@ -12,13 +12,15 @@
         <module name="common-jsr303" />
         <module name="user-service" />
         <module name="order-service" />
-        <module name="common-snowflake" />
         <module name="gateway" />
         <module name="common-core" />
         <module name="quartz-service" />
         <module name="common-cache" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-snowflake" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

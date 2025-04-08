@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.bit.mybatis.BitGoMetaObjectHandler
+  cn.bit.mybatis.handler.BitGoMetaObjectHandler,\
+  cn.bit.snowflake.config.SnowflakeAutoConfiguration
+

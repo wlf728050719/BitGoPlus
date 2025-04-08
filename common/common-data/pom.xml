@@ -23,5 +23,10 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!-- =======内部依赖======= -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-cache</artifactId>
+        </dependency>
     </dependencies>
 </project>

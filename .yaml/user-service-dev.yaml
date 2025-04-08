@@ -1,0 +1,3 @@
+snowflake:
+  application-name: user-service
+  datacenter-id: 1

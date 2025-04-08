@@ -1,0 +1,3 @@
+snowflake:
+  application-name: order-service
+  datacenter-id: 1

@@ -1,4 +1,4 @@
-package cn.bit;
+package cn.bit.snowflake.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

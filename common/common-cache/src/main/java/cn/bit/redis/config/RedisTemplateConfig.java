@@ -1,4 +1,4 @@
-package cn.bit;
+package cn.bit.redis.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;

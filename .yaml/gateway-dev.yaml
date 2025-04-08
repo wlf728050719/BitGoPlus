@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri:
+            lb://user-service
+          predicates:
+            - name: Path
+              args:
+                _genkey_0: /user/**
+          filters:
+            - name: AddRequestHeader
+              args:
+                name: source
+                value: request user from gateway
+        - id: order-service
+          uri:
+            lb://order-service
+          predicates:
+            - name: Path
+              args:
+                _genkey_0: /order/**
+          filters:
+            - name: AddRequestHeader
+              args:
+                name: source
+                value: request order from gateway
+        - id: quartz
+          uri:
+            lb://quartz
+          predicates:
+            - name: Path
+              args:
+                _genkey_0: /quartz/**

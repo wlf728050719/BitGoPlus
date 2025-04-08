@@ -1,6 +1,6 @@
 package cn.bit.userservice.service.impl;
 
-import cn.bit.DistributedSnowflakeIdGenerator;
+import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
 import cn.bit.pojo.po.UserPO;
 import cn.bit.userservice.mapper.UserMapper;
 import cn.bit.userservice.service.UserService;

@@ -69,19 +69,14 @@
       </dependency>
       <dependency>
         <groupId>cn.bit</groupId>
-        <artifactId>common-snowflake</artifactId>
+        <artifactId>common-feign</artifactId>
         <version>${bitgo.version}</version>
       </dependency>
       <dependency>
         <groupId>cn.bit</groupId>
-        <artifactId>common-feign</artifactId>
+        <artifactId>common-data</artifactId>
         <version>${bitgo.version}</version>
       </dependency>
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common-data</artifactId>
-            <version>${bitgo.version}</version>
-        </dependency>
     </dependencies>
   </dependencyManagement>
 </project>

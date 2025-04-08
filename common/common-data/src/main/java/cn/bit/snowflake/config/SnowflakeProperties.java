@@ -1,4 +1,4 @@
-package cn.bit;
+package cn.bit.snowflake.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
