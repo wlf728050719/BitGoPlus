@@ -1,11 +1,10 @@
 package cn.bit.pojo.dto;
 
+import java.time.LocalDate;
 
 import cn.bit.pojo.po.UserPO;
 import lombok.Data;
 import lombok.NonNull;
-
-import java.time.LocalDate;
 
 @Data
 public class UserBaseInfoDTO {

@@ -8,6 +8,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
+
 import reactor.core.publisher.Mono;
 
 @Order(-1)
@@ -18,7 +19,7 @@ public class AuthorizeFilter implements GlobalFilter {
         ServerHttpRequest request = exchange.getRequest();
         MultiValueMap<String, String> queryParams = request.getQueryParams();
         String token = queryParams.getFirst("token");
-        if("admin".equals(token)) {
+        if ("admin".equals(token)) {
             return chain.filter(exchange);
         }
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

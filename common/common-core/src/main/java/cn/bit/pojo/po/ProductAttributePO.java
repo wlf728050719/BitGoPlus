@@ -1,8 +1,9 @@
 package cn.bit.pojo.po;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.time.LocalDateTime;
 
 /**
  * 商品属性实体类
@@ -23,8 +24,7 @@ public class ProductAttributePO {
     private String attrValue;
 
     /**
-     * 属性类型
-     * 1-关键属性，2-销售属性，3-普通属性
+     * 属性类型 1-关键属性，2-销售属性，3-普通属性
      */
     private Integer attrType;
 
@@ -35,5 +35,5 @@ public class ProductAttributePO {
     private LocalDateTime updateTime;
 
     /** 删除标志（0-未删除，1-已删除） */
-    private Integer delFlag = 0;
+    private Integer delFlag;
 }

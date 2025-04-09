@@ -1,5 +1,14 @@
 package cn.bit.validator;
 
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import cn.bit.annotation.ValidFile;
 import cn.bit.config.JSRConfig;
 import cn.bit.enums.FileEnum;
@@ -7,13 +16,6 @@ import cn.bit.pojo.FileLimit;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.Arrays;
-import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -30,17 +32,17 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
     @Override
     public void initialize(ValidFile constraintAnnotation) {
         boolean useEnum = constraintAnnotation.useEnum();
-        if(useEnum) {
+        if (useEnum) {
             FileEnum fileEnum = constraintAnnotation.fileEnum();
-            if(fileEnum==FileEnum.ANY_FILE)
+            if (fileEnum == FileEnum.ANY_FILE) {
                 log.warn("use any file");
+            }
             FileLimit fileLimit = jsrConfig.getFileLimit(fileEnum);
             maxSize = fileLimit.getMaxSize();
             allowedExtensions = fileLimit.getAllowedExtensions();
             maxFileNameLength = fileLimit.getMaxFileNameLength();
             fileNamePattern = Pattern.compile(fileLimit.getFileNameRegex());
-        }
-        else {
+        } else {
             maxSize = constraintAnnotation.maxSize();
             allowedExtensions = constraintAnnotation.allowedExtensions();
             maxFileNameLength = constraintAnnotation.maxFileNameLength();
@@ -48,6 +50,7 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
         }
     }
 
+    @SuppressWarnings("checkstyle:ReturnCount")
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
         if (file == null || file.isEmpty()) {
@@ -58,7 +61,7 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
         if (file.getSize() > maxSize) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("File size must be less than " + maxSize + " bytes")
-                    .addConstraintViolation();
+                .addConstraintViolation();
             return false;
         }
 
@@ -71,8 +74,8 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
             String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
             if (!Arrays.asList(allowedExtensions).contains(fileExtension)) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("File extension must be one of " + Arrays.toString(allowedExtensions))
-                        .addConstraintViolation();
+                context.buildConstraintViolationWithTemplate(
+                    "File extension must be one of " + Arrays.toString(allowedExtensions)).addConstraintViolation();
                 return false;
             }
         }
@@ -81,16 +84,17 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
         String fileName = file.getOriginalFilename();
         if (fileName != null && fileName.length() > maxFileNameLength) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("File name length must be less than " + maxFileNameLength + " characters")
-                    .addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(
+                "File name length must be less than " + maxFileNameLength + " characters").addConstraintViolation();
             return false;
         }
 
         // 校验文件名是否符合命名规范
         if (fileName != null && !fileNamePattern.matcher(fileName).matches()) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("File name must match the pattern: " + fileNamePattern.pattern())
-                    .addConstraintViolation();
+            context
+                .buildConstraintViolationWithTemplate("File name must match the pattern: " + fileNamePattern.pattern())
+                .addConstraintViolation();
             return false;
         }
 

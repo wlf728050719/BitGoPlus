@@ -1,13 +1,19 @@
 package cn.bit.quartz.controller;
 
+import org.quartz.SchedulerException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import cn.bit.exception.BizException;
 import cn.bit.pojo.vo.R;
 import cn.bit.quartz.core.entity.Task;
 import cn.bit.quartz.core.exception.TaskRepositoryException;
 import cn.bit.quartz.core.mvc.TaskManger;
 import lombok.AllArgsConstructor;
-import org.quartz.SchedulerException;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/quartz")
@@ -15,8 +21,9 @@ import org.springframework.web.bind.annotation.*;
 public class QuartzController {
 
     private TaskManger taskManger;
+
     @PostMapping("/add")
-    public R add(@RequestBody Task task){
+    public R add(@RequestBody Task task) {
         try {
             taskManger.addTask(task);
         } catch (SchedulerException | TaskRepositoryException e) {
@@ -26,27 +33,27 @@ public class QuartzController {
     }
 
     @PutMapping("/update")
-    public R update(@RequestBody Task task){
+    public R update(@RequestBody Task task) {
         try {
             taskManger.updateTask(task);
-        }catch (SchedulerException | TaskRepositoryException e) {
+        } catch (SchedulerException | TaskRepositoryException e) {
             throw new BizException(e.getMessage());
         }
         return R.ok("任务更新成功");
     }
 
     @PutMapping("/start")
-    public R start(@RequestBody Task task){
+    public R start(@RequestBody Task task) {
         try {
             taskManger.startTask(task);
-        }catch (SchedulerException | TaskRepositoryException e) {
+        } catch (SchedulerException | TaskRepositoryException e) {
             throw new BizException(e.getMessage());
         }
         return R.ok("任务启动成功");
     }
 
     @PutMapping("/pause")
-    public R pause(@RequestBody Task task){
+    public R pause(@RequestBody Task task) {
         try {
             taskManger.pauseTask(task);
         } catch (SchedulerException | TaskRepositoryException e) {
@@ -56,7 +63,7 @@ public class QuartzController {
     }
 
     @DeleteMapping("/delete")
-    public R delete(@RequestBody Task task){
+    public R delete(@RequestBody Task task) {
         try {
             taskManger.deleteTask(task);
         } catch (SchedulerException | TaskRepositoryException e) {

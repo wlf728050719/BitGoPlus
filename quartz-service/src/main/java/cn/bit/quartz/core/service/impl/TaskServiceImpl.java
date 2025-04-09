@@ -1,18 +1,19 @@
 package cn.bit.quartz.core.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import cn.bit.quartz.core.entity.Task;
 import cn.bit.quartz.core.mapper.TaskMapper;
 import cn.bit.quartz.core.service.TaskService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private TaskMapper taskMapper;
+
     @Override
     public List<Task> selectAllTask() {
         return taskMapper.selectAllTask();

@@ -1,16 +1,17 @@
 package cn.bit.annotation;
 
-import cn.bit.enums.FileEnum;
-import cn.bit.validator.FileValidator;
-
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.FIELD, ElementType.PARAMETER })
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
+import cn.bit.enums.FileEnum;
+import cn.bit.validator.FileValidator;
+
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FileValidator.class)
 public @interface ValidFile {
@@ -21,11 +22,11 @@ public @interface ValidFile {
 
     Class<? extends Payload>[] payload() default {};
 
-    boolean useEnum() default true;//默认优先使用枚举
+    boolean useEnum() default true; // 默认优先使用枚举
 
     FileEnum fileEnum() default FileEnum.ANY_FILE;
 
-    long maxSize() default 5L*1024*1024*1024; // 文件最大字节大小
+    long maxSize() default 5L * 1024 * 1024 * 1024; // 文件最大字节大小
 
     String[] allowedExtensions() default {}; // 允许的文件扩展名
 

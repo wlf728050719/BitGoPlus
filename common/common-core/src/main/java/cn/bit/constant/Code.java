@@ -4,6 +4,6 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Code {
-    public int SUCCESS = 1111111;
-    public int FAIL = 1000000;
+    public static final int SUCCESS = 1111111;
+    public static final int FAIL = 1000000;
 }

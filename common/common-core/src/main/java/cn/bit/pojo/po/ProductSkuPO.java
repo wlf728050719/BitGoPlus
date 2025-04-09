@@ -1,9 +1,10 @@
 package cn.bit.pojo.po;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 商品SKU实体类（Stock Keeping Unit）
@@ -33,10 +34,10 @@ public class ProductSkuPO {
     private BigDecimal marketPrice;
 
     /** 库存数量 */
-    private Integer stock = 0;
+    private Integer stock;
 
     /** 库存预警值 */
-    private Integer warnStock = 0;
+    private Integer warnStock;
 
     /** SKU图片 */
     private String image;
@@ -48,7 +49,7 @@ public class ProductSkuPO {
     private BigDecimal volume;
 
     /** 状态（1-启用，0-禁用） */
-    private Integer status = 1;
+    private Integer status;
 
     /** 创建时间 */
     private LocalDateTime createTime;
@@ -57,5 +58,5 @@ public class ProductSkuPO {
     private LocalDateTime updateTime;
 
     /** 删除标志（0-未删除，1-已删除） */
-    private Integer delFlag = 0;
+    private Integer delFlag;
 }

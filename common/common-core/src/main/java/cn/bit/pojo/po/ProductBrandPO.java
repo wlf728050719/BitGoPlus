@@ -1,8 +1,9 @@
 package cn.bit.pojo.po;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.time.LocalDateTime;
 
 /**
  * 商品品牌实体类
@@ -26,7 +27,7 @@ public class ProductBrandPO {
     private String website;
 
     /** 排序权重（数字越小越靠前） */
-    private Integer sortOrder = 0;
+    private Integer sortOrder;
 
     /** 创建时间 */
     private LocalDateTime createTime;
@@ -35,5 +36,5 @@ public class ProductBrandPO {
     private LocalDateTime updateTime;
 
     /** 删除标志（0-未删除，1-已删除） */
-    private Integer delFlag = 0;
+    private Integer delFlag;
 }

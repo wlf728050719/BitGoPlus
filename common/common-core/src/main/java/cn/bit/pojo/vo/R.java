@@ -1,10 +1,9 @@
 package cn.bit.pojo.vo;
 
+import java.io.Serializable;
 
 import cn.bit.constant.Code;
 import lombok.Data;
-
-import java.io.Serializable;
 
 @Data
 public class R<T> implements Serializable {

@@ -1,13 +1,13 @@
 package cn.bit.pojo.po;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
- * 订单商品项实体类
- * 对应数据库表：order_item_[0-9]
+ * 订单商品项实体类 对应数据库表：order_item_[0-9]
  */
 @Data
 @Accessors(chain = true)
@@ -43,14 +43,12 @@ public class OrderItemPO {
     private String skuCode;
 
     /**
-     * 商品规格（JSON格式）
-     * 示例：{"颜色":"红色","内存":"128GB"}
+     * 商品规格（JSON格式） 示例：{"颜色":"红色","内存":"128GB"}
      */
     private String specValues;
 
     /**
-     * 商品属性（JSON格式）
-     * 示例：{"保修期":"1年","产地":"中国"}
+     * 商品属性（JSON格式） 示例：{"保修期":"1年","产地":"中国"}
      */
     private String productAttr;
 
@@ -73,10 +71,9 @@ public class OrderItemPO {
     private BigDecimal realAmount;
 
     /**
-     * 退款状态
-     * 0-未退款, 1-退款中, 2-已退款
+     * 退款状态 0-未退款, 1-退款中, 2-已退款
      */
-    private Integer refundStatus = 0;
+    private Integer refundStatus;
 
     /** 退款金额 */
     private BigDecimal refundAmount;

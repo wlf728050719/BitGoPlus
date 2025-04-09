@@ -1,8 +1,9 @@
 package cn.bit.pojo.po;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.time.LocalDateTime;
 
 /**
  * 商品SPU实体类（Standard Product Unit）
@@ -38,10 +39,10 @@ public class ProductSpuPO {
     private String specTemplate;
 
     /** 总销量 */
-    private Integer sales = 0;
+    private Integer sales;
 
     /** 状态（1-上架，0-下架） */
-    private Integer status = 1;
+    private Integer status;
 
     /** 创建时间 */
     private LocalDateTime createTime;
@@ -50,5 +51,5 @@ public class ProductSpuPO {
     private LocalDateTime updateTime;
 
     /** 删除标志（0-未删除，1-已删除） */
-    private Integer delFlag = 0;
+    private Integer delFlag;
 }

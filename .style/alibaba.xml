@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <module name="SuppressionFilter">
+        <property name="file" value=".style/suppressions.xml"/>
+    </module>
+    <module name="SuppressWarningsFilter"/>
+    <!-- 检查文件是否以一个空行结束 -->
+    <module name="NewlineAtEndOfFile">
+<!--        <property name="severity" value="warning"/>-->
+    </module>
+
+    <!-- 文件长度不超过1500行 -->
+    <module name="FileLength">
+        <property name="max" value="1500"/>
+        <property name="severity" value="warning"/>
+    </module>
+
+    <!-- 每行不超过160个字符 -->
+    <module name="LineLength">
+        <property name="max" value="160"/>
+<!--        <property name="severity" value="warning"/>-->
+    </module>
+
+    <!-- 每个java文件一个语法树 -->
+    <module name="TreeWalker">
+        <module name="SuppressWarningsHolder"/>
+        <!-- import检查-->
+        <!-- 检查是否从非法的包中导入了类 -->
+        <module name="IllegalImport">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查是否导入了多余的包 -->
+        <module name="RedundantImport">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 没用的import检查，比如：1.没有被用到2.重复的3.import java.lang的4.import 与该类在同一个package的 -->
+        <module name="UnusedImports">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 不允许import* -->
+        <module name="AvoidStarImport"/>
+
+        <!-- 注释检查 -->
+        <!-- 检查构造函数的javadoc -->
+        <module name="JavadocType">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="allowUnknownTags" value="true"/>
+            <message key="javadoc.missing" value="类注释：缺少Javadoc注释。"/>
+        </module>
+
+        <!-- 命名检查 -->
+        <!-- 局部的final变量，包括catch中的参数的检查 -->
+        <module name="LocalFinalVariableName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 局部的非final型的变量，包括catch中的参数的检查 -->
+        <module name="LocalVariableName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 包名的检查（只允许小写字母），默认^[a-z]+(\.[a-zA-Z_][a-zA-Z_0-9_]*)*$ -->
+        <module name="PackageName">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <message key="name.invalidPattern" value="包名 ''{0}'' 要符合 ''{1}''格式."/>
+        </module>
+        <!-- 仅仅是static型的变量（不包括static final型）的检查 -->
+        <module name="StaticVariableName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- Class或Interface名检查，默认^[A-Z][a-zA-Z0-9]*$-->
+        <module name="TypeName">
+<!--            <property name="severity" value="warning"/>-->
+            <message key="name.invalidPattern" value="名称 ''{0}'' 要符合 ''{1}''格式."/>
+        </module>
+        <!-- 非static型变量的检查 -->
+        <module name="MemberName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 方法名的检查 -->
+        <module name="MethodName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 方法的参数名 -->
+        <module name="ParameterName ">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 常量名的检查（只允许大写），默认^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$ -->
+        <module name="ConstantName">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+        <!-- 定义检查 -->
+        <!-- 检查数组类型定义的样式 -->
+        <module name="ArrayTypeStyle">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查long型定义是否有大写的“L” -->
+        <module name="UpperEll">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+        <!-- 长度检查 -->
+        <!-- 方法不超过200行 -->
+        <module name="MethodLength">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="200"/>
+        </module>
+        <!-- 方法的参数个数不超过5个。 并且不对构造方法进行检查-->
+        <module name="ParameterNumber">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="max" value="5"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+
+        <!-- 空格检查-->
+        <!-- 方法名后跟左圆括号"(" -->
+        <module name="MethodParamPad">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 在类型转换时，不允许左圆括号右边有空格，也不允许与右圆括号左边有空格 -->
+        <module name="TypecastParenPad">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查在某个特定关键字之后应保留空格 -->
+        <module name="NoWhitespaceAfter">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查在某个特定关键字之前应保留空格 -->
+        <module name="NoWhitespaceBefore">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 操作符换行策略检查 -->
+        <module name="OperatorWrap">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 圆括号空白 -->
+        <module name="ParenPad">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查分隔符是否在空白之后 -->
+        <module name="WhitespaceAfter">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查分隔符周围是否有空白 -->
+        <module name="WhitespaceAround">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyLambdas" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
+            <property name="ignoreEnhancedForColon" value="false"/>
+            <property name="tokens"
+                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR,
+                    BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND,
+                    LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY,
+                    LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED,
+                    LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN,
+                    NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR,
+                    SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
+            <message key="ws.notFollowed"
+                     value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
+            <message key="ws.notPreceded"
+                     value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
+        </module>
+
+        <!-- 修饰符检查 -->
+        <!-- 检查修饰符的顺序是否遵照java语言规范，默认public、protected、private、abstract、static、final、transient、volatile、synchronized、native、strictfp -->
+        <module name="ModifierOrder">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查接口和annotation中是否有多余修饰符，如接口方法不必使用public -->
+        <module name="RedundantModifier">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+        <!-- 代码块检查 -->
+        <!-- 检查是否有嵌套代码块 -->
+        <module name="AvoidNestedBlocks">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查是否有空代码块 -->
+        <module name="EmptyBlock">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查左大括号位置 -->
+        <module name="LeftCurly">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查代码块是否缺失{} -->
+        <module name="NeedBraces">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查右大括号位置 -->
+        <module name="RightCurly">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+        <!-- 代码检查 -->
+        <!-- 检查空的代码段 -->
+        <module name="EmptyStatement">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查在重写了equals方法后是否重写了hashCode方法 -->
+        <module name="EqualsHashCode">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查局部变量或参数是否隐藏了类中的变量 -->
+        <module name="HiddenField">
+            <property name="tokens" value="VARIABLE_DEF"/>
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查子表达式中是否有赋值操作 -->
+        <module name="InnerAssignment">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查switch语句是否有default -->
+        <module name="MissingSwitchDefault">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查是否有过度复杂的布尔表达式 -->
+        <module name="SimplifyBooleanExpression">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查是否有过于复杂的布尔返回代码段 -->
+        <module name="SimplifyBooleanReturn">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+        <!-- 类设计检查 -->
+        <!-- 检查类是否为扩展设计l -->
+        <!-- 检查只有private构造函数的类是否声明为final -->
+        <module name="FinalClass">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查接口是否仅定义类型 -->
+        <module name="InterfaceIsType">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 检查类成员的可见度 检查类成员的可见性。只有static final 成员是public的 
+        除非在本检查的protectedAllowed和packagedAllowed属性中进行了设置-->
+        <module name="VisibilityModifier">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
+        <!-- 语法 -->
+        <!-- String的比较不能用!= 和 == -->
+        <module name="StringLiteralEquality">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- 限制for循环最多嵌套2层 -->
+        <module name="NestedForDepth">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="max" value="2"/>
+        </module>
+        <!-- if最多嵌套3层 -->
+        <module name="NestedIfDepth">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="max" value="3"/>
+        </module>
+        <!-- 检查未被注释的main方法,排除以Appllication结尾命名的类 -->
+        <module name="UncommentedMain">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="excludedClasses" value=".*[Application,Test]$"/>
+        </module>
+        <!-- 禁止使用System.out.println -->
+        <module name="Regexp">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="format" value="System\.out\.println"/>
+            <property name="illegalPattern" value="true"/>
+        </module>
+        <!-- return个数 3个-->
+        <module name="ReturnCount">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="max" value="3"/>
+        </module>
+        <!--try catch 异常处理数量 3-->
+        <module name="NestedTryDepth ">
+<!--            <property name="severity" value="warning"/>-->
+            <property name="max" value="3"/>
+        </module>
+        <!-- clone方法必须调用了super.clone() -->
+        <module name="SuperClone">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+        <!-- finalize 必须调用了super.finalize() -->
+        <module name="SuperFinalize">
+<!--            <property name="severity" value="warning"/>-->
+        </module>
+
+    </module>
+</module>

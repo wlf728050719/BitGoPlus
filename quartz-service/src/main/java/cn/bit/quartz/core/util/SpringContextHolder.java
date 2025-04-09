@@ -1,11 +1,12 @@
 package cn.bit.quartz.core.util;
 
-import lombok.Getter;
-import lombok.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+
+import lombok.Getter;
+import lombok.NonNull;
 
 @Service
 public class SpringContextHolder implements ApplicationContextAware {

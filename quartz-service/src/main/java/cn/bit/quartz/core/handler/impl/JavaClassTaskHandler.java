@@ -1,17 +1,16 @@
 package cn.bit.quartz.core.handler.impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 
 import cn.bit.quartz.core.entity.Task;
 import cn.bit.quartz.core.enums.Result;
 import cn.bit.quartz.core.exception.TaskInvokeException;
 import cn.bit.quartz.core.handler.ITaskHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @Slf4j
 @Component
@@ -34,9 +33,10 @@ public class JavaClassTaskHandler implements ITaskHandler {
                 ReflectionUtils.makeAccessible(method);
                 returnValue = (Result) method.invoke(target, task.getParams());
             }
-            //判断业务是否执行成功
-            if (returnValue == null || Result.FAIL.equals(returnValue))
-                throw new TaskInvokeException("JavaClassTaskHandler方法执行失败",null);
+            // 判断业务是否执行成功
+            if (returnValue == null || Result.FAIL.equals(returnValue)) {
+                throw new TaskInvokeException("JavaClassTaskHandler方法执行失败", null);
+            }
         } catch (NoSuchMethodException e) {
             throw new TaskInvokeException("JavaClassTaskHandler找不到对应方法", e);
         } catch (InvocationTargetException | IllegalAccessException e) {

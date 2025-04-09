@@ -1,10 +1,8 @@
 package cn.bit.handler;
 
+import java.nio.file.AccessDeniedException;
+import java.util.List;
 
-import cn.bit.exception.BizException;
-import cn.bit.exception.SysException;
-import cn.bit.pojo.vo.R;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -13,14 +11,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.file.AccessDeniedException;
-import java.util.List;
+import cn.bit.exception.BizException;
+import cn.bit.exception.SysException;
+import cn.bit.pojo.vo.R;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     /**
      * 全局异常.
+     * 
      * @param e the e
      * @return R
      */
@@ -33,18 +34,20 @@ public class GlobalExceptionHandler {
 
     /**
      * AccessDeniedException
+     * 
      * @param e the e
      * @return R
      */
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public R handleAccessDeniedException(AccessDeniedException e) {
-        log.error("拒绝授权异常信息 ex={}", e.getLocalizedMessage(),e);
+        log.error("拒绝授权异常信息 ex={}", e.getLocalizedMessage(), e);
         return R.failed(e.getLocalizedMessage());
     }
 
     /**
      * 服务器异常
+     * 
      * @param e the e
      * @return R
      */
@@ -57,10 +60,11 @@ public class GlobalExceptionHandler {
 
     /**
      * 业务处理类
+     * 
      * @param e the e
      * @return R
      */
-    @ExceptionHandler({ BizException.class })
+    @ExceptionHandler({BizException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R bizExceptionHandler(BizException e) {
         log.warn("业务处理异常,ex = {}", e.getMessage());
@@ -69,31 +73,37 @@ public class GlobalExceptionHandler {
 
     /**
      * validation Exception
+     * 
      * @param e the e
      * @return R
      */
-    @ExceptionHandler({ MethodArgumentNotValidException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R handleBodyValidException(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringBuilder errorMsg = new StringBuilder();
-        fieldErrors.forEach(fieldError -> {errorMsg.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(" ");});
-        log.warn("参数绑定异常,ex = {}",errorMsg);
+        fieldErrors.forEach(fieldError -> {
+            errorMsg.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(" ");
+        });
+        log.warn("参数绑定异常,ex = {}", errorMsg);
         return R.failed(errorMsg.toString());
     }
 
     /**
      * validation Exception (以form-data形式传参)
+     * 
      * @param e the e
      * @return R
      */
-    @ExceptionHandler({ BindException.class})
+    @ExceptionHandler({BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R bindExceptionHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringBuilder errorMsg = new StringBuilder();
-        fieldErrors.forEach(fieldError -> {errorMsg.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append("\n");});
-        log.warn("参数绑定异常(form-data),ex = {}",errorMsg);
+        fieldErrors.forEach(fieldError -> {
+            errorMsg.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append("\n");
+        });
+        log.warn("参数绑定异常(form-data),ex = {}", errorMsg);
         return R.failed(errorMsg.toString());
     }
 }

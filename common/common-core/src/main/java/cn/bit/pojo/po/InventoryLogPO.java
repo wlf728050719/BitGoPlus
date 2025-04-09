@@ -1,8 +1,9 @@
 package cn.bit.pojo.po;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.time.LocalDateTime;
 
 /**
  * 库存变更记录实体类
@@ -26,8 +27,7 @@ public class InventoryLogPO {
     private String orderId;
 
     /**
-     * 操作类型
-     * 1-入库，2-出库，3-调整
+     * 操作类型 1-入库，2-出库，3-调整
      */
     private Integer operationType;
 

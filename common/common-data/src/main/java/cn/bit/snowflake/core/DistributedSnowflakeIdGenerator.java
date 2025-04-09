@@ -1,9 +1,5 @@
 package cn.bit.snowflake.core;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import javax.annotation.PreDestroy;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.util.HashSet;
@@ -17,6 +13,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import javax.annotation.PreDestroy;
+
+import org.springframework.data.redis.core.RedisTemplate;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DistributedSnowflakeIdGenerator {
@@ -67,16 +69,14 @@ public class DistributedSnowflakeIdGenerator {
     private final Lock idGenerationLock = new ReentrantLock();
 
     public DistributedSnowflakeIdGenerator(String serviceName, RedisTemplate<String, Object> redisTemplate,
-                                           long datacenterId) throws Exception {
-        this(serviceName, redisTemplate, datacenterId, DEFAULT_EPOCH,
-                DEFAULT_HEARTBEAT_INTERVAL, DEFAULT_LOCK_TIMEOUT, DEFAULT_HEARTBEAT_EXPIRE,
-                DEFAULT_BUFFER_SIZE, DEFAULT_BUFFER_THRESHOLD);
+        long datacenterId) throws Exception {
+        this(serviceName, redisTemplate, datacenterId, DEFAULT_EPOCH, DEFAULT_HEARTBEAT_INTERVAL, DEFAULT_LOCK_TIMEOUT,
+            DEFAULT_HEARTBEAT_EXPIRE, DEFAULT_BUFFER_SIZE, DEFAULT_BUFFER_THRESHOLD);
     }
 
     public DistributedSnowflakeIdGenerator(String serviceName, RedisTemplate<String, Object> redisTemplate,
-                                           long datacenterId, long epoch, int heartbeatInterval,
-                                           int lockTimeout, int heartbeatExpire, int bufferSize,
-                                           int bufferThreshold) throws Exception {
+        long datacenterId, long epoch, int heartbeatInterval, int lockTimeout, int heartbeatExpire, int bufferSize,
+        int bufferThreshold) throws Exception {
         // 参数校验
         validateParameters(datacenterId, serviceName);
 
@@ -108,14 +108,12 @@ public class DistributedSnowflakeIdGenerator {
         startHeartbeat();
         startBufferRefill();
 
-        log.info("雪花ID生成器初始化完成, 时间戳起点: {}, 缓冲区大小: {}, 填充阈值: {}",
-                epoch, bufferSize, bufferThreshold);
+        log.info("雪花ID生成器初始化完成, 时间戳起点: {}, 缓冲区大小: {}, 填充阈值: {}", epoch, bufferSize, bufferThreshold);
     }
 
     private void validateParameters(long datacenterId, String serviceName) {
         if (datacenterId < 0 || datacenterId > MAX_DATACENTER_ID) {
-            throw new IllegalArgumentException(
-                    String.format("数据中心ID不能大于 %d 或小于 0", MAX_DATACENTER_ID));
+            throw new IllegalArgumentException(String.format("数据中心ID不能大于 %d 或小于 0", MAX_DATACENTER_ID));
         }
         if (serviceName == null || serviceName.isEmpty()) {
             throw new IllegalArgumentException("服务名称不能为空");
@@ -132,8 +130,8 @@ public class DistributedSnowflakeIdGenerator {
         String lockKey = getWorkerLockKey();
         log.info("尝试获取worker ID分配锁, 锁键: {}", lockKey);
 
-        Boolean lockAcquired = redisTemplate.opsForValue().setIfAbsent(lockKey, nodeIdentifier,
-                lockTimeout, TimeUnit.SECONDS);
+        Boolean lockAcquired =
+            redisTemplate.opsForValue().setIfAbsent(lockKey, nodeIdentifier, lockTimeout, TimeUnit.SECONDS);
 
         if (lockAcquired != null && lockAcquired) {
             log.info("成功获取worker ID分配锁");
@@ -173,17 +171,14 @@ public class DistributedSnowflakeIdGenerator {
         // 查找可用的worker ID
         for (long id = 0; id <= MAX_WORKER_ID; id++) {
             if (!usedWorkerIds.contains(id)) {
-                redisTemplate.opsForValue().set(getWorkerKey(id), nodeIdentifier,
-                        heartbeatExpire, TimeUnit.SECONDS);
-                log.info("成功注册worker ID: {}, 节点标识: {}, 过期时间: {}秒",
-                        id, nodeIdentifier, heartbeatExpire);
+                redisTemplate.opsForValue().set(getWorkerKey(id), nodeIdentifier, heartbeatExpire, TimeUnit.SECONDS);
+                log.info("成功注册worker ID: {}, 节点标识: {}, 过期时间: {}秒", id, nodeIdentifier, heartbeatExpire);
                 return id;
             }
         }
 
         log.error("数据中心 {} 中没有可用的worker ID (最大: {})", datacenterId, MAX_WORKER_ID);
-        throw new IllegalStateException(
-                String.format("数据中心 %d 中没有可用的worker ID (最大: %d)", datacenterId, MAX_WORKER_ID));
+        throw new IllegalStateException(String.format("数据中心 %d 中没有可用的worker ID (最大: %d)", datacenterId, MAX_WORKER_ID));
     }
 
     private void startHeartbeat() {
@@ -280,10 +275,8 @@ public class DistributedSnowflakeIdGenerator {
             lastTimestamp.set(currentTimestamp);
             generatedIds.incrementAndGet();
 
-            return ((currentTimestamp - epoch) << TIMESTAMP_SHIFT)
-                    | (datacenterId << DATACENTER_ID_SHIFT)
-                    | (workerId << WORKER_ID_SHIFT)
-                    | sequence.get();
+            return ((currentTimestamp - epoch) << TIMESTAMP_SHIFT) | (datacenterId << DATACENTER_ID_SHIFT)
+                | (workerId << WORKER_ID_SHIFT) | sequence.get();
         } finally {
             idGenerationLock.unlock();
         }
@@ -309,8 +302,7 @@ public class DistributedSnowflakeIdGenerator {
                 throw new IllegalStateException("处理时钟回拨时线程被中断");
             }
         }
-        throw new IllegalStateException(
-                String.format("时钟回拨过大: %d 毫秒, 拒绝生成ID", offset));
+        throw new IllegalStateException(String.format("时钟回拨过大: %d 毫秒, 拒绝生成ID", offset));
     }
 
     private long waitNextMillis(long lastTimestamp) {

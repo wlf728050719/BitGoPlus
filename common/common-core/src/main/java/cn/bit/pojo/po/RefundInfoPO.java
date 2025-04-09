@@ -1,13 +1,13 @@
 package cn.bit.pojo.po;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
- * 退款信息实体类
- * 对应数据库表：refund_info_[0-9]
+ * 退款信息实体类 对应数据库表：refund_info_[0-9]
  */
 @Data
 @Accessors(chain = true)
@@ -40,10 +40,9 @@ public class RefundInfoPO {
     private Integer refundType;
 
     /**
-     * 退款状态
-     * 0-申请中, 1-退款中, 2-退款成功, 3-退款失败
+     * 退款状态 0-申请中, 1-退款中, 2-退款成功, 3-退款失败
      */
-    private Integer refundStatus = 0;
+    private Integer refundStatus;
 
     /** 退款原因 */
     private String refundReason;

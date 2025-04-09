@@ -1,13 +1,13 @@
 package cn.bit.pojo.po;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
- * 支付信息实体类
- * 对应数据库表：payment_info_[0-9]
+ * 支付信息实体类 对应数据库表：payment_info_[0-9]
  */
 @Data
 @Accessors(chain = true)
@@ -34,10 +34,9 @@ public class PaymentInfoPO {
     private BigDecimal totalAmount;
 
     /**
-     * 支付状态
-     * 0-未支付, 1-支付成功, 2-支付失败, 3-已退款
+     * 支付状态 0-未支付, 1-支付成功, 2-支付失败, 3-已退款
      */
-    private Integer paymentStatus = 0;
+    private Integer paymentStatus;
 
     /** 支付成功时间 */
     private LocalDateTime paymentTime;

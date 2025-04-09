@@ -1,13 +1,13 @@
 package cn.bit.pojo.po;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
- * 订单主表实体类
- * 对应数据库表：order_master_[0-9]
+ * 订单主表实体类 对应数据库表：order_master_[0-9]
  */
 @Data
 @Accessors(chain = true)
@@ -22,9 +22,7 @@ public class OrderMasterPO {
     private Long userId;
 
     /**
-     * 订单状态
-     * 0-待支付, 1-已支付待发货, 2-已发货, 
-     * 3-已完成, 4-已取消, 5-已退款
+     * 订单状态 0-待支付, 1-已支付待发货, 2-已发货, 3-已完成, 4-已取消, 5-已退款
      */
     private Integer orderStatus;
 
@@ -56,7 +54,7 @@ public class OrderMasterPO {
     private LocalDateTime closeTime;
 
     /** 订单来源：1-PC, 2-APP, 3-小程序, 4-H5 */
-    private Integer sourceType = 1;
+    private Integer sourceType;
 
     /** 物流公司名称 */
     private String deliveryCompany;
@@ -86,10 +84,10 @@ public class OrderMasterPO {
     private String note;
 
     /** 确认收货状态：0-未确认, 1-已确认 */
-    private Integer confirmStatus = 0;
+    private Integer confirmStatus;
 
     /** 删除状态：0-未删除, 1-已删除 */
-    private Integer deleteStatus = 0;
+    private Integer deleteStatus;
 
     /** 订单创建时间 */
     private LocalDateTime createTime;
