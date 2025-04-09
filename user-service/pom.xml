@@ -60,11 +60,6 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-data</artifactId>
         </dependency>
-        <!-- common-data -->
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common-data</artifactId>
-        </dependency>
         <!-- common-redis -->
         <dependency>
             <groupId>cn.bit</groupId>
