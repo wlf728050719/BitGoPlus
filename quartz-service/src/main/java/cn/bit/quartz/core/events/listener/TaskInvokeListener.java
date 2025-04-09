@@ -1,5 +1,6 @@
 package cn.bit.quartz.core.events.listener;
 
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.context.event.EventListener;
@@ -37,8 +38,8 @@ public class TaskInvokeListener {
 
         long startTime = System.currentTimeMillis();
         TaskLog taskLog = new TaskLog();
-        taskLog.setTaskId(task.getId());
-        taskLog.setStartTime(new Date());
+        taskLog.setTaskId(task.getTaskId());
+        taskLog.setStartTime(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
         boolean success = true;
         try {
             handler.invoke(task);
@@ -62,7 +63,7 @@ public class TaskInvokeListener {
             taskService.setTaskResult(task);
         }
         long endTime = System.currentTimeMillis();
-        taskLog.setExecuteTime(String.valueOf(endTime - startTime));
+        taskLog.setExecuteTime(endTime - startTime);
         taskLogService.insert(taskLog);
     }
 }

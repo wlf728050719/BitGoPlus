@@ -37,6 +37,7 @@ spring:
         jdbc-url: jdbc:mysql://localhost:3306/db_product?useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: 15947035212
+
     sharding:
       tables:
         #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
@@ -110,6 +111,12 @@ spring:
             inline:
               sharding-column: log_id
               algorithm-expression: inventory_log_$->{log_id % 10}
+        #db-quartz
+        task:
+          actual-data-nodes: ds-quartz.task
+        task_log:
+          actual-data-nodes: ds-quartz.task_log
+
 
     props:
       sql:

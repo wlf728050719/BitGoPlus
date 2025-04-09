@@ -5,7 +5,7 @@
 <mapper namespace="cn.bit.quartz.core.mapper.TaskLogMapper">
 
     <resultMap id="TaskLogResultMap" type="cn.bit.quartz.core.entity.TaskLog">
-        <id property="id" column="id"/>
+        <id property="logId" column="id"/>
         <result property="taskId" column="task_id"/>
         <result property="startTime" column="start_time"/>
         <result property="executeTime" column="execute_time"/>
@@ -15,11 +15,11 @@
     </resultMap>
 
     <insert id="insert" parameterType="cn.bit.quartz.core.entity.TaskLog">
-        INSERT INTO tb_task_log(task_id, start_time, execute_time, result, message, exception_info)
-        VALUES (#{taskId}, #{startTime}, #{executeTime}, #{result}, #{message}, #{exceptionInfo})
+        INSERT INTO task_log(log_id,task_id, start_time, execute_time, result, message, exception_info)
+        VALUES (#{logId}, #{taskId}, #{startTime}, #{executeTime}, #{result}, #{message}, #{exceptionInfo})
     </insert>
 
     <select id="selectByTaskId" resultMap="TaskLogResultMap">
-        SELECT * FROM tb_task_log WHERE task_id = #{taskId}
+        SELECT * FROM task_log WHERE task_id = #{taskId}
     </select>
 </mapper>

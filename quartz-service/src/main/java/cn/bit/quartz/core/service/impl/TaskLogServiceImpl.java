@@ -2,6 +2,7 @@ package cn.bit.quartz.core.service.impl;
 
 import java.util.List;
 
+import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
 import org.springframework.stereotype.Service;
 
 import cn.bit.quartz.core.entity.TaskLog;
@@ -13,9 +14,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TaskLogServiceImpl implements TaskLogService {
     private final TaskLogMapper taskLogMapper;
+    private final DistributedSnowflakeIdGenerator idGenerator;
 
     @Override
     public int insert(TaskLog taskLog) {
+        taskLog.setLogId(idGenerator.nextId());
         return taskLogMapper.insert(taskLog);
     }
 

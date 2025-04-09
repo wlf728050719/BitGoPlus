@@ -1,13 +1,11 @@
 package cn.bit.quartz;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-
-import cn.bit.handler.GlobalExceptionHandler;
 
 @SpringBootApplication
-@Import(GlobalExceptionHandler.class)
+@MapperScan("cn.bit.quartz.core.mapper")
 public class QuartzApplication {
 
     public static void main(String[] args) {

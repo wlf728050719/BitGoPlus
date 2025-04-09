@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.bit.quartz.core.mapper.TaskMapper">
     <resultMap id="TaskResultMap" type="cn.bit.quartz.core.entity.Task">
-        <result property="id" column="id"/>
+        <result property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
         <result property="taskGroup" column="task_group"/>
         <result property="type" column="type"/>
@@ -19,7 +19,8 @@
         <result property="result" column="result"/>
     </resultMap>
     <insert id="insertTask">
-        INSERT INTO tb_task (
+        INSERT INTO task (
+            task_id,
             task_name,
             task_group,
             type,
@@ -31,6 +32,7 @@
             cron_expression,
             description
         ) VALUES (
+                     #{task.taskId},
                      #{task.taskName},
                      #{task.taskGroup},
                      #{task.type},
@@ -44,7 +46,7 @@
                  )
     </insert>
     <delete id="deleteTask">
-        delete from tb_task
+        delete from task
         where
             task_name = #{task.taskName} and
             task_group = #{task.taskGroup};
@@ -52,17 +54,17 @@
 
 
     <select id="selectAllTask" resultMap="TaskResultMap">
-        SELECT * FROM tb_task;
+        SELECT * FROM task;
     </select>
     <select id="selectTaskByNameAndGroup" resultMap="TaskResultMap">
-        select * from tb_task
+        select * from task
         where
             task_name = #{name} and
             task_group = #{group}
     </select>
 
     <update id="updateTaskInfo">
-        UPDATE tb_task
+        UPDATE task
         SET
             type = #{task.type},
             bean_name = #{task.beanName},
@@ -77,7 +79,7 @@
             task_group = #{task.taskGroup};
     </update>
     <update id="updateTaskStatus">
-        UPDATE tb_task
+        UPDATE task
         SET
             status = #{task.status}
         WHERE
@@ -85,7 +87,7 @@
             task_group = #{task.taskGroup};
     </update>
     <update id="setTaskResult">
-        update tb_task
+        update task
         set
             result = #{task.result}
         where

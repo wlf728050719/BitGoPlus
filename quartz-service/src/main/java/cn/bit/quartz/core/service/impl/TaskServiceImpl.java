@@ -2,6 +2,7 @@ package cn.bit.quartz.core.service.impl;
 
 import java.util.List;
 
+import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
 import org.springframework.stereotype.Service;
 
 import cn.bit.quartz.core.entity.Task;
@@ -12,7 +13,8 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
-    private TaskMapper taskMapper;
+    private final TaskMapper taskMapper;
+    private final DistributedSnowflakeIdGenerator idGenerator;
 
     @Override
     public List<Task> selectAllTask() {
@@ -31,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public int insertTask(Task task) {
+        task.setTaskId(idGenerator.nextId());
         return taskMapper.insertTask(task);
     }
 

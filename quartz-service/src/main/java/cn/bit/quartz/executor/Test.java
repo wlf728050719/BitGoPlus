@@ -1,4 +1,4 @@
-package cn.bit.quartz.controller;
+package cn.bit.quartz.executor;
 
 import java.util.Date;
 
