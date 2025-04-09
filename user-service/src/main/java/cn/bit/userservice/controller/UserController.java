@@ -26,4 +26,8 @@ public class UserController {
         user.setUsername(username).setPassword("654321").setSalt("654321");
         return userService.register(user);
     }
+    @GetMapping("/count")
+    public long count() {
+        return userService.count();
+    }
 }

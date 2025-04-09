@@ -1,5 +1,6 @@
 package cn.bit.userservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,5 +21,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
     public int register(UserPO userPO) {
         userPO.setUserId(idGenerator.nextId());
         return userMapper.insert(userPO);
+    }
+
+    @Override
+    public long count() {
+        return userMapper.selectCount(new LambdaQueryWrapper<UserPO>());
     }
 }

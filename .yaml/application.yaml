@@ -5,6 +5,7 @@ spring:
     database: 1
   shardingsphere:
     datasource:
+      # 数据源（不能使用下划线分隔）
       names: ds-user,ds-order,ds-quartz,ds-pay,ds-product
       ds-user:
         type: com.zaxxer.hikari.HikariDataSource
@@ -38,6 +39,7 @@ spring:
         password: 15947035212
     sharding:
       tables:
+        #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
         #db-user
         user:
           actual-data-nodes: ds-user.user_$->{0..9}
@@ -46,63 +48,63 @@ spring:
               sharding-column: user_id
               algorithm-expression: user_$->{user_id % 10}
         #db-pay
-        payment-info:
+        payment_info:
           actual-data-nodes: ds-pay.payment_info_$->{0..9}
           table-strategy:
             inline:
               sharding-column: payment_id
               algorithm-expression: payment_info_$->{payment_id % 10}
-        refund-info:
+        refund_info:
           actual-data-nodes: ds-pay.refund_info_$->{0..9}
           table-strategy:
             inline:
               sharding-column: refund_id
               algorithm-expression: refund_info_$->{refund_id % 10}
         #db-order
-        order-master:
+        order_master:
           actual-data-nodes: ds-order.order_master_$->{0..9}
           table-strategy:
             inline:
               sharding-column: order_id
               algorithm-expression: order_master_$->{order_id % 10}
-        order-item:
-          actual-data-nodes: order_item_$->{0..9}
+        order_item:
+          actual-data-nodes: ds-order.order_item_$->{0..9}
           table-strategy:
             inline:
               sharding-column: item_id
               algorithm-expression: order_item_$->{item_id % 10}
-        order-operation:
-          actual-data-nodes: order_operation_log_$->{0..9}
+        order_operation:
+          actual-data-nodes: ds-order.order_operation_log_$->{0..9}
           table-strategy:
             inline:
               sharding-column: log_id
               algorithm-expression: order_operation_$->{log_id % 10}
         #db-product
-        product-brand:
+        product_brand:
           actual-data-nodes: ds-product.product_brand
-        product-category:
+        product_category:
           actual-data-nodes: ds-product.product_category
-        product-spu:
+        product_spu:
           actual-data-nodes: ds-product.product_spu
-        product-sku:
+        product_sku:
           actual-data-nodes: ds-product.product_sku_$->{0..9}
           table-strategy:
             inline:
               sharding-column: sku_id
               algorithm-expression: product_sku_$->{sku_id % 10}
-        product-image:
+        product_image:
           actual-data-nodes: ds-product.product_image_$->{0..9}
           table-strategy:
             inline:
               sharding-column: image_id
               algorithm-expression: product_image_$->{image_id % 10}
-        product-attribute:
+        product_attribute:
           actual-data-nodes: ds-product.product_attribute_$->{0..9}
           table-strategy:
             inline:
               sharding-column: attr_id
               algorithm-expression: product_attribute_$->{attr_id % 10}
-        inventory-log:
+        inventory_log:
           actual-data-nodes: ds-product.inventory_log_$->{0..9}
           table-strategy:
             inline:
