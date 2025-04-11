@@ -14,16 +14,6 @@
     <description>gateway</description>
 
     <dependencies>
-        <!-- Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <!-- gateway -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -41,10 +31,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <!-- =======内部依赖======= -->
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common-security</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

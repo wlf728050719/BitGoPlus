@@ -12,13 +12,13 @@ import java.util.Set;
 @FeignClient(value = "user-service")
 public interface UserClient {
 
-    @GetMapping("/infoByUsername/{username}")
+    @GetMapping("/user/infoByUsername/{username}")
     R<UserPO> infoByUsername(@PathVariable("username") String username);
 
-    @GetMapping("/infoByUserId/{userId}")
+    @GetMapping("/user/infoByUserId/{userId}")
     R<UserPO> infoByUserId(@PathVariable("userId") Long userId);
 
-    @GetMapping("/rolesByUserId/{userId}")
+    @GetMapping("/user/rolesByUserId/{userId}")
     R<Set<RoleDictItem>> rolesByUserId(@PathVariable("userId") Long userId);
 }
 
