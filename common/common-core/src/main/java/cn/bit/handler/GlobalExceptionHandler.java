@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R handleGlobalException(Exception e) {
+    public R<Object> handleGlobalException(Exception e) {
         log.error("全局异常信息 ex={}", e.getMessage(), e);
         return R.failed(e.getLocalizedMessage());
     }
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public R handleAccessDeniedException(AccessDeniedException e) {
+    public R<Object> handleAccessDeniedException(AccessDeniedException e) {
         log.error("拒绝授权异常信息 ex={}", e.getLocalizedMessage(), e);
         return R.failed(e.getLocalizedMessage());
     }
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(SysException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R handleSysException(SysException e) {
+    public R<Object> handleSysException(SysException e) {
         log.error("服务器异常信息 ex={}", e.getMessage(), e);
         return R.failed(e.getLocalizedMessage());
     }
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({BizException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R bizExceptionHandler(BizException e) {
+    public R<Object> bizExceptionHandler(BizException e) {
         log.warn("业务处理异常,ex = {}", e.getMessage());
         return R.failed(e.getMessage());
     }
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R handleBodyValidException(MethodArgumentNotValidException e) {
+    public R<Object> handleBodyValidException(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringBuilder errorMsg = new StringBuilder();
         fieldErrors.forEach(fieldError -> {
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R bindExceptionHandler(BindException e) {
+    public R<Object> bindExceptionHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringBuilder errorMsg = new StringBuilder();
         fieldErrors.forEach(fieldError -> {

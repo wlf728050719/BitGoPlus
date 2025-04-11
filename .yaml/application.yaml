@@ -48,6 +48,14 @@ spring:
             inline:
               sharding-column: user_id
               algorithm-expression: user_$->{user_id % 10}
+        dict_role:
+          actual-data-nodes: ds-user.dict_role
+        permission:
+          actual-data-nodes: ds-user.permission_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: user_id
+              algorithm-expression: permission_$->{user_id % 10}
         #db-pay
         payment_info:
           actual-data-nodes: ds-pay.payment_info_$->{0..9}
@@ -127,3 +135,11 @@ mybatis-plus:
   type-aliases-package: cn.bit.pojo.po
   configuration:
     map-underscore-to-camel-case: true
+
+#security
+password-encoder:
+  strength: 10
+jwt:
+  secret: wlf18086270070
+  accessTokenExpiration: 86400 #单位秒  1天
+  refreshTokenExpiration: 2592000 #单位秒 1月

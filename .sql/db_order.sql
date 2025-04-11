@@ -14,6 +14,8 @@ BEGIN
           `order_id` bigint NOT NULL COMMENT ''订单ID(雪花ID)'',
           `order_sn` varchar(32) NOT NULL COMMENT ''订单编号'',
           `user_id` bigint NOT NULL COMMENT ''用户ID'',
+          `shop_id` bigint NOT NULL COMMENT ''店铺ID'',
+          `shop_name` varchar(100) DEFAULT NULL COMMENT ''店铺名称'',
           `order_status` tinyint NOT NULL DEFAULT ''0'' COMMENT ''订单状态(0-待支付,1-已支付待发货,2-已发货,3-已完成,4-已取消,5-已退款)'',
           `total_amount` decimal(10,2) NOT NULL COMMENT ''订单总金额'',
           `pay_amount` decimal(10,2) NOT NULL COMMENT ''实付金额'',
@@ -41,6 +43,7 @@ BEGIN
           PRIMARY KEY (`order_id`),
           UNIQUE KEY `idx_order_sn_', i, '` (`order_sn`),
           KEY `idx_user_id_', i, '` (`user_id`),
+          KEY `idx_shop_id_', i, '` (`shop_id`),
           KEY `idx_create_time_', i, '` (`create_time`),
           KEY `idx_order_status_', i, '` (`order_status`)
         ) ENGINE=InnoDB COMMENT=''订单主表分表', i, '''');
@@ -69,7 +72,10 @@ BEGIN
           `product_sn` varchar(50) NOT NULL COMMENT ''商品SPU编码'',
           `product_name` varchar(100) NOT NULL COMMENT ''商品名称'',
           `product_brand` varchar(50) DEFAULT NULL COMMENT ''商品品牌'',
+          `product_brand_id` bigint DEFAULT NULL COMMENT ''商品品牌ID'',
           `product_category_id` bigint DEFAULT NULL COMMENT ''商品分类ID'',
+          `shop_id` bigint NOT NULL COMMENT ''店铺ID'',
+          `shop_name` varchar(100) DEFAULT NULL COMMENT ''店铺名称'',
           `sku_id` bigint NOT NULL COMMENT ''商品SKU ID'',
           `sku_code` varchar(50) NOT NULL COMMENT ''SKU编码'',
           `spec_values` text COMMENT ''商品规格(JSON格式)'',
@@ -88,7 +94,8 @@ BEGIN
           KEY `idx_order_id_', i, '` (`order_id`),
           KEY `idx_order_sn_', i, '` (`order_sn`),
           KEY `idx_product_id_', i, '` (`product_id`),
-          KEY `idx_sku_id_', i, '` (`sku_id`)
+          KEY `idx_sku_id_', i, '` (`sku_id`),
+          KEY `idx_shop_id_', i, '` (`shop_id`)
         ) ENGINE=InnoDB COMMENT=''订单商品表分表', i, '''');
             PREPARE stmt FROM @sql;
             EXECUTE stmt;
@@ -111,7 +118,9 @@ BEGIN
           `log_id` bigint NOT NULL COMMENT ''日志ID'',
           `order_id` bigint NOT NULL COMMENT ''订单ID'',
           `order_sn` varchar(32) NOT NULL COMMENT ''订单编号'',
+          `shop_id` bigint DEFAULT NULL COMMENT ''店铺ID'',
           `operator` varchar(50) NOT NULL COMMENT ''操作人(用户ID/系统/管理员ID)'',
+          `operator_type` tinyint NOT NULL COMMENT ''操作人类型(1-用户,2-系统,3-管理员,4-店铺)'',
           `operation_type` tinyint NOT NULL COMMENT ''操作类型(1-创建订单,2-支付,3-发货,4-确认收货,5-取消,6-退款,7-修改订单)'',
           `operation_desc` varchar(200) DEFAULT NULL COMMENT ''操作描述'',
           `operation_params` text COMMENT ''操作参数(JSON格式)'',
@@ -120,7 +129,9 @@ BEGIN
           PRIMARY KEY (`log_id`),
           KEY `idx_order_id_', i, '` (`order_id`),
           KEY `idx_order_sn_', i, '` (`order_sn`),
-          KEY `idx_create_time_', i, '` (`create_time`)
+          KEY `idx_shop_id_', i, '` (`shop_id`),
+          KEY `idx_create_time_', i, '` (`create_time`),
+          KEY `idx_operator_type_', i, '` (`operator_type`)
         ) ENGINE=InnoDB COMMENT=''订单操作历史表分表', i, '''');
             PREPARE stmt FROM @sql;
             EXECUTE stmt;

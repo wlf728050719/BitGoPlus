@@ -8,10 +8,12 @@
         <option value="$PROJECT_DIR$/common/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-bom/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-feign/pom.xml" />
+        <option value="$PROJECT_DIR$/common/common-security/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/common/common-jsr303/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-snowflake/pom.xml" />
         <option value="$PROJECT_DIR$/feign-api/pom.xml" />
       </set>

@@ -21,8 +21,8 @@
         <module>common-bom</module>
         <module>common-core</module>
         <module>common-cache</module>
-        <module>common-jsr303</module>
         <module>common-feign</module>
         <module>common-data</module>
+        <module>common-security</module>
     </modules>
 </project>

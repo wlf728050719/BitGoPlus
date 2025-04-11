@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common-security" />
         <module name="common-data" />
+        <module name="auth-service" />
         <module name="common-feign" />
-        <module name="common-jsr303" />
         <module name="user-service" />
         <module name="order-service" />
         <module name="gateway" />
@@ -19,6 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="common-jsr303" target="1.8" />
       <module name="common-snowflake" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -9,7 +9,6 @@
         <result column="real_name" property="realName" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
-        <result column="salt" property="salt" />
         <result column="avatar" property="avatar" />
         <result column="birth_date" property="birthDate" />
         <result column="phone" property="phone" />

@@ -65,11 +65,6 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
-        <!-- common-jsr303 -->
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common-jsr303</artifactId>
-        </dependency>
         <!-- common-feign -->
         <dependency>
             <groupId>cn.bit</groupId>

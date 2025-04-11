@@ -1,47 +1,83 @@
 CREATE DATABASE IF NOT EXISTS `db_product`
-DEFAULT CHARACTER SET utf8mb4
-COLLATE utf8mb4_0900_ai_ci;
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci;
 
 USE `db_product`;
 
 CREATE TABLE `product_category` (
-  `category_id` bigint NOT NULL COMMENT '分类ID（雪花ID）',
-  `category_name` varchar(50) NOT NULL COMMENT '分类名称',
-  `parent_id` bigint DEFAULT NULL COMMENT '父分类ID',
-  `level` tinyint NOT NULL COMMENT '分类层级（1-一级，2-二级等）',
-  `sort_order` int DEFAULT '0' COMMENT '排序权重',
-  `icon` varchar(255) DEFAULT NULL COMMENT '分类图标',
-  `description` varchar(500) DEFAULT NULL COMMENT '分类描述',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `del_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除标志',
-  PRIMARY KEY (`category_id`),
-  KEY `idx_parent_id` (`parent_id`),
-  KEY `idx_level` (`level`),
-  KEY `idx_sort_order` (`sort_order`)
+                                    `category_id` bigint NOT NULL COMMENT '分类ID（雪花ID）',
+                                    `category_name` varchar(50) NOT NULL COMMENT '分类名称',
+                                    `parent_id` bigint DEFAULT NULL COMMENT '父分类ID',
+                                    `level` tinyint NOT NULL COMMENT '分类层级（1-一级，2-二级等）',
+                                    `sort_order` int DEFAULT '0' COMMENT '排序权重',
+                                    `icon` varchar(255) DEFAULT NULL COMMENT '分类图标',
+                                    `description` varchar(500) DEFAULT NULL COMMENT '分类描述',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                    `del_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除标志',
+                                    PRIMARY KEY (`category_id`),
+                                    KEY `idx_parent_id` (`parent_id`),
+                                    KEY `idx_level` (`level`),
+                                    KEY `idx_sort_order` (`sort_order`)
 ) ENGINE=InnoDB COMMENT='产品分类表';
 
+-- 新增品牌表
+CREATE TABLE `product_brand` (
+                                 `brand_id` bigint NOT NULL COMMENT '品牌ID',
+                                 `brand_name` varchar(50) NOT NULL COMMENT '品牌名称',
+                                 `logo` varchar(255) DEFAULT NULL COMMENT '品牌logo',
+                                 `description` varchar(500) DEFAULT NULL COMMENT '品牌描述',
+                                 `website` varchar(100) DEFAULT NULL COMMENT '品牌官网',
+                                 `sort_order` int DEFAULT '0' COMMENT '排序',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                 `del_flag` tinyint NOT NULL DEFAULT '0',
+                                 PRIMARY KEY (`brand_id`),
+                                 KEY `idx_brand_name` (`brand_name`)
+) ENGINE=InnoDB COMMENT='品牌表';
+
+-- 修改为店铺表
+CREATE TABLE `product_shop` (
+                                `shop_id` bigint NOT NULL COMMENT '店铺ID',
+                                `shop_name` varchar(50) NOT NULL COMMENT '店铺名称',
+                                `logo` varchar(255) DEFAULT NULL COMMENT '店铺logo',
+                                `description` varchar(500) DEFAULT NULL COMMENT '店铺描述',
+                                `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系电话',
+                                `address` varchar(200) DEFAULT NULL COMMENT '店铺地址',
+                                `business_license` varchar(100) DEFAULT NULL COMMENT '营业执照号',
+                                `sort_order` int DEFAULT '0' COMMENT '排序',
+                                `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态（1-正常，0-禁用）',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                `del_flag` tinyint NOT NULL DEFAULT '0',
+                                PRIMARY KEY (`shop_id`),
+                                KEY `idx_shop_name` (`shop_name`),
+                                KEY `idx_status` (`status`)
+) ENGINE=InnoDB COMMENT='店铺表';
+
 CREATE TABLE `product_spu` (
-  `spu_id` bigint NOT NULL COMMENT 'SPU ID（雪花ID）',
-  `spu_code` varchar(50) NOT NULL COMMENT 'SPU编码',
-  `spu_name` varchar(100) NOT NULL COMMENT '产品名称',
-  `category_id` bigint NOT NULL COMMENT '分类ID',
-  `brand_id` bigint DEFAULT NULL COMMENT '品牌ID',
-  `main_image` varchar(255) DEFAULT NULL COMMENT '主图URL',
-  `sub_images` text COMMENT '子图URL（JSON数组）',
-  `description` text COMMENT '产品描述',
-  `spec_template` text COMMENT '规格模板（JSON格式）',
-  `sales` int DEFAULT '0' COMMENT '总销量',
-  `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态（1-上架，0-下架）',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `del_flag` tinyint NOT NULL DEFAULT '0',
-  PRIMARY KEY (`spu_id`),
-  UNIQUE KEY `idx_spu_code` (`spu_code`),
-  KEY `idx_category` (`category_id`),
-  KEY `idx_brand` (`brand_id`),
-  KEY `idx_status` (`status`),
-  KEY `idx_sales` (`sales`)
+                               `spu_id` bigint NOT NULL COMMENT 'SPU ID（雪花ID）',
+                               `spu_code` varchar(50) NOT NULL COMMENT 'SPU编码',
+                               `spu_name` varchar(100) NOT NULL COMMENT '产品名称',
+                               `category_id` bigint NOT NULL COMMENT '分类ID',
+                               `brand_id` bigint DEFAULT NULL COMMENT '品牌ID',
+                               `shop_id` bigint DEFAULT NULL COMMENT '店铺ID',
+                               `main_image` varchar(255) DEFAULT NULL COMMENT '主图URL',
+                               `sub_images` text COMMENT '子图URL（JSON数组）',
+                               `description` text COMMENT '产品描述',
+                               `spec_template` text COMMENT '规格模板（JSON格式）',
+                               `sales` int DEFAULT '0' COMMENT '总销量',
+                               `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态（1-上架，0-下架）',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                               `del_flag` tinyint NOT NULL DEFAULT '0',
+                               PRIMARY KEY (`spu_id`),
+                               UNIQUE KEY `idx_spu_code` (`spu_code`),
+                               KEY `idx_category` (`category_id`),
+                               KEY `idx_brand` (`brand_id`),
+                               KEY `idx_shop` (`shop_id`),
+                               KEY `idx_status` (`status`),
+                               KEY `idx_sales` (`sales`)
 ) ENGINE=InnoDB COMMENT='产品SPU表';
 
 DELIMITER //
@@ -49,7 +85,7 @@ CREATE PROCEDURE `create_sku_sharding_tables`(IN table_count INT)
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < table_count DO
-        SET @sql = CONCAT('
+            SET @sql = CONCAT('
         CREATE TABLE IF NOT EXISTS `product_sku_', i, '` (
           `sku_id` bigint NOT NULL COMMENT ''SKU ID（雪花ID）'',
           `spu_id` bigint NOT NULL COMMENT ''SPU ID'',
@@ -74,37 +110,23 @@ BEGIN
           KEY `idx_stock_', i, '` (`stock`),
           KEY `idx_status_', i, '` (`status`)
         ) ENGINE=InnoDB COMMENT=''产品SKU分表', i, '''');
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-        SET i = i + 1;
-    END WHILE;
+            PREPARE stmt FROM @sql;
+            EXECUTE stmt;
+            DEALLOCATE PREPARE stmt;
+            SET i = i + 1;
+        END WHILE;
 END//
 DELIMITER ;
 
 CALL `create_sku_sharding_tables`(10);
 DROP PROCEDURE IF EXISTS `create_sku_sharding_tables`;
 
-CREATE TABLE `product_brand` (
-  `brand_id` bigint NOT NULL COMMENT '品牌ID',
-  `brand_name` varchar(50) NOT NULL COMMENT '品牌名称',
-  `logo` varchar(255) DEFAULT NULL COMMENT '品牌logo',
-  `description` varchar(500) DEFAULT NULL COMMENT '品牌描述',
-  `website` varchar(100) DEFAULT NULL COMMENT '品牌官网',
-  `sort_order` int DEFAULT '0' COMMENT '排序',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `del_flag` tinyint NOT NULL DEFAULT '0',
-  PRIMARY KEY (`brand_id`),
-  KEY `idx_brand_name` (`brand_name`)
-) ENGINE=InnoDB COMMENT='品牌表';
-
 DELIMITER //
 CREATE PROCEDURE `create_attr_sharding_tables`(IN table_count INT)
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < table_count DO
-        SET @sql = CONCAT('
+            SET @sql = CONCAT('
         CREATE TABLE IF NOT EXISTS `product_attribute_', i, '` (
           `attr_id` bigint NOT NULL COMMENT ''属性ID'',
           `spu_id` bigint NOT NULL COMMENT ''SPU ID'',
@@ -118,11 +140,11 @@ BEGIN
           KEY `idx_spu_id_', i, '` (`spu_id`),
           KEY `idx_attr_type_', i, '` (`attr_type`)
         ) ENGINE=InnoDB COMMENT=''产品属性分表', i, '''');
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-        SET i = i + 1;
-    END WHILE;
+            PREPARE stmt FROM @sql;
+            EXECUTE stmt;
+            DEALLOCATE PREPARE stmt;
+            SET i = i + 1;
+        END WHILE;
 END//
 DELIMITER ;
 
@@ -134,7 +156,7 @@ CREATE PROCEDURE `create_image_sharding_tables`(IN table_count INT)
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < table_count DO
-        SET @sql = CONCAT('
+            SET @sql = CONCAT('
         CREATE TABLE IF NOT EXISTS `product_image_', i, '` (
           `image_id` bigint NOT NULL COMMENT ''图片ID'',
           `spu_id` bigint NOT NULL COMMENT ''SPU ID'',
@@ -150,11 +172,11 @@ BEGIN
           KEY `idx_sku_id_', i, '` (`sku_id`),
           KEY `idx_sort_order_', i, '` (`sort_order`)
         ) ENGINE=InnoDB COMMENT=''产品图片分表', i, '''');
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-        SET i = i + 1;
-    END WHILE;
+            PREPARE stmt FROM @sql;
+            EXECUTE stmt;
+            DEALLOCATE PREPARE stmt;
+            SET i = i + 1;
+        END WHILE;
 END//
 DELIMITER ;
 
@@ -166,7 +188,7 @@ CREATE PROCEDURE `create_inventory_log_sharding_tables`(IN table_count INT)
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < table_count DO
-        SET @sql = CONCAT('
+            SET @sql = CONCAT('
         CREATE TABLE IF NOT EXISTS `inventory_log_', i, '` (
           `log_id` bigint NOT NULL COMMENT ''日志ID'',
           `sku_id` bigint NOT NULL COMMENT ''SKU ID'',
@@ -182,14 +204,13 @@ BEGIN
           KEY `idx_order_id_', i, '` (`order_id`),
           KEY `idx_create_time_', i, '` (`create_time`)
         ) ENGINE=InnoDB COMMENT=''库存变更记录分表', i, '''');
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-        SET i = i + 1;
-    END WHILE;
+            PREPARE stmt FROM @sql;
+            EXECUTE stmt;
+            DEALLOCATE PREPARE stmt;
+            SET i = i + 1;
+        END WHILE;
 END//
 DELIMITER ;
 
 CALL `create_inventory_log_sharding_tables`(10);
 DROP PROCEDURE IF EXISTS `create_inventory_log_sharding_tables`;
-

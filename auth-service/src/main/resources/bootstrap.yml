@@ -1,0 +1,27 @@
+server:
+  port: @profiles.auth-service.port@
+
+spring:
+  profiles:
+    active: @profile.active@
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      server-addr: @nacos.server-addr@
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        cluster-name: @nacos.cluster-name@
+        namespace: @nacos.namespace@
+        group: ${spring.profiles.active}
+      config:
+        cluster-name: ${spring.cloud.nacos.discovery.cluster-name}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        file-extension: yaml
+        shared-configs:
+          - data-id: application.yaml
+            group: ${spring.profiles.active}
+            refresh: true
+

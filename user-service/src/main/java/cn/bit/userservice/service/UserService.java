@@ -1,10 +1,18 @@
 package cn.bit.userservice.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-
+import cn.bit.pojo.dto.UserBaseInfo;
+import cn.bit.pojo.po.RoleDictItem;
 import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.vo.R;
 
-public interface UserService extends IService<UserPO> {
-    int register(UserPO userPO);
-    long count();
+import java.util.Set;
+
+public interface UserService {
+    R<Boolean> register(String code, String roleCode, UserBaseInfo user);
+
+    R<UserPO> infoByUsername(String username);
+
+    R<UserPO> infoByUserId(Long userId);
+
+    R<Set<RoleDictItem>> rolesByUserId(Long userId);
 }

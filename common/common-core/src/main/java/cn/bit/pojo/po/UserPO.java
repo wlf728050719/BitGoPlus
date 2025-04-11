@@ -1,8 +1,11 @@
 package cn.bit.pojo.po;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
+
+import cn.bit.jsr303.annotation.ValidString;
+import cn.bit.jsr303.enums.StringEnum;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,6 +13,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.Null;
 
 /**
  * 用户实体类
@@ -24,6 +29,7 @@ public class UserPO {
 
     /** 用户名 */
     @TableField("username")
+    @ValidString(StringEnum.USERNAME_STRING)
     private String username;
 
     /** 真实姓名 */
@@ -36,11 +42,8 @@ public class UserPO {
 
     /** 加密后的密码 */
     @TableField("password")
+    @ValidString(StringEnum.PASSWORD_STRING)
     private String password;
-
-    /** 加密盐值 */
-    @TableField("salt")
-    private String salt;
 
     /** 头像URL */
     @TableField("avatar")
@@ -48,13 +51,14 @@ public class UserPO {
 
     /** 出生日期 */
     @TableField("birth_date")
-    private LocalDate birthDate;
+    private Date birthDate;
     /** 手机号 */
     @TableField("phone")
     private String phone;
 
     /** 邮箱 */
     @TableField("email")
+    @ValidString(StringEnum.EMAIL_STRING)
     private String email;
 
     /** QQ号 */
@@ -75,10 +79,12 @@ public class UserPO {
 
     /** 创建时间 */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @Null
     private LocalDateTime createTime;
 
     /** 更新时间 */
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @Null
     private LocalDateTime updateTime;
 
     /** 上次登录时间 */
@@ -100,5 +106,4 @@ public class UserPO {
     /** 删除标志（0-未删除，1-已删除） */
     @TableField("del_flag")
     private Integer delFlag;
-
 }
