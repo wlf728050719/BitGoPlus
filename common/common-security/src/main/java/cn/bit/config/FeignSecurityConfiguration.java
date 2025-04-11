@@ -1,5 +1,6 @@
 package cn.bit.config;
 
+import cn.bit.constant.SecurityConstant;
 import cn.bit.util.JwtUtil;
 import feign.RequestInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -15,8 +16,8 @@ public class FeignSecurityConfiguration {
             // 从配置获取服务名，而不是硬编码
             String serviceName = template.feignTarget().name();
             String token = jwtUtil.generateInternalToken(serviceName);
-            template.header("Authorization", "Internal " + token);
-            template.header("Source", "Service " + serviceName);
+            template.header(SecurityConstant.HEADER_AUTHORIZATION, SecurityConstant.TAG_INTERNAL + token);
+            template.header(SecurityConstant.HEADER_SOURCE, SecurityConstant.TAG_SERVICE + serviceName);
         };
     }
 }

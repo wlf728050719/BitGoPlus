@@ -1,6 +1,7 @@
 package cn.bit.filter;
 
 import cn.bit.authentication.InternalServiceAuthentication;
+import cn.bit.constant.SecurityConstant;
 import cn.bit.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,13 +28,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws ServletException, IOException {
 
-        final String authorizationHeader = request.getHeader("Authorization");
-        final String sourceHeader = request.getHeader("Source");
+        final String authorizationHeader = request.getHeader(SecurityConstant.HEADER_AUTHORIZATION);
+        final String sourceHeader = request.getHeader(SecurityConstant.HEADER_SOURCE);
         // 处理内部服务Token
-        if (authorizationHeader != null && authorizationHeader.startsWith("Internal ") && sourceHeader != null
-            && sourceHeader.startsWith("Service ")) {
-            String source = sourceHeader.substring(8);
-            String token = authorizationHeader.substring(9);
+        if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstant.TAG_INTERNAL) && sourceHeader != null
+            && sourceHeader.startsWith(SecurityConstant.TAG_SERVICE)) {
+            String source = sourceHeader.substring(SecurityConstant.TAG_SERVICE.length());
+            String token = authorizationHeader.substring(SecurityConstant.TAG_INTERNAL.length());
             if (jwtUtil.validateInternalToken(token, source)) {
                 Authentication auth = new InternalServiceAuthentication(source);
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -45,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstant.TAG_BEARER)) {
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractData(jwt);
         }

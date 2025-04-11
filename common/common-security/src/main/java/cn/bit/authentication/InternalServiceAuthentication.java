@@ -1,5 +1,6 @@
 package cn.bit.authentication;
 
+import cn.bit.constant.SecurityConstant;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -17,7 +18,8 @@ public class InternalServiceAuthentication extends AbstractAuthenticationToken {
     }
 
     public InternalServiceAuthentication(String serviceName) {
-        this(serviceName, AuthorityUtils.createAuthorityList("ROLE_INTERNAL_SERVICE"));
+        this(serviceName,
+            AuthorityUtils.createAuthorityList(SecurityConstant.ROLE_PREFIX + SecurityConstant.ROLE_INTERNAL_SERVICE));
     }
 
     @Override

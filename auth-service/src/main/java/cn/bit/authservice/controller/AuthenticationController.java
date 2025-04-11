@@ -43,7 +43,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/refresh")
-    public R<String> refreshToken(@RequestHeader(SecurityConstant.AUTHORIZATION_HEADER) String refreshToken) {
+    public R<String> refreshToken(@RequestHeader(SecurityConstant.HEADER_AUTHORIZATION) String refreshToken) {
         String username = jwtUtil.extractData(refreshToken);
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
         if (jwtUtil.validateToken(refreshToken, user)) {

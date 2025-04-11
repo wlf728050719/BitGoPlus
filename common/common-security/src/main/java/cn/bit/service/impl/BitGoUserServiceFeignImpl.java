@@ -49,7 +49,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
 
         // 将角色转换为权限
         Collection<? extends GrantedAuthority> authorities =
-            roles.stream().map(role -> new SimpleGrantedAuthority(SecurityConstant.ROLE + role.getRoleCode()))
+            roles.stream().map(role -> new SimpleGrantedAuthority(SecurityConstant.ROLE_PREFIX + role.getRoleCode()))
                 .collect(Collectors.toSet());
 
         // 构建BitGoUser对象

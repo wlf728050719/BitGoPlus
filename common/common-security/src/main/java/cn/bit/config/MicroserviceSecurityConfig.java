@@ -1,6 +1,7 @@
 package cn.bit.config;
 
 
+import cn.bit.constant.SecurityConstant;
 import cn.bit.filter.JwtAuthenticationFilter;
 import cn.bit.util.JwtUtil;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,7 @@ public class MicroserviceSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/api/**").hasRole("INTERNAL_SERVICE")// 允许认证端点公开访问
+                .antMatchers("/api/**").hasRole(SecurityConstant.ROLE_INTERNAL_SERVICE)// 允许认证端点公开访问
                 .anyRequest().authenticated(); // 其他所有请求需要认证
     }
 
