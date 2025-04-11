@@ -13,6 +13,6 @@ public class JwtAutoConfiguration {
     @ConditionalOnMissingBean
     public JwtUtil jwtUtil(JwtProperties jwtProperties) {
         return new JwtUtil(jwtProperties.getSecret(), jwtProperties.getAccessTokenExpiration(),
-            jwtProperties.getRefreshTokenExpiration());
+            jwtProperties.getRefreshTokenExpiration(), jwtProperties.getInternalTokenExpiration());
     }
 }

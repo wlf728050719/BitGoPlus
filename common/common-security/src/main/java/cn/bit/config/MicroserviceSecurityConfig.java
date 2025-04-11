@@ -36,7 +36,8 @@ public class MicroserviceSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 将JWT过滤器添加到UsernamePasswordAuthenticationFilter之前
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll() // 允许认证端点公开访问
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/api/**").hasRole("INTERNAL_SERVICE")// 允许认证端点公开访问
                 .anyRequest().authenticated(); // 其他所有请求需要认证
     }
 

@@ -1,11 +1,11 @@
 package cn.bit.filter;
 
+import cn.bit.authentication.InternalServiceAuthentication;
 import cn.bit.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -28,23 +28,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
+        final String sourceHeader = request.getHeader("Source");
+        // 处理内部服务Token
+        if (authorizationHeader != null && authorizationHeader.startsWith("Internal ") && sourceHeader != null
+            && sourceHeader.startsWith("Service ")) {
+            String source = sourceHeader.substring(8);
+            String token = authorizationHeader.substring(9);
+            if (jwtUtil.validateInternalToken(token, source)) {
+                Authentication auth = new InternalServiceAuthentication(source);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                chain.doFilter(request, response);
+                return;
+            }
+        }
 
         String username = null;
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            if (jwt.equals("123456789")) {
-                // 为Feign调用创建简单的认证信息
-                UserDetails feignUser = new User("feign-client", "",
-                        AuthorityUtils.createAuthorityList("ROLE_FEIGN"));
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(feignUser, null, feignUser.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                chain.doFilter(request, response);
-                return;
-            }
-            username = jwtUtil.extractUsername(jwt);
+            username = jwtUtil.extractData(jwt);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

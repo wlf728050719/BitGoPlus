@@ -143,3 +143,4 @@ jwt:
   secret: wlf18086270070
   accessTokenExpiration: 86400 #单位秒  1天
   refreshTokenExpiration: 2592000 #单位秒 1月
+  internalTokenExpiration: 5 #单位秒 5秒
