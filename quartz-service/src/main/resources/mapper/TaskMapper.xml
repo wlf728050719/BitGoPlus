@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.bit.quartz.core.mapper.TaskMapper">
-    <resultMap id="TaskResultMap" type="cn.bit.quartz.core.entity.Task">
+<mapper namespace="cn.bit.task.core.mapper.TaskMapper">
+    <resultMap id="TaskResultMap" type="cn.bit.pojo.po.TaskPO">
         <result property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
         <result property="taskGroup" column="task_group"/>
@@ -32,24 +32,24 @@
             cron_expression,
             description
         ) VALUES (
-                     #{task.taskId},
-                     #{task.taskName},
-                     #{task.taskGroup},
-                     #{task.type},
-                     #{task.beanName},
-                     #{task.className},
-                     #{task.path},
-                     #{task.methodName},
-                     #{task.params},
-                     #{task.cronExpression},
-                     #{task.description}
+                     #{taskPO.taskId},
+                     #{taskPO.taskName},
+                     #{taskPO.taskGroup},
+                     #{taskPO.type},
+                     #{taskPO.beanName},
+                     #{taskPO.className},
+                     #{taskPO.path},
+                     #{taskPO.methodName},
+                     #{taskPO.params},
+                     #{taskPO.cronExpression},
+                     #{taskPO.description}
                  )
     </insert>
     <delete id="deleteTask">
         delete from task
         where
-            task_name = #{task.taskName} and
-            task_group = #{task.taskGroup};
+            task_name = #{taskPO.taskName} and
+            task_group = #{taskPO.taskGroup};
     </delete>
 
 
@@ -66,32 +66,32 @@
     <update id="updateTaskInfo">
         UPDATE task
         SET
-            type = #{task.type},
-            bean_name = #{task.beanName},
-            class_name = #{task.className},
-            path = #{task.path},
-            method_name = #{task.methodName},
-            params = #{task.params},
-            cron_expression = #{task.cronExpression},
-            description = #{task.description}
+            type = #{taskPO.type},
+            bean_name = #{taskPO.beanName},
+            class_name = #{taskPO.className},
+            path = #{taskPO.path},
+            method_name = #{taskPO.methodName},
+            params = #{taskPO.params},
+            cron_expression = #{taskPO.cronExpression},
+            description = #{taskPO.description}
         WHERE
-            task_name = #{task.taskName} and
-            task_group = #{task.taskGroup};
+            task_name = #{taskPO.taskName} and
+            task_group = #{taskPO.taskGroup};
     </update>
     <update id="updateTaskStatus">
         UPDATE task
         SET
-            status = #{task.status}
+            status = #{taskPO.status}
         WHERE
-            task_name = #{task.taskName} and
-            task_group = #{task.taskGroup};
+            task_name = #{taskPO.taskName} and
+            task_group = #{taskPO.taskGroup};
     </update>
     <update id="setTaskResult">
         update task
         set
-            result = #{task.result}
+            result = #{taskPO.result}
         where
-            task_name = #{task.taskName} and
-            task_group = #{task.taskGroup};
+            task_name = #{taskPO.taskName} and
+            task_group = #{taskPO.taskGroup};
     </update>
 </mapper>

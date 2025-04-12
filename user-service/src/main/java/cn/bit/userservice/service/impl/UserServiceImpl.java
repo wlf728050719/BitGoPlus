@@ -50,16 +50,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public R<UserPO> infoByUsername(String username) {
         return R.ok(userManager.selectUserByUserName(username));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public R<UserPO> infoByUserId(Long userId) {
         return R.ok(userManager.selectUserByUserId(userId));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public R<Set<RoleDictItem>> rolesByUserId(Long userId) {
         return R.ok(permissionManager.selectPermissionByUserId(userId));
     }

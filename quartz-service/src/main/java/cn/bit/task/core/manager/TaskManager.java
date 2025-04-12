@@ -1,0 +1,21 @@
+package cn.bit.task.core.manager;
+
+import java.util.List;
+
+import cn.bit.pojo.po.TaskPO;
+
+public interface TaskManager {
+    List<TaskPO> selectAllTask();
+
+    int updateTaskInfo(TaskPO taskPO);
+
+    int updateTaskStatus(TaskPO taskPO);
+
+    int insertTask(TaskPO taskPO);
+
+    int deleteTask(TaskPO taskPO);
+
+    int setTaskResult(TaskPO taskPO);
+
+    TaskPO selectTaskByNameAndGroup(String taskName, String groupName);
+}

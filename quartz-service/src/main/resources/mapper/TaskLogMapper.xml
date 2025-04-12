@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.bit.quartz.core.mapper.TaskLogMapper">
+<mapper namespace="cn.bit.task.core.mapper.TaskLogMapper">
 
-    <resultMap id="TaskLogResultMap" type="cn.bit.quartz.core.entity.TaskLog">
+    <resultMap id="TaskLogResultMap" type="cn.bit.pojo.po.TaskLogPO">
         <id property="logId" column="id"/>
         <result property="taskId" column="task_id"/>
         <result property="startTime" column="start_time"/>
@@ -14,7 +14,7 @@
         <result property="exceptionInfo" column="exception_info"/>
     </resultMap>
 
-    <insert id="insert" parameterType="cn.bit.quartz.core.entity.TaskLog">
+    <insert id="insert" parameterType="cn.bit.pojo.po.TaskLogPO">
         INSERT INTO task_log(log_id,task_id, start_time, execute_time, result, message, exception_info)
         VALUES (#{logId}, #{taskId}, #{startTime}, #{executeTime}, #{result}, #{message}, #{exceptionInfo})
     </insert>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @RestController
@@ -22,7 +23,7 @@ import java.util.Set;
 public class APIController {
     private UserService userService;
     @GetMapping("/infoByUsername/{username}")
-    public R<UserPO> infoByUsername(@PathVariable @ValidString(StringEnum.USERNAME_STRING) String username) {
+    public R<UserPO> infoByUsername(@PathVariable @Valid @ValidString(StringEnum.USERNAME_STRING) String username) {
         return userService.infoByUsername(username);
     }
 

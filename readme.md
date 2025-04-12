@@ -23,16 +23,19 @@ idea安装后左下角有checkstyle按钮，选择配置的代码风格对全局
 idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键项目->重新设置代码格式规范整个项目
 
 # 代码约定
-1. 表现层业务成功返回R.ok,可预见错误返回R.failed。用户异常操作时（如直接HTTP请求访问而非前端调用）均通过异常统一管理
-2. 返回R中不带额外数据时，使用R<Boolean>,需要明确设置true,失败使用false
-3. 业务异常均使用中文，其余使用英文
-4. 持久层类均与PO或DictItem结尾，对应Manager类
-5. Manager层负责可复用业务，Service层实现具体业务，原则上每个服务只能有一个service，且其函数与对应接口同名
-6. 所有接口传入对象只能为dto中定义对象，且只有dto中对象添加jsr校验
-7. 所有dto对象转po对象方法必须定义在dto对象中，使po专注于与数据库交互，且方法固定为newXX明确为两个不同对象
-8. manager层不对mapper的异常进行特殊处理，抛出统一捕获
-9. 每个服务RPC接口均命名为APIController且统一以/api路径开头
-10. 通过@Cacheable注解value为命名空间,统一使用KeyGenerator进行管理。使用RedisTemplate则需要统一使用定义在RedisKey文件中的String.format/String形式
+1. 表现层业务成功返回R.ok,可预见错误返回R.failed。用户异常操作时（如未授权访问/参数校验错误）均抛出异常(前后端统一)
+2. 返回R中不带额外数据时，使用R<Boolean>,需要明确设置true,失败使用false(前后端统一)
+3. 除了业务异常以及继承类msg使用中文，其余使用英文(用户友好)
+4. 持久层类均与PO或DictItem结尾，对应同名Manager类(统一命名规范)
+5. Manager层负责可复用业务，Service层实现具体业务，原则上每个服务只能有一个service，且其函数与对应接口同名(分层解耦)
+6. 所有接口传入对象只能为dto中定义对象，且只有dto中对象添加jsr校验(使参数校验部分统一由Controller负责)
+7. 所有dto对象转po对象方法必须定义在dto对象中，且方法固定为newXX明确为两个不同对象(使po专注于与数据库交互)
+8. manager层不对mapper的异常进行特殊处理，抛出统一捕获(便于Service层回滚)
+9. 每个服务RPC接口均命名为APIController且统一以/api路径开头(安全配置开放为内部端点,统一鉴权)
+10. 通过@Cacheable注解value为命名空间,统一使用KeyGenerator进行管理。使用RedisTemplate则需要统一使用定义在RedisKey文件中的String.format/String形式(防止魔法值，且相同类型缓存使用类似键生成方式方便查询)
+11. 所有service层涉及操作manager的方法均需要添加@Transactional(防止数据库脏数据)
+12. 各模块内部exception定义在各自模块中，继承BizException或SysException(方便ExceptionHandler统一处理)
+13. 所有实体类必须定义在common-core模块中(否则容易出现循环依赖问题)
 # 项目约定
 1. 同一手机号可注册多种身份账号（每种身份最多一个）用户，唯一约束:用户名、用户ID
 2. 用户登录方式 用户名+密码 / 手机号+身份+验证码
