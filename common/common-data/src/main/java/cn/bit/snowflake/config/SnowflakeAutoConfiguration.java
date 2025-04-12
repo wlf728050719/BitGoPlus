@@ -18,8 +18,7 @@ public class SnowflakeAutoConfiguration {
     @ConditionalOnMissingBean
     public DistributedSnowflakeIdGenerator distributedSnowflakeIdGenerator(SnowflakeProperties properties,
         RedisTemplate<String, Object> redisTemplate) throws Exception {
-        return new DistributedSnowflakeIdGenerator(properties.getApplicationName(), redisTemplate,
-            properties.getDatacenterId());
+        return new DistributedSnowflakeIdGenerator(properties, redisTemplate);
     }
 
 }

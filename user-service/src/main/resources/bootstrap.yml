@@ -24,4 +24,5 @@ spring:
           - data-id: application.yaml
             group: ${spring.profiles.active}
             refresh: true
-
+snowflake:
+  service-name: ${spring.application.name}

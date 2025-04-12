@@ -32,7 +32,7 @@ idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键�
 7. 所有dto对象转po对象方法必须定义在dto对象中，使po专注于与数据库交互，且方法固定为newXX明确为两个不同对象
 8. manager层不对mapper的异常进行特殊处理，抛出统一捕获
 9. 每个服务RPC接口均命名为APIController且统一以/api路径开头
-
+10. 通过@Cacheable注解value为命名空间,统一使用KeyGenerator进行管理。使用RedisTemplate则需要统一使用定义在RedisKey文件中的String.format/String形式
 # 项目约定
 1. 同一手机号可注册多种身份账号（每种身份最多一个）用户，唯一约束:用户名、用户ID
 2. 用户登录方式 用户名+密码 / 手机号+身份+验证码

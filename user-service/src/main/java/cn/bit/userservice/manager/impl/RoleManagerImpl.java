@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class RoleManagerImpl extends ServiceImpl<RoleMapper, RoleDictItem> implements RoleManager {
     @Override
-    @Cacheable(value = RedisKey.NAMESPACE, key = RedisKey.ROLE_DICT_KEY)
+    @Cacheable(value = RedisKey.NAMESPACE, keyGenerator = "DictCacheGenerator")
     public List<RoleDictItem> getRoleDict() {
         return this.list();
     }

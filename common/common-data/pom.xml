@@ -24,6 +24,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <!-- =======内部依赖======= -->
+        <!-- common cache -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-cache</artifactId>

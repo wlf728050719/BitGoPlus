@@ -41,10 +41,13 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
         </dependency>
+        <!-- =======内部依赖======= -->
+        <!-- common-core -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
+        <!-- common-feign -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-feign</artifactId>

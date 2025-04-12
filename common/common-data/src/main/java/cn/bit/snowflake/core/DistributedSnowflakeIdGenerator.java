@@ -16,6 +16,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.PreDestroy;
 
+import cn.bit.redis.constant.RedisKey;
+import cn.bit.snowflake.config.SnowflakeProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,80 +37,82 @@ public class DistributedSnowflakeIdGenerator {
     private static final long DATACENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
     private static final long TIMESTAMP_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATACENTER_ID_BITS;
 
-    private static final long DEFAULT_EPOCH = 1577836800000L; // 2020-01-01 00:00:00
-    private static final int DEFAULT_HEARTBEAT_INTERVAL = 30; // 心跳间隔(秒)
-    private static final int DEFAULT_LOCK_TIMEOUT = 60; // 锁超时时间(秒)
-    private static final int DEFAULT_HEARTBEAT_EXPIRE = 90; // 心跳过期时间(秒)
-    private static final int MAX_TOLERATE_BACKWARD_MS = 5; // 最大容忍时钟回拨(毫秒)
-    private static final int DEFAULT_BUFFER_SIZE = 20000; // 缓冲区大小
-    private static final int DEFAULT_BUFFER_THRESHOLD = 10000; // 缓冲区阈值
+    private static final Long DEFAULT_EPOCH = 1577836800000L; // 2020-01-01 00:00:00
+    private static final Integer DEFAULT_HEARTBEAT_INTERVAL = 30; // 心跳间隔(秒)
+    private static final Integer DEFAULT_LOCK_TIMEOUT = 60; // 锁超时时间(秒)
+    private static final Integer DEFAULT_HEARTBEAT_EXPIRE = 90; // 心跳过期时间(秒)
+    private static final Integer DEFAULT_MAX_TOLERATE_BACKWARD_MS = 5; // 最大容忍时钟回拨(毫秒)
+    private static final Integer DEFAULT_BUFFER_SIZE = 20000; // 缓冲区大小
+    private static final Integer DEFAULT_BUFFER_THRESHOLD = 10000; // 缓冲区阈值
 
     // ==================== 实例字段 ====================
-    private final long epoch; // 起始时间戳
-    private final long datacenterId; // 数据中心ID
-    private final long workerId; // 工作节点ID
+    private final String serviceName; // 服务名称
+    private final Long datacenterId; // 数据中心ID
+    private final Long workerId; // 工作节点ID
+    private final String nodeIdentifier; // 节点唯一标识符
+
+    private final Long epoch; // 起始时间戳
+    private final Integer maxTolerateBackwardMs; // 最大容忍时间回拨
     private final AtomicLong lastTimestamp = new AtomicLong(-1L); // 上次生成ID的时间戳
     private final AtomicLong sequence = new AtomicLong(0L); // 序列号
+
     private final AtomicLong generatedIds = new AtomicLong(0); // 生成的ID总数统计
     private final AtomicLong clockBackwardsEvents = new AtomicLong(0); // 时钟回拨事件计数
 
     private final RedisTemplate<String, Object> redisTemplate; // Redis操作模板
-    private final String workerKeyPrefix; // Redis中worker键的前缀
+    private String workerKey; // Redis中占用键
+    private final String workerLock; // Redis中分配锁
+
     private final ScheduledExecutorService heartbeatExecutor; // 心跳执行器
-    private final String nodeIdentifier; // 节点唯一标识符
-    private final int heartbeatInterval; // 心跳间隔时间(秒)
-    private final int lockTimeout; // 锁超时时间(秒)
-    private final int heartbeatExpire; // 心跳过期时间(秒)
+    private final Integer heartbeatInterval; // 心跳间隔时间(秒)
+    private final Integer lockTimeout; // 锁超时时间(秒)
+    private final Integer heartbeatExpire; // 心跳过期时间(秒)
 
     private final BlockingQueue<Long> idBuffer; // ID缓冲区
     private final ExecutorService bufferExecutor; // 缓冲区填充执行器
-    private final int bufferSize; // 缓冲区大小
-    private final int bufferThreshold; // 缓冲区填充阈值
+    private final Integer bufferSize; // 缓冲区大小
+    private final Integer bufferThreshold; // 缓冲区填充阈值
 
-    // 并发控制锁
-    private final Lock idGenerationLock = new ReentrantLock();
+    private final Lock idGenerationLock = new ReentrantLock(); // 并发控制锁
 
-    public DistributedSnowflakeIdGenerator(String serviceName, RedisTemplate<String, Object> redisTemplate,
-        long datacenterId) throws Exception {
-        this(serviceName, redisTemplate, datacenterId, DEFAULT_EPOCH, DEFAULT_HEARTBEAT_INTERVAL, DEFAULT_LOCK_TIMEOUT,
-            DEFAULT_HEARTBEAT_EXPIRE, DEFAULT_BUFFER_SIZE, DEFAULT_BUFFER_THRESHOLD);
-    }
-
-    public DistributedSnowflakeIdGenerator(String serviceName, RedisTemplate<String, Object> redisTemplate,
-        long datacenterId, long epoch, int heartbeatInterval, int lockTimeout, int heartbeatExpire, int bufferSize,
-        int bufferThreshold) throws Exception {
+    public DistributedSnowflakeIdGenerator(SnowflakeProperties properties, RedisTemplate<String, Object> redisTemplate)
+        throws Exception {
+        log.info("雪花ID生成器初始化..................");
         // 参数校验
-        validateParameters(datacenterId, serviceName);
-
-        this.epoch = epoch;
-        this.datacenterId = datacenterId;
+        validateParameters(properties.getDatacenterId(), properties.getServiceName());
+        this.datacenterId = properties.getDatacenterId();
+        this.serviceName = properties.getServiceName();
         this.redisTemplate = redisTemplate;
-        this.heartbeatInterval = heartbeatInterval;
-        this.lockTimeout = lockTimeout;
-        this.heartbeatExpire = heartbeatExpire;
-        this.bufferSize = bufferSize;
-        this.bufferThreshold = bufferThreshold;
+
+        this.epoch = properties.getEpoch() != null ? properties.getEpoch() : DEFAULT_EPOCH;
+        this.heartbeatInterval = properties.getHeartbeatIntervalSeconds() != null
+            ? properties.getHeartbeatIntervalSeconds() : DEFAULT_HEARTBEAT_INTERVAL;
+        this.heartbeatExpire = properties.getHeartbeatExpireSeconds() != null ? properties.getHeartbeatExpireSeconds()
+            : DEFAULT_HEARTBEAT_EXPIRE;
+        this.lockTimeout =
+            properties.getLockTimeoutSeconds() != null ? properties.getLockTimeoutSeconds() : DEFAULT_LOCK_TIMEOUT;
+        this.maxTolerateBackwardMs = properties.getMaxTolerateBackwardMilliseconds() != null
+            ? properties.getMaxTolerateBackwardMilliseconds() : DEFAULT_MAX_TOLERATE_BACKWARD_MS;
+        this.bufferSize = properties.getBufferSize() != null ? properties.getBufferSize() : DEFAULT_BUFFER_SIZE;
+        this.bufferThreshold =
+            properties.getBufferThreshold() != null ? properties.getBufferThreshold() : DEFAULT_BUFFER_THRESHOLD;
+
         this.idBuffer = new LinkedBlockingQueue<>(bufferSize);
         this.bufferExecutor = Executors.newSingleThreadExecutor();
 
-        // 生成节点唯一标识符(IP+进程ID)
+        this.workerLock = String.format(RedisKey.SNOWFLAKE_LOCK_FORMAT, serviceName, datacenterId);
         this.nodeIdentifier = generateNodeIdentifier();
-        log.info("生成节点唯一标识符: {}", nodeIdentifier);
-
-        // 构造Redis中worker键的前缀
-        this.workerKeyPrefix = String.format("snowflake:%s:dc-%d:worker-", serviceName, datacenterId);
-        log.info("初始化Redis键前缀: {}", workerKeyPrefix);
-
         // 注册并获取worker ID
-        this.workerId = registerAndGetWorkerId();
-        log.info("成功分配worker ID: {}, 数据中心ID: {}", workerId, datacenterId);
+        this.workerId = registerWorkerId();
+        log.info("成功注册————ServiceName: {},Data Center ID: {},Worker ID: {}, ", serviceName, datacenterId, workerId);
 
         // 启动心跳维护和缓冲区填充
         this.heartbeatExecutor = Executors.newSingleThreadScheduledExecutor();
         startHeartbeat();
         startBufferRefill();
 
-        log.info("雪花ID生成器初始化完成, 时间戳起点: {}, 缓冲区大小: {}, 填充阈值: {}", epoch, bufferSize, bufferThreshold);
+        log.info("雪花ID生成器初始化完成, 时间戳起点: {}, 缓冲区大小: {}, 填充阈值: {},心跳间隔: {}秒，心跳超时时间: {}秒,最大时间回拨阈值: {}毫秒", epoch, bufferSize,
+            bufferThreshold, heartbeatInterval, heartbeatExpire, maxTolerateBackwardMs);
     }
 
     private void validateParameters(long datacenterId, String serviceName) {
@@ -126,65 +130,43 @@ public class DistributedSnowflakeIdGenerator {
         return hostAddress + "-" + processId;
     }
 
-    private long registerAndGetWorkerId() {
-        String lockKey = getWorkerLockKey();
-        log.info("尝试获取worker ID分配锁, 锁键: {}", lockKey);
-
+    private long registerWorkerId() {
+        log.debug("尝试获取worker ID分配锁, 锁键: {}", workerLock);
         Boolean lockAcquired =
-            redisTemplate.opsForValue().setIfAbsent(lockKey, nodeIdentifier, lockTimeout, TimeUnit.SECONDS);
-
+            redisTemplate.opsForValue().setIfAbsent(workerLock, nodeIdentifier, lockTimeout, TimeUnit.SECONDS);
         if (lockAcquired != null && lockAcquired) {
-            log.info("成功获取worker ID分配锁");
+            log.debug("成功获取worker ID分配锁");
             try {
-                long allocatedWorkerId = allocateWorkerId();
-                log.info("分配worker ID成功: {}", allocatedWorkerId);
-                return allocatedWorkerId;
+                Set<Long> usedWorkerIds = new HashSet<>();
+                // 扫描已使用的worker ID
+                for (long id = 0; id <= MAX_WORKER_ID; id++) {
+                    if (Boolean.TRUE.equals(
+                            redisTemplate.hasKey(String.format(RedisKey.SNOWFLAKE_KEY_FORMAT, serviceName, datacenterId, id)))) {
+                        usedWorkerIds.add(id);
+                    }
+                }
+                log.info("已使用的worker ID: {}", usedWorkerIds);
+                // 查找可用的worker ID
+                for (long id = 0; id <= MAX_WORKER_ID; id++) {
+                    if (!usedWorkerIds.contains(id)) {
+                        workerKey = String.format(RedisKey.SNOWFLAKE_KEY_FORMAT, serviceName, datacenterId, id);
+                        redisTemplate.opsForValue().set(workerKey, nodeIdentifier, heartbeatExpire, TimeUnit.SECONDS);
+                        return id;
+                    }
+                }
+                log.error("数据中心 {} 中没有可用的worker ID (最大: {})", datacenterId, MAX_WORKER_ID);
+                throw new IllegalStateException(String.format("数据中心 %d 中没有可用的worker ID (最大: %d)", datacenterId, MAX_WORKER_ID));
             } finally {
-                redisTemplate.delete(lockKey);
-                log.info("释放worker ID分配锁");
+                redisTemplate.delete(workerLock);
+                log.debug("释放worker ID分配锁");
             }
         }
         log.error("获取worker ID分配锁失败");
         throw new IllegalStateException("无法获取worker ID分配锁");
     }
 
-    private String getWorkerLockKey() {
-        return workerKeyPrefix + "lock";
-    }
-
-    private String getWorkerKey(long workerId) {
-        return workerKeyPrefix + workerId;
-    }
-
-    private long allocateWorkerId() {
-        log.info("开始分配worker ID...");
-        Set<Long> usedWorkerIds = new HashSet<>();
-
-        // 扫描已使用的worker ID
-        for (long id = 0; id <= MAX_WORKER_ID; id++) {
-            if (Boolean.TRUE.equals(redisTemplate.hasKey(getWorkerKey(id)))) {
-                usedWorkerIds.add(id);
-            }
-        }
-        log.info("已使用的worker ID: {}", usedWorkerIds);
-
-        // 查找可用的worker ID
-        for (long id = 0; id <= MAX_WORKER_ID; id++) {
-            if (!usedWorkerIds.contains(id)) {
-                redisTemplate.opsForValue().set(getWorkerKey(id), nodeIdentifier, heartbeatExpire, TimeUnit.SECONDS);
-                log.info("成功注册worker ID: {}, 节点标识: {}, 过期时间: {}秒", id, nodeIdentifier, heartbeatExpire);
-                return id;
-            }
-        }
-
-        log.error("数据中心 {} 中没有可用的worker ID (最大: {})", datacenterId, MAX_WORKER_ID);
-        throw new IllegalStateException(String.format("数据中心 %d 中没有可用的worker ID (最大: %d)", datacenterId, MAX_WORKER_ID));
-    }
-
     private void startHeartbeat() {
-        String workerKey = getWorkerKey(workerId);
         log.info("启动心跳维护, worker键: {}, 间隔: {}秒", workerKey, heartbeatInterval);
-
         heartbeatExecutor.scheduleAtFixedRate(() -> {
             try {
                 redisTemplate.expire(workerKey, heartbeatExpire, TimeUnit.SECONDS);
@@ -217,7 +199,7 @@ public class DistributedSnowflakeIdGenerator {
 
     private void refillBuffer() {
         int refillCount = bufferSize - idBuffer.size();
-        log.info("开始填充ID缓冲区, 需要填充数量: {}", refillCount);
+        log.debug("开始填充ID缓冲区, 需要填充数量: {}", refillCount);
 
         for (int i = 0; i < refillCount; i++) {
             try {
@@ -232,7 +214,7 @@ public class DistributedSnowflakeIdGenerator {
             }
         }
 
-        log.info("ID缓冲区填充完成, 当前缓冲区大小: {}", idBuffer.size());
+        log.debug("ID缓冲区填充完成, 当前缓冲区大小: {}", idBuffer.size());
     }
 
     public long nextId() {
@@ -288,7 +270,7 @@ public class DistributedSnowflakeIdGenerator {
 
         log.warn("检测到时钟回拨, 偏移量: {} 毫秒", offset);
 
-        if (offset <= MAX_TOLERATE_BACKWARD_MS) {
+        if (offset <= maxTolerateBackwardMs) {
             try {
                 log.info("时钟回拨在容忍范围内, 等待 {} 毫秒", offset);
                 TimeUnit.MILLISECONDS.sleep(offset);
@@ -320,10 +302,6 @@ public class DistributedSnowflakeIdGenerator {
 
     @PreDestroy
     public void preDestroy() {
-        cleanup();
-    }
-
-    private void cleanup() {
         log.info("开始关闭雪花ID生成器...");
         try {
             // 关闭缓冲区执行器
@@ -350,9 +328,5 @@ public class DistributedSnowflakeIdGenerator {
 
     public long getClockBackwardsEventsCount() {
         return clockBackwardsEvents.get();
-    }
-
-    public int getBufferSize() {
-        return idBuffer.size();
     }
 }

@@ -13,14 +13,6 @@
     <description>user-service</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
         <!-- =======公共依赖======= -->
         <!-- web -->
         <dependency>
@@ -68,9 +60,15 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-data</artifactId>
         </dependency>
+        <!-- common-security -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-security</artifactId>
+        </dependency>
+        <!-- common-cache -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-cache</artifactId>
         </dependency>
     </dependencies>
     <build>

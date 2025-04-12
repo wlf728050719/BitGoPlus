@@ -35,18 +35,22 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- =======内部依赖======= -->
+        <!-- common feign -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-feign</artifactId>
         </dependency>
+        <!-- common core -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
+        <!-- common cache -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
+        <!-- common security -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-security</artifactId>

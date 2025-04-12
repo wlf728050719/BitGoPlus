@@ -129,7 +129,8 @@ spring:
     props:
       sql:
         show: false
-
+snowflake:
+  datacenter-id: 1
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.bit.pojo.po
