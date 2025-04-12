@@ -9,11 +9,6 @@ spring:
             - name: Path
               args:
                 _genkey_0: /user/**
-          filters:
-            - name: AddRequestHeader
-              args:
-                name: source
-                value: request user from gateway
         - id: order-service
           uri:
             lb://order-service
@@ -21,15 +16,17 @@ spring:
             - name: Path
               args:
                 _genkey_0: /order/**
-          filters:
-            - name: AddRequestHeader
-              args:
-                name: source
-                value: request order from gateway
-        - id: quartz
+        - id: quartz-service
           uri:
-            lb://quartz
+            lb://quartz-service
           predicates:
             - name: Path
               args:
                 _genkey_0: /quartz/**
+        - id: auth-service
+          uri:
+            lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                _genkey_0: /auth/**

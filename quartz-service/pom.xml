@@ -9,8 +9,8 @@
     </parent>
 
     <artifactId>quartz-service</artifactId>
-    <name>quartz</name>
-    <description>quartz</description>
+    <name>quartz-service</name>
+    <description>quartz-service</description>
 
     <dependencies>
         <!-- quartz-->
