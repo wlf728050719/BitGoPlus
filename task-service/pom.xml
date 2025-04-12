@@ -8,9 +8,9 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>quartz-service</artifactId>
-    <name>quartz-service</name>
-    <description>quartz-service</description>
+    <artifactId>task-service</artifactId>
+    <name>task-service</name>
+    <description>task-service</description>
 
     <dependencies>
         <!-- quartz-->

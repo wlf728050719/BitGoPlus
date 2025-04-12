@@ -11,11 +11,11 @@
         <module name="common-data" />
         <module name="auth-service" />
         <module name="common-feign" />
+        <module name="task-service" />
         <module name="user-service" />
         <module name="order-service" />
         <module name="gateway" />
         <module name="common-core" />
-        <module name="quartz-service" />
         <module name="common-cache" />
       </profile>
     </annotationProcessing>
@@ -35,7 +35,7 @@
       <module name="common-snowflake" options="" />
       <module name="gateway" options="" />
       <module name="order-service" options="" />
-      <module name="quartz-service" options="" />
+      <module name="task-service" options="" />
       <module name="user-service" options="" />
     </option>
   </component>

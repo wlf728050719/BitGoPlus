@@ -14,7 +14,7 @@ CREATE TABLE task
     params          VARCHAR(255)  NULL COMMENT '方法参数',
     cron_expression VARCHAR(255)  NOT NULL COMMENT 'Cron表达式',
     description     TEXT          NULL COMMENT '任务描述',
-    status          INT DEFAULT 0 NOT NULL COMMENT '任务当前状态：0-未执行，1-执行中，2-已完成，3-已失败',
+    status          INT DEFAULT 0 NOT NULL COMMENT '任务当前状态：0-未执行，1-执行中',
     result          TINYINT       NULL COMMENT '任务执行结果：0-失败，1-成功',
     create_time     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'

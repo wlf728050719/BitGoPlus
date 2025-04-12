@@ -16,13 +16,13 @@ spring:
             - name: Path
               args:
                 _genkey_0: /order/**
-        - id: quartz-service
+        - id: task-service
           uri:
-            lb://quartz-service
+            lb://task-service
           predicates:
             - name: Path
               args:
-                _genkey_0: /quartz/**
+                _genkey_0: /task/**
         - id: auth-service
           uri:
             lb://auth-service

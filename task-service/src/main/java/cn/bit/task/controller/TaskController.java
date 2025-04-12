@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/quartz")
+@RequestMapping("/task")
 @AllArgsConstructor
 @Validated
 public class TaskController {
