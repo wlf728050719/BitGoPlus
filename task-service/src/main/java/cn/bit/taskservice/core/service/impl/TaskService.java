@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import cn.bit.pojo.dto.TaskBaseInfo;
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import org.springframework.stereotype.Service;
 
 import cn.bit.taskservice.core.enums.TaskStatus;

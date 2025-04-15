@@ -3,7 +3,7 @@
 <mapper namespace="cn.bit.userservice.mapper.PermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.bit.pojo.po.PermissionPO">
+    <resultMap id="BaseResultMap" type="cn.bit.pojo.po.user.PermissionPO">
         <result column="user_id" property="userId"/>
         <result column="role_id" property="roleId"/>
         <result column="create_time" property="createTime"/>
@@ -12,7 +12,7 @@
     </resultMap>
 
     <!-- 角色字典项结果映射 -->
-    <resultMap id="RoleDictItemResultMap" type="cn.bit.pojo.po.RoleDictItem">
+    <resultMap id="RoleDictItemResultMap" type="cn.bit.pojo.po.user.RoleDictItem">
         <result column="role_id" property="roleId"/>
         <result column="role_code" property="roleCode"/>
         <result column="description" property="description"/>

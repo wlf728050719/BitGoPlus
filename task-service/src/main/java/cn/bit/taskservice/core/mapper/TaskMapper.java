@@ -2,7 +2,7 @@ package cn.bit.taskservice.core.mapper;
 
 import java.util.List;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -2,7 +2,7 @@ package cn.bit.pojo.vo;
 
 import java.io.Serializable;
 
-import cn.bit.constant.Code;
+import cn.bit.constant.ResponseCode;
 import lombok.Data;
 
 @Data
@@ -12,31 +12,31 @@ public class R<T> implements Serializable {
     private T data;
 
     public static <T> R<T> ok() {
-        return restResult(null, Code.SUCCESS, null);
+        return restResult(null, ResponseCode.SUCCESS, null);
     }
 
     public static <T> R<T> ok(T data) {
-        return restResult(data, Code.SUCCESS, null);
+        return restResult(data, ResponseCode.SUCCESS, null);
     }
 
     public static <T> R<T> ok(T data, String msg) {
-        return restResult(data, Code.SUCCESS, msg);
+        return restResult(data, ResponseCode.SUCCESS, msg);
     }
 
     public static <T> R<T> failed() {
-        return restResult(null, Code.FAIL, null);
+        return restResult(null, ResponseCode.FAIL, null);
     }
 
     public static <T> R<T> failed(String msg) {
-        return restResult(null, Code.FAIL, msg);
+        return restResult(null, ResponseCode.FAIL, msg);
     }
 
     public static <T> R<T> failed(T data) {
-        return restResult(data, Code.FAIL, null);
+        return restResult(data, ResponseCode.FAIL, null);
     }
 
     public static <T> R<T> failed(T data, String msg) {
-        return restResult(data, Code.FAIL, msg);
+        return restResult(data, ResponseCode.FAIL, msg);
     }
 
     public static <T> R<T> failed(T data, int code, String msg) {

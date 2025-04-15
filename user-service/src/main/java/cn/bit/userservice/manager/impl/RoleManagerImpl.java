@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.pojo.po.RoleDictItem;
+import cn.bit.pojo.po.user.RoleDictItem;
 import cn.bit.redis.constant.RedisKey;
 import cn.bit.userservice.manager.RoleManager;
 import cn.bit.userservice.mapper.RoleMapper;

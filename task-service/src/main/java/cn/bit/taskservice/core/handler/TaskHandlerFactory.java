@@ -1,6 +1,6 @@
 package cn.bit.taskservice.core.handler;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import org.springframework.stereotype.Component;
 
 import cn.bit.taskservice.core.enums.TaskType;

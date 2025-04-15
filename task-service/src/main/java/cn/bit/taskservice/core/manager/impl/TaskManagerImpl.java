@@ -2,7 +2,7 @@ package cn.bit.taskservice.core.manager.impl;
 
 import java.util.List;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package cn.bit.orderservice.controller;
 
 import cn.bit.orderservice.service.OrderMasterService;
 import cn.bit.pojo.dto.BitGoUser;
-import cn.bit.pojo.po.OrderMasterPO;
+import cn.bit.pojo.po.order.OrderMasterPO;
 import cn.bit.pojo.vo.R;
 import cn.bit.util.SecurityUtils;
 import org.springframework.web.bind.annotation.GetMapping;

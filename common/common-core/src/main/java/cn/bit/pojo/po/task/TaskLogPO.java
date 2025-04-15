@@ -1,4 +1,4 @@
-package cn.bit.pojo.po;
+package cn.bit.pojo.po.task;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

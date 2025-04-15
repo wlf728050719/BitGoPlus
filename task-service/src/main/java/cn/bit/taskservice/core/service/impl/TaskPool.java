@@ -1,7 +1,7 @@
 package cn.bit.taskservice.core.service.impl;
 
 import cn.bit.exception.SysException;
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;

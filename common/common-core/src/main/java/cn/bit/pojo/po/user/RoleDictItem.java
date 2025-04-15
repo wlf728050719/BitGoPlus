@@ -1,4 +1,4 @@
-package cn.bit.pojo.po;
+package cn.bit.pojo.po.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

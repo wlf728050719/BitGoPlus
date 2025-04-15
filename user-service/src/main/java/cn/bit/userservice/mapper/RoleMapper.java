@@ -1,6 +1,6 @@
 package cn.bit.userservice.mapper;
 
-import cn.bit.pojo.po.RoleDictItem;
+import cn.bit.pojo.po.user.RoleDictItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 public interface RoleMapper extends BaseMapper<RoleDictItem> {

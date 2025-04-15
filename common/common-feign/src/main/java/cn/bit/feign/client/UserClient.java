@@ -1,7 +1,7 @@
 package cn.bit.feign.client;
 
-import cn.bit.pojo.po.RoleDictItem;
-import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.po.user.RoleDictItem;
+import cn.bit.pojo.po.user.UserPO;
 import cn.bit.pojo.vo.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

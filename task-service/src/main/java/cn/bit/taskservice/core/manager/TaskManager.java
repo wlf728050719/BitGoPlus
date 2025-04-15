@@ -2,7 +2,7 @@ package cn.bit.taskservice.core.manager;
 
 import java.util.List;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 
 public interface TaskManager {
     List<TaskPO> selectAllTask();

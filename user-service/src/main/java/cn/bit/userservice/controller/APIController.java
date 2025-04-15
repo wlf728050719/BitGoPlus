@@ -2,8 +2,8 @@ package cn.bit.userservice.controller;
 
 import cn.bit.jsr303.annotation.ValidString;
 import cn.bit.jsr303.enums.StringEnum;
-import cn.bit.pojo.po.RoleDictItem;
-import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.po.user.RoleDictItem;
+import cn.bit.pojo.po.user.UserPO;
 import cn.bit.pojo.vo.R;
 import cn.bit.userservice.service.UserService;
 import lombok.AllArgsConstructor;

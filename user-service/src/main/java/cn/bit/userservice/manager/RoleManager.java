@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager;
 
-import cn.bit.pojo.po.RoleDictItem;
+import cn.bit.pojo.po.user.RoleDictItem;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

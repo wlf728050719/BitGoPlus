@@ -7,7 +7,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import cn.bit.taskservice.core.enums.Result;
 import cn.bit.taskservice.core.exception.TaskInvokeException;
 import cn.bit.taskservice.core.handler.ITaskHandler;

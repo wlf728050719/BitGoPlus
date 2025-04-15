@@ -1,6 +1,6 @@
 package cn.bit.pojo.dto;
 
-import cn.bit.pojo.po.TaskPO;
+import cn.bit.pojo.po.task.TaskPO;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

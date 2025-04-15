@@ -1,4 +1,4 @@
-package cn.bit.pojo.po;
+package cn.bit.pojo.po.order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -2,9 +2,9 @@ package cn.bit.userservice.service.impl;
 
 import cn.bit.exception.BizException;
 import cn.bit.pojo.dto.UserBaseInfo;
-import cn.bit.pojo.po.PermissionPO;
-import cn.bit.pojo.po.RoleDictItem;
-import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.po.user.PermissionPO;
+import cn.bit.pojo.po.user.RoleDictItem;
+import cn.bit.pojo.po.user.UserPO;
 import cn.bit.pojo.vo.R;
 import cn.bit.userservice.manager.PermissionManager;
 import cn.bit.userservice.manager.RoleManager;

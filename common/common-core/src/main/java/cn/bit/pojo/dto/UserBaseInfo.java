@@ -2,7 +2,7 @@ package cn.bit.pojo.dto;
 
 import cn.bit.jsr303.annotation.ValidString;
 import cn.bit.jsr303.enums.StringEnum;
-import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.po.user.UserPO;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

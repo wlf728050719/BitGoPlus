@@ -1,7 +1,7 @@
 package cn.bit.pojo.dto;
 
-import cn.bit.pojo.po.RoleDictItem;
-import cn.bit.pojo.po.UserPO;
+import cn.bit.pojo.po.user.RoleDictItem;
+import cn.bit.pojo.po.user.UserPO;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

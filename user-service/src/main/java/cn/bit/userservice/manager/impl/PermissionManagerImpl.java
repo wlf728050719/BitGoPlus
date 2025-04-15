@@ -1,7 +1,7 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.pojo.po.PermissionPO;
-import cn.bit.pojo.po.RoleDictItem;
+import cn.bit.pojo.po.user.PermissionPO;
+import cn.bit.pojo.po.user.RoleDictItem;
 import cn.bit.userservice.manager.PermissionManager;
 import cn.bit.userservice.mapper.PermissionMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
