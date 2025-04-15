@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("cn.bit.task.core.mapper")
-public class QuartzApplication {
+public class TaskApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QuartzApplication.class, args);
+        SpringApplication.run(TaskApplication.class, args);
     }
 
 }
