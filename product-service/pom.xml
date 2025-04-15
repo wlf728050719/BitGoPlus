@@ -8,16 +8,11 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>task-service</artifactId>
-    <name>task-service</name>
-    <description>task-service</description>
+    <artifactId>product-service</artifactId>
+    <name>product-service</name>
+    <description>product-service</description>
 
     <dependencies>
-        <!-- quartz-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
         <!-- =======公共依赖======= -->
         <!-- web -->
         <dependency>
@@ -34,7 +29,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- open feign  -->
+        <!-- open feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -65,18 +60,17 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-data</artifactId>
         </dependency>
-        <!-- common-feign -->
-        <dependency>
-            <groupId>cn.bit</groupId>
-            <artifactId>common-feign</artifactId>
-        </dependency>
         <!-- common-security -->
         <dependency>
             <groupId>cn.bit</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
+        <!-- common-cache -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-cache</artifactId>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

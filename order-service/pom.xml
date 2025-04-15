@@ -70,6 +70,11 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-feign</artifactId>
         </dependency>
+        <!-- common-security -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

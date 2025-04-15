@@ -25,6 +25,7 @@
         <module>gateway</module>
         <module>task-service</module>
         <module>auth-service</module>
+        <module>product-service</module>
     </modules>
 
     <dependencyManagement>
@@ -154,7 +155,8 @@
                 <profiles.gateway.port>1233</profiles.gateway.port>
                 <profiles.user-service.port>1234</profiles.user-service.port>
                 <profiles.order-service.port>1235</profiles.order-service.port>
-                <profiles.quartz-service.port>1236</profiles.quartz-service.port>
+                <profiles.task-service.port>1236</profiles.task-service.port>
+                <profiles.product-service.port>1237</profiles.product-service.port>
             </properties>
         </profile>
         <profile>
@@ -170,7 +172,8 @@
                 <profiles.gateway.port>2233</profiles.gateway.port>
                 <profiles.user-service.port>2234</profiles.user-service.port>
                 <profiles.order-service.port>2235</profiles.order-service.port>
-                <profiles.quartz-service.port>2236</profiles.quartz-service.port>
+                <profiles.task-service.port>2236</profiles.task-service.port>
+                <profiles.product-service.port>2237</profiles.product-service.port>
             </properties>
         </profile>
         <profile>
@@ -186,7 +189,8 @@
                 <profiles.gateway.port>3233</profiles.gateway.port>
                 <profiles.user-service.port>3234</profiles.user-service.port>
                 <profiles.order-service.port>3235</profiles.order-service.port>
-                <profiles.quartz-service.port>3236</profiles.quartz-service.port>
+                <profiles.task-service.port>3236</profiles.task-service.port>
+                <profiles.product-service.port>3237</profiles.product-service.port>
             </properties>
         </profile>
     </profiles>

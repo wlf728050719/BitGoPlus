@@ -1,3 +1,44 @@
-snowflake:
-  application-name: order-service
-  datacenter-id: 1
+spring:
+  shardingsphere:
+    datasource:
+      # 数据源（不能使用下划线分隔）
+      names: ds-order
+      ds-order:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/db_order?useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 15947035212
+        hikari:
+          maximum-pool-size: 5  # 根据实际需求调整
+          minimum-idle: 2
+          idle-timeout: 60000
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+    sharding:
+      tables:
+        #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
+        #db-order
+        order_master:
+          actual-data-nodes: ds-order.order_master_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: order_id
+              algorithm-expression: order_master_$->{order_id % 10}
+        order_item:
+          actual-data-nodes: ds-order.order_item_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: item_id
+              algorithm-expression: order_item_$->{item_id % 10}
+        order_operation:
+          actual-data-nodes: ds-order.order_operation_log_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: log_id
+              algorithm-expression: order_operation_$->{log_id % 10}
+
+
+
+

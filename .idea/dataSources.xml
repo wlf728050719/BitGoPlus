@@ -51,11 +51,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="db_quartz@localhost" uuid="8c071451-1ee1-4e9a-bb94-346cbd3d1c3e">
+    <data-source source="LOCAL" name="db_task@localhost" uuid="53d02355-f6fa-4ab8-a3c3-2ae8ed805eaa">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/db_quartz</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/db_task</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

@@ -1,1 +1,37 @@
-#
+spring:
+  shardingsphere:
+    datasource:
+      # 数据源（不能使用下划线分隔）
+      names: ds-user
+      ds-user:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/db_user?useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 15947035212
+        hikari:
+          maximum-pool-size: 5  # 根据实际需求调整
+          minimum-idle: 2
+          idle-timeout: 60000
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+    sharding:
+      tables:
+        #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
+        #db-user
+        user:
+          actual-data-nodes: ds-user.user_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: user_id
+              algorithm-expression: user_$->{user_id % 10}
+        dict_role:
+          actual-data-nodes: ds-user.dict_role
+        permission:
+          actual-data-nodes: ds-user.permission_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: user_id
+              algorithm-expression: permission_$->{user_id % 10}
+

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.bit.task.core.mapper.TaskLogMapper">
+<mapper namespace="cn.bit.taskservice.core.mapper.TaskLogMapper">
 
     <resultMap id="TaskLogResultMap" type="cn.bit.pojo.po.TaskLogPO">
         <id property="logId" column="id"/>

@@ -30,3 +30,10 @@ spring:
             - name: Path
               args:
                 _genkey_0: /auth/**
+        - id: product-service
+          uri:
+            lb://product-service
+          predicates:
+            - name: Path
+              args:
+                _genkey_0: /product/**

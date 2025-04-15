@@ -1,5 +1,5 @@
 server:
-  port: @profiles.task-service.port@
+  port: @profiles.product-service.port@
 
 spring:
   profiles:

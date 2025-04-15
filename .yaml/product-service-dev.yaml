@@ -1,0 +1,57 @@
+spring:
+  shardingsphere:
+    datasource:
+      # 数据源（不能使用下划线分隔）
+      names: ds-product
+      ds-product:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/db_product?useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 15947035212
+        hikari:
+          maximum-pool-size: 5  # 根据实际需求调整
+          minimum-idle: 2
+          idle-timeout: 60000
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+
+    sharding:
+      tables:
+        #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
+        #db-product
+        product_brand:
+          actual-data-nodes: ds-product.product_brand
+        product_category:
+          actual-data-nodes: ds-product.product_category
+        product_spu:
+          actual-data-nodes: ds-product.product_spu
+        product_sku:
+          actual-data-nodes: ds-product.product_sku_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: sku_id
+              algorithm-expression: product_sku_$->{sku_id % 10}
+        product_image:
+          actual-data-nodes: ds-product.product_image_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: image_id
+              algorithm-expression: product_image_$->{image_id % 10}
+        product_attribute:
+          actual-data-nodes: ds-product.product_attribute_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: attr_id
+              algorithm-expression: product_attribute_$->{attr_id % 10}
+        inventory_log:
+          actual-data-nodes: ds-product.inventory_log_$->{0..9}
+          table-strategy:
+            inline:
+              sharding-column: log_id
+              algorithm-expression: inventory_log_$->{log_id % 10}
+
+
+
+
