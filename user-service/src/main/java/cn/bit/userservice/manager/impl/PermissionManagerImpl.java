@@ -1,7 +1,7 @@
 package cn.bit.userservice.manager.impl;
 
+import cn.bit.pojo.dto.BitGoAuthorization;
 import cn.bit.pojo.po.user.PermissionPO;
-import cn.bit.pojo.po.user.RoleDictItem;
 import cn.bit.userservice.manager.PermissionManager;
 import cn.bit.userservice.mapper.PermissionMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -14,8 +14,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class PermissionManagerImpl extends ServiceImpl<PermissionMapper, PermissionPO> implements PermissionManager {
     private final PermissionMapper permissionMapper;
+
     @Override
-    public Set<RoleDictItem> selectPermissionByUserId(Long userId) {
-        return permissionMapper.selectPermissionByUserId(userId);
+    public Set<BitGoAuthorization> selectBitGoAuthorizationByUserId(Long userId) {
+        return permissionMapper.selectBitGoAuthorizationByUserId(userId);
     }
 }

@@ -1,5 +1,6 @@
 package cn.bit.productservice.controller;
 
+import cn.bit.annotation.Admin;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.vo.R;
 import cn.bit.util.SecurityUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @GetMapping("/test/{data}")
+    @Admin
     public R<String> test(@PathVariable String data) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
         return R.ok(data, "product-service ok,username: " + user.getUsername() + " userId: " + user.getUserId());

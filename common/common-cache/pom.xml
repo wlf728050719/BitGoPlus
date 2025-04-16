@@ -28,5 +28,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        <!-- common-core -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

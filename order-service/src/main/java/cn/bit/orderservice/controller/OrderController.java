@@ -1,5 +1,6 @@
 package cn.bit.orderservice.controller;
 
+import cn.bit.annotation.Admin;
 import cn.bit.orderservice.service.OrderMasterService;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.po.order.OrderMasterPO;
@@ -21,6 +22,7 @@ public class OrderController {
     private final OrderMasterService orderMasterService;
 
     @GetMapping("/test/{data}")
+    @Admin
     public R<String> test(@PathVariable String data) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
         return R.ok(data, "order-service ok,username: " + user.getUsername() + " userId: " + user.getUserId());

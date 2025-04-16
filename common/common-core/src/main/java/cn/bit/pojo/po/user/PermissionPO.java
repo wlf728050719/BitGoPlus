@@ -17,6 +17,10 @@ public class PermissionPO {
     /** 角色ID */
     @TableField("role_id")
     private Long roleId;
+
+    /** 租户ID */
+    @TableField("tenant_id")
+    private Long tenantId;
     /** 创建时间 */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -28,4 +32,5 @@ public class PermissionPO {
     /** 删除标志（0-未删除，1-已删除） */
     @TableField("del_flag")
     private Integer delFlag;
+
 }

@@ -1,5 +1,6 @@
 package cn.bit.userservice.controller;
 
+import cn.bit.annotation.Admin;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.dto.UserBaseInfo;
 import cn.bit.pojo.vo.R;
@@ -25,6 +26,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/test/{data}")
+    @Admin
     public R<String> test(@PathVariable String data) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
         return R.ok(data, "user-service ok,username: " + user.getUsername() + "userId: " + user.getUserId());

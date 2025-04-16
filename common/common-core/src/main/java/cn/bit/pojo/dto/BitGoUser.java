@@ -1,15 +1,13 @@
 package cn.bit.pojo.dto;
 
-import cn.bit.pojo.po.user.RoleDictItem;
-import cn.bit.pojo.po.user.UserPO;
+
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+
 
 @Getter
 public class BitGoUser extends User {
@@ -46,30 +44,14 @@ public class BitGoUser extends User {
     /** 身份证号 */
     private final String idCard;
 
-    /** 创建时间 */
-    private final LocalDateTime createTime;
-
-    /** 更新时间 */
-    private final LocalDateTime updateTime;
-
-    /** 上次登录时间 */
-    private final LocalDateTime lastLoginTime;
-
-    /** 最后登录IP */
-    private final String lastLoginIp;
-
-    /** 上次修改密码时间 */
-    private final LocalDateTime lastPasswordChangeTime;
-
     /** 锁定标志（0-未锁定，1-已锁定） */
     private final Integer lockFlag;
 
     /** 删除标志（0-未删除，1-已删除） */
     private final Integer delFlag;
 
-    private final Set<RoleDictItem> roles;
 
-    public BitGoUser(UserPO userPO, Set<RoleDictItem> roles, Collection<? extends GrantedAuthority> authorities) {
+    public BitGoUser(UserBaseInfo userPO, Collection<? extends GrantedAuthority> authorities) {
         super(userPO.getUsername(), userPO.getPassword(), authorities);
         this.userId = userPO.getUserId();
         this.realName = userPO.getRealName();
@@ -82,13 +64,7 @@ public class BitGoUser extends User {
         this.wechat = userPO.getWechat();
         this.gender = userPO.getGender();
         this.idCard = userPO.getIdCard();
-        this.createTime = userPO.getCreateTime();
-        this.updateTime = userPO.getUpdateTime();
-        this.lastLoginTime = userPO.getLastLoginTime();
-        this.lastLoginIp = userPO.getLastLoginIp();
-        this.lastPasswordChangeTime = userPO.getLastPasswordChangeTime();
         this.lockFlag = userPO.getLockFlag();
         this.delFlag = userPO.getDelFlag();
-        this.roles = roles;
     }
 }

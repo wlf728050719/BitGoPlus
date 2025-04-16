@@ -1,6 +1,7 @@
 package cn.bit.userservice.service.impl;
 
 import cn.bit.exception.BizException;
+import cn.bit.pojo.dto.BitGoAuthorization;
 import cn.bit.pojo.dto.UserBaseInfo;
 import cn.bit.pojo.po.user.PermissionPO;
 import cn.bit.pojo.po.user.RoleDictItem;
@@ -51,19 +52,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public R<UserPO> infoByUsername(String username) {
-        return R.ok(userManager.selectUserByUserName(username));
+    public R<UserBaseInfo> getInfoByUsername(String username) {
+        return R.ok(new UserBaseInfo(userManager.selectUserByUserName(username)));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public R<UserPO> infoByUserId(Long userId) {
-        return R.ok(userManager.selectUserByUserId(userId));
+    public R<UserBaseInfo> getInfoByUserId(Long userId) {
+        return R.ok(new UserBaseInfo(userManager.selectUserByUserId(userId)));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public R<Set<RoleDictItem>> rolesByUserId(Long userId) {
-        return R.ok(permissionManager.selectPermissionByUserId(userId));
+    public R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(Long userId) {
+        return R.ok(permissionManager.selectBitGoAuthorizationByUserId(userId));
     }
 }

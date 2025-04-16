@@ -1,6 +1,6 @@
 package cn.bit.redis.config;
 
-import cn.bit.redis.constant.RedisKey;
+import cn.bit.constant.RedisKey;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;

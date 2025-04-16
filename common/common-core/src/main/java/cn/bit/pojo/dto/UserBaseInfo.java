@@ -4,13 +4,20 @@ import cn.bit.jsr303.annotation.ValidString;
 import cn.bit.jsr303.enums.StringEnum;
 import cn.bit.pojo.po.user.UserPO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class UserBaseInfo {
+    /** 用户ID **/
+    @Null
+    private Long userId;
+
     /** 用户名 */
     @ValidString(StringEnum.USERNAME_STRING)
     private String username;
@@ -56,8 +63,17 @@ public class UserBaseInfo {
     @ValidString(value = StringEnum.ID_CARD_STRING, allowEmpty = true)
     private String idCard;
 
+    /** 锁定标志（0-未锁定，1-已锁定） */
+    @Null
+    private Integer lockFlag;
+
+    /** 删除标志（0-未删除，1-已删除） */
+    @Null
+    private Integer delFlag;
+
     public UserPO newUserPO() {
         UserPO userPO = new UserPO();
+        userPO.setUserId(userId);
         userPO.setUsername(username);
         userPO.setRealName(realName);
         userPO.setNickname(nickname);
@@ -70,6 +86,25 @@ public class UserBaseInfo {
         userPO.setWechat(wechat);
         userPO.setGender(gender);
         userPO.setIdCard(idCard);
+        userPO.setLockFlag(lockFlag);
+        userPO.setDelFlag(delFlag);
         return userPO;
+    }
+    public UserBaseInfo(UserPO userPO) {
+        this.userId = userPO.getUserId();
+        this.username = userPO.getUsername();
+        this.realName = userPO.getRealName();
+        this.nickname = userPO.getNickname();
+        this.password = userPO.getPassword();
+        this.avatar = userPO.getAvatar();
+        this.birthDate = userPO.getBirthDate();
+        this.phone = userPO.getPhone();
+        this.email = userPO.getEmail();
+        this.qq = userPO.getQq();
+        this.wechat = userPO.getWechat();
+        this.gender = userPO.getGender();
+        this.idCard = userPO.getIdCard();
+        this.lockFlag = userPO.getLockFlag();
+        this.delFlag = userPO.getDelFlag();
     }
 }

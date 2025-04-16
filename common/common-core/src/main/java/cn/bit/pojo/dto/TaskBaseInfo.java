@@ -63,4 +63,17 @@ public class TaskBaseInfo {
         taskPO.setStatus(status);
         return taskPO;
     }
+    public TaskBaseInfo(TaskPO taskPO) {
+        this.taskName = taskPO.getTaskName();
+        this.taskGroup = taskPO.getTaskGroup();
+        this.type = taskPO.getType();
+        this.beanName = taskPO.getBeanName();
+        this.className = taskPO.getClassName();
+        this.path = taskPO.getPath();
+        this.methodName = taskPO.getMethodName();
+        this.params = taskPO.getParams();
+        this.cronExpression = taskPO.getCronExpression();
+        this.description = taskPO.getDescription();
+        this.status = taskPO.getStatus();
+    }
 }

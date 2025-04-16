@@ -1,4 +1,4 @@
-package cn.bit.redis.constant;
+package cn.bit.constant;
 
 public class RedisKey {
     // 键分隔符

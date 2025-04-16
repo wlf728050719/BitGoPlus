@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.PreDestroy;
 
-import cn.bit.redis.constant.RedisKey;
+import cn.bit.constant.RedisKey;
 import cn.bit.snowflake.config.SnowflakeProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 
