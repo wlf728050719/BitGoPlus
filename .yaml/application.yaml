@@ -7,6 +7,13 @@ spring:
     props:
       sql:
         show: false
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: 18086270070@163.com
+    password: THfRhy5CFr7aDj35
+    properties:
+      mail.smtp.ssl.enable: true
 snowflake:
   datacenter-id: 1
 mybatis-plus:

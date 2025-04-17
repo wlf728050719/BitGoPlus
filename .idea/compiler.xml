@@ -10,6 +10,7 @@
         <module name="common-security" />
         <module name="common-data" />
         <module name="auth-service" />
+        <module name="common-message" />
         <module name="common-feign" />
         <module name="product-service" />
         <module name="task-service" />

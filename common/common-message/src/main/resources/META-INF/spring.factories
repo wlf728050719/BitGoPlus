@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- cn.bit.config.FeignConfiguration
-
+ cn.bit.mail.BitGoMailSender

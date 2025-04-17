@@ -1,16 +1,22 @@
 package cn.bit.constant;
 
-public class RedisKey {
+@SuppressWarnings("checkstyle:InterfaceIsType")
+public interface RedisKey {
     // 键分隔符
-    public static final String SEPARATOR = ":";
+    String SEPARATOR = ":";
     // 命名空间
-    public static final String NAMESPACE = "BitGO";
+    String NAMESPACE = "BitGO";
     // 一级前缀
-    public static final String DICT_PREFIX = "Dict";
-    public static final String SNOWFLAKE_PREFIX = "Snowflake";
+    String DICT_PREFIX = "Dict";
+    String SNOWFLAKE_PREFIX = "Snowflake";
+    String CODE_PREFIX = "Code";
+    // 二级前缀
+    String REGISTER_PREFIX = "Register";
     // 键格式
-    public static final String SNOWFLAKE_KEY_FORMAT =
+    String SNOWFLAKE_KEY_FORMAT =
         NAMESPACE + SEPARATOR + SNOWFLAKE_PREFIX + SEPARATOR + "S-%s" + SEPARATOR + "DC-%d" + SEPARATOR + "Worker-%d";
-    public static final String SNOWFLAKE_LOCK_FORMAT =
+    String SNOWFLAKE_LOCK_FORMAT =
         NAMESPACE + SEPARATOR + SNOWFLAKE_PREFIX + SEPARATOR + "S-%s" + SEPARATOR + "DC-%d" + SEPARATOR + "Lock";
+    String CODE_REGISTER_MAIL_KEY_FORMAT =
+        NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + REGISTER_PREFIX + SEPARATOR + "Mail-%s";
 }

@@ -1,7 +1,7 @@
 package cn.bit.productservice;
 
-import cn.bit.feign.client.UserClient;
-import cn.bit.feign.config.FeignConfiguration;
+import cn.bit.client.UserClient;
+import cn.bit.config.FeignConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

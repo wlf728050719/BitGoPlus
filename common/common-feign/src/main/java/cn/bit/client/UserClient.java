@@ -1,4 +1,4 @@
-package cn.bit.feign.client;
+package cn.bit.client;
 
 import cn.bit.pojo.dto.BitGoAuthorization;
 import cn.bit.pojo.dto.UserBaseInfo;

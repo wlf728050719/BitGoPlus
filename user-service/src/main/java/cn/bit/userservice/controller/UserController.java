@@ -1,6 +1,8 @@
 package cn.bit.userservice.controller;
 
 import cn.bit.annotation.Admin;
+import cn.bit.jsr303.annotation.ValidString;
+import cn.bit.jsr303.enums.StringEnum;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.dto.UserBaseInfo;
 import cn.bit.pojo.vo.R;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/user")
@@ -33,8 +36,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public R<Boolean> register(@RequestParam String code, @RequestParam String roleCode,
-        @RequestBody @Valid UserBaseInfo userBaseInfo) {
+    public R<Boolean> register(@RequestParam @Valid @NotNull String code, @RequestParam String roleCode,
+                               @RequestBody @Valid UserBaseInfo userBaseInfo) {
         return userService.register(code, roleCode, userBaseInfo);
     }
+
+    @PostMapping("/register/sendCode/mail")
+    R<Boolean> sendRegisterCodeByMail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
+        return userService.sendRegisterCodeByMail(email);
+    }
+
 }

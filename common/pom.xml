@@ -24,5 +24,6 @@
         <module>common-feign</module>
         <module>common-data</module>
         <module>common-security</module>
+        <module>common-message</module>
     </modules>
 </project>

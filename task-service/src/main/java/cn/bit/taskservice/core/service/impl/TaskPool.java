@@ -47,7 +47,7 @@ public class TaskPool implements cn.bit.taskservice.core.service.TaskPool {
         try {
             scheduler.scheduleJob(jobDetail, trigger);
         } catch (SchedulerException e) {
-            throw new SysException("添加任务错误", e);
+            throw new SysException("add task failed", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class TaskPool implements cn.bit.taskservice.core.service.TaskPool {
             scheduler.pauseJob(getJobKey(taskPO));
             scheduler.deleteJob(getJobKey(taskPO));
         } catch (SchedulerException e) {
-            throw new SysException("暂停任务错误", e);
+            throw new SysException("pause task failed", e);
         }
     }
 

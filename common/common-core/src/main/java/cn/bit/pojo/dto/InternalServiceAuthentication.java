@@ -1,4 +1,4 @@
-package cn.bit.authentication;
+package cn.bit.pojo.dto;
 
 import cn.bit.constant.SecurityConstant;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

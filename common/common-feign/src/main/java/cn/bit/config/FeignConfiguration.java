@@ -1,4 +1,4 @@
-package cn.bit.feign.config;
+package cn.bit.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

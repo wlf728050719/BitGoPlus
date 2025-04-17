@@ -6,7 +6,7 @@ import cn.bit.pojo.dto.UserBaseInfo;
 import cn.bit.service.BitGoUserService;
 import cn.bit.exception.BizException;
 import cn.bit.exception.SysException;
-import cn.bit.feign.client.UserClient;
+import cn.bit.client.UserClient;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.vo.R;
 import lombok.AllArgsConstructor;
@@ -33,7 +33,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         // 获取用户基本信息
         R<UserBaseInfo> userResponse = userClient.getInfoByUsername(username);
         if (userResponse == null) {
-            throw new SysException("用户服务调用失败");
+            throw new SysException("get response from user-service failed");
         }
         if (userResponse.getData() == null) {
             throw new BizException("用户名不存在");
@@ -43,7 +43,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         // 获取用户角色信息
         R<Set<BitGoAuthorization>> roleResponse = userClient.getBitGoAuthorizationByUserId(user.getUserId());
         if (roleResponse == null) {
-            throw new SysException("用户服务调用失败");
+            throw new SysException("get response from user-service failed");
         }
         // 构建BitGoUser对象
         return new BitGoUser(user, roleResponse.getData());

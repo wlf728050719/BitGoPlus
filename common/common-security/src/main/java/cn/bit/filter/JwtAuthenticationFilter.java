@@ -1,6 +1,6 @@
 package cn.bit.filter;
 
-import cn.bit.authentication.InternalServiceAuthentication;
+import cn.bit.pojo.dto.InternalServiceAuthentication;
 import cn.bit.constant.SecurityConstant;
 import cn.bit.util.JwtUtil;
 import lombok.AllArgsConstructor;

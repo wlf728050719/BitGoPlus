@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-import cn.bit.feign.client.UserClient;
-import cn.bit.feign.config.FeignConfiguration;
+import cn.bit.client.UserClient;
+import cn.bit.config.FeignConfiguration;
 
 @SpringBootApplication
 @EnableFeignClients(defaultConfiguration = FeignConfiguration.class, clients = {UserClient.class})
