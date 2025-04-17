@@ -1,5 +1,6 @@
 package cn.bit.filter;
 
+import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.dto.InternalServiceAuthentication;
 import cn.bit.constant.SecurityConstant;
 import cn.bit.util.JwtUtil;
@@ -24,6 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
     private UserDetailsService userDetailsService;
 
+    @SuppressWarnings("checkstyle:ReturnCount")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws ServletException, IOException {
@@ -31,8 +33,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader(SecurityConstant.HEADER_AUTHORIZATION);
         final String sourceHeader = request.getHeader(SecurityConstant.HEADER_SOURCE);
         // 处理内部服务Token
-        if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstant.TAG_INTERNAL) && sourceHeader != null
-            && sourceHeader.startsWith(SecurityConstant.TAG_SERVICE)) {
+        if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstant.TAG_INTERNAL)
+            && sourceHeader != null && sourceHeader.startsWith(SecurityConstant.TAG_SERVICE)) {
             String source = sourceHeader.substring(SecurityConstant.TAG_SERVICE.length());
             String token = authorizationHeader.substring(SecurityConstant.TAG_INTERNAL.length());
             if (jwtUtil.validateInternalToken(token, source)) {
@@ -42,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
         }
-
+        // 处理外部请求Token
         String username = null;
         String jwt = null;
 
@@ -53,6 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            BitGoUser bitGoUser = (BitGoUser) userDetails;
+            if (bitGoUser.getLockFlag() != 0 || bitGoUser.getDelFlag() != 0) {
+                chain.doFilter(request, response);
+                return;
+            }
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =

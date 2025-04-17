@@ -15,8 +15,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@TableName(value = "product_shop", autoResultMap = true)
-public class ProductShopPO {
+@TableName(value = "shop", autoResultMap = true)
+public class ShopPO {
     /** 店铺ID */
     @TableId(value = "shop_id")
     private Long shopId;

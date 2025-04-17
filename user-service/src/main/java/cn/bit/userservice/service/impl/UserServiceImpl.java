@@ -22,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -42,9 +41,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public R<Boolean> register(String code, String roleCode, UserBaseInfo userBaseInfo) {
         // 判断用户注册角色是否合法
-        List<RoleDictItem> roleDictItemList = roleManager.getRoleDict();
+        Set<RoleDictItem> roleDictItemSet = roleManager.getRoleDict();
         RoleDictItem role =
-            roleDictItemList.stream().filter(roleDictItem -> roleDictItem.getRoleCode().equals(roleCode)).findFirst()
+            roleDictItemSet.stream().filter(roleDictItem -> roleDictItem.getRoleCode().equals(roleCode)).findFirst()
                 .orElseThrow(() -> new BizException("不存在对应角色"));
         // 判断用户名是否存在
         if (userManager.selectUserByUserName(userBaseInfo.getUsername()) != null) {
@@ -53,7 +52,6 @@ public class UserServiceImpl implements UserService {
         // 判断验证码是否存在
         String key = String.format(RedisKey.CODE_REGISTER_MAIL_KEY_FORMAT, userBaseInfo.getEmail());
         String temp = (String) redisTemplate.opsForValue().get(key);
-        log.error(temp);
         if (Objects.isNull(temp) || !temp.equals(code)) {
             return R.failed(false, "验证码超时或错误,请重新发送");
         }

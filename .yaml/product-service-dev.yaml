@@ -21,6 +21,8 @@ spring:
       tables:
         #表 （逻辑表名，可以使用下划线分隔，与@tablename中值相同）
         #db-product
+        shop:
+          actual-data-nodes: ds-product.shop
         product_brand:
           actual-data-nodes: ds-product.product_brand
         product_category:

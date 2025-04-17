@@ -26,11 +26,18 @@ public class AuthenticationController {
     private final BitGoUserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @SuppressWarnings("checkstyle:ReturnCount")
     @PostMapping("/login")
     public R<Map<String, String>> createAuthenticationToken(@RequestParam String username,
         @RequestParam String password) {
         // 生成 Access Token 和 Refresh Token
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
+        if (user.getDelFlag() != 0) {
+            return R.failed("账号被删除");
+        }
+        if (user.getLockFlag() != 0) {
+            return R.failed("账号被冻结，请联系管理员解冻");
+        }
         if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
             return R.failed("密码错误");
         }

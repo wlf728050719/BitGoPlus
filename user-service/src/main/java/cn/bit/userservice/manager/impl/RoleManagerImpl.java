@@ -8,13 +8,15 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Service
 public class RoleManagerImpl extends ServiceImpl<RoleMapper, RoleDictItem> implements RoleManager {
     @Override
     @Cacheable(value = RedisKey.NAMESPACE, keyGenerator = "DictCacheGenerator")
-    public List<RoleDictItem> getRoleDict() {
-        return this.list();
+    public Set<RoleDictItem> getRoleDict() {
+        return new HashSet<>(this.list());
     }
 }

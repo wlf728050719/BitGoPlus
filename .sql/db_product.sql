@@ -37,7 +37,7 @@ CREATE TABLE `product_brand` (
 ) ENGINE=InnoDB COMMENT='品牌表';
 
 -- 修改为店铺表
-CREATE TABLE `product_shop` (
+CREATE TABLE `shop` (
                                 `shop_id` bigint NOT NULL COMMENT '店铺ID',
                                 `shop_name` varchar(50) NOT NULL COMMENT '店铺名称',
                                 `logo` varchar(255) DEFAULT NULL COMMENT '店铺logo',
