@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,18 +33,32 @@ public class UserController {
     @Admin
     public R<String> test(@PathVariable String data) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
-        return R.ok(data, "user-service ok,username: " + user.getUsername() + "userId: " + user.getUserId());
+        return R.ok(data,
+            "user-service ok,username: " + user.getUsername() + "userId: " + user.getUserBaseInfo().getUserId());
     }
 
-    @PostMapping("/register")
-    public R<Boolean> register(@RequestParam @Valid @NotNull String code, @RequestParam String roleCode,
-                               @RequestBody @Valid UserBaseInfo userBaseInfo) {
-        return userService.register(code, roleCode, userBaseInfo);
+    @PostMapping("/register/email")
+    public R<Boolean> registerByEmail(@RequestParam @Valid @NotNull String code, @RequestParam String roleCode,
+        @RequestBody @Valid UserBaseInfo userBaseInfo) {
+        return userService.registerByEmail(code, roleCode, userBaseInfo);
     }
 
-    @PostMapping("/register/sendCode/mail")
-    R<Boolean> sendRegisterCodeByMail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
-        return userService.sendRegisterCodeByMail(email);
+    @PostMapping("/register/sendCode/email")
+    public R<Boolean> sendRegisterCodeByEmail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
+        return userService.sendRegisterCodeByEmail(email);
     }
 
+    @PutMapping("/changePwd/email")
+    public R<Boolean> changePasswordByEmail(@RequestParam @Valid @NotNull String code,
+        @RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email,
+        @RequestParam @Valid @ValidString(StringEnum.USERNAME_STRING) String username,
+        @RequestParam @Valid @ValidString(StringEnum.PASSWORD_STRING) String password) {
+        return userService.changePasswordByMail(code, email, username, password);
+    }
+
+    @PostMapping("/changePwd/sendCode/email")
+    public R<Boolean>
+        sendChangePasswordCodeByEmail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
+        return userService.sendChangePasswordCodeByMail(email);
+    }
 }

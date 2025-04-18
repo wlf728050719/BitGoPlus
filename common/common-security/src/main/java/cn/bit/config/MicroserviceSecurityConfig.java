@@ -1,6 +1,5 @@
 package cn.bit.config;
 
-
 import cn.bit.constant.SecurityConstant;
 import cn.bit.filter.JwtAuthenticationFilter;
 import cn.bit.util.JwtUtil;
@@ -30,17 +29,14 @@ public class MicroserviceSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 无状态会话
-                .and()
-                // 将JWT过滤器添加到UsernamePasswordAuthenticationFilter之前
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/user/register/**").permitAll()
-                .antMatchers("/api/**").hasRole(SecurityConstant.ROLE_INTERNAL_SERVICE)// 允许认证端点公开访问
-                .anyRequest().authenticated(); // 其他所有请求需要认证
+        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 无状态会话
+            .and()
+            // 将JWT过滤器添加到UsernamePasswordAuthenticationFilter之前
+            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).authorizeRequests()
+            .antMatchers("/auth/**").permitAll().antMatchers("/user/register/**").permitAll()
+            .antMatchers("/user/changePwd/**").permitAll().antMatchers("/api/**")
+            .hasRole(SecurityConstant.ROLE_INTERNAL_SERVICE)// 允许认证端点公开访问
+            .anyRequest().authenticated(); // 其他所有请求需要认证
     }
 
     @Bean

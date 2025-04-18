@@ -33,5 +33,10 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
+        <!-- common-cache -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-cache</artifactId>
+        </dependency>
     </dependencies>
 </project>

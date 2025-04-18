@@ -31,6 +31,10 @@ public class UserPO {
     @TableField("real_name")
     private String realName;
 
+    /** 真实姓名验证 */
+    @TableField("real_name_verify")
+    private Integer realNameVerify;
+
     /** 昵称 */
     @TableField("nickname")
     private String nickname;
@@ -46,21 +50,42 @@ public class UserPO {
     /** 出生日期 */
     @TableField("birth_date")
     private Date birthDate;
+
+    /** 出生日期验证 */
+    @TableField("birth_date_verify")
+    private Integer birthDateVerify;
+
     /** 手机号 */
     @TableField("phone")
     private String phone;
+
+    /** 手机验证情况 */
+    @TableField("phone_verify")
+    private Integer phoneVerify;
 
     /** 邮箱 */
     @TableField("email")
     private String email;
 
+    /** 邮箱验证情况 */
+    @TableField("email_verify")
+    private Integer emailVerify;
+
     /** QQ号 */
     @TableField("qq")
     private String qq;
 
+    /** QQ号验证情况 */
+    @TableField("qq_verify")
+    private Integer qqVerify;
+
     /** 微信号 */
     @TableField("wechat")
     private String wechat;
+
+    /** 微信验证情况 */
+    @TableField("wechat_verify")
+    private Integer wechatVerify;
 
     /** 性别（0-未知，1-男，2-女） */
     @TableField("gender")
@@ -69,6 +94,10 @@ public class UserPO {
     /** 身份证号 */
     @TableField("id_card")
     private String idCard;
+
+    /** 身份证号验证情况 */
+    @TableField("id_card_verify")
+    private Integer idCardVerify;
 
     /** 创建时间 */
     @TableField(value = "create_time", fill = FieldFill.INSERT)

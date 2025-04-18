@@ -25,6 +25,9 @@ public class UserBaseInfo {
     /** 真实姓名 */
     private String realName;
 
+    @Null
+    private Integer realNameVerify;
+
     /** 昵称 */
     private String nickname;
 
@@ -38,21 +41,36 @@ public class UserBaseInfo {
     /** 出生日期 */
     private Date birthDate;
 
+    @Null
+    private Integer birthDateVerify;
+
     /** 手机号 */
     @ValidString(StringEnum.PHONE_STRING)
     private String phone;
+
+    @Null
+    private Integer phoneVerify;
 
     /** 邮箱 */
     @ValidString(value = StringEnum.EMAIL_STRING, allowEmpty = true)
     private String email;
 
+    @Null
+    private Integer emailVerify;
+
     /** QQ号 */
     @ValidString(value = StringEnum.QQ_STRING, allowEmpty = true)
     private String qq;
 
+    @Null
+    private Integer qqVerify;
+
     /** 微信号 */
     @ValidString(value = StringEnum.WECHAT_STRING, allowEmpty = true)
     private String wechat;
+
+    @Null
+    private Integer wechatVerify;
 
     /** 性别（0-未知，1-男，2-女） */
     @Min(0)
@@ -62,6 +80,9 @@ public class UserBaseInfo {
     /** 身份证号 */
     @ValidString(value = StringEnum.ID_CARD_STRING, allowEmpty = true)
     private String idCard;
+
+    @Null
+    private Integer idCardVerify;
 
     /** 锁定标志（0-未锁定，1-已锁定） */
     @Null
@@ -88,8 +109,16 @@ public class UserBaseInfo {
         userPO.setIdCard(idCard);
         userPO.setLockFlag(lockFlag);
         userPO.setDelFlag(delFlag);
+        userPO.setEmailVerify(emailVerify);
+        userPO.setPhoneVerify(phoneVerify);
+        userPO.setQqVerify(qqVerify);
+        userPO.setWechatVerify(wechatVerify);
+        userPO.setRealNameVerify(realNameVerify);
+        userPO.setBirthDateVerify(birthDateVerify);
+        userPO.setIdCardVerify(idCardVerify);
         return userPO;
     }
+
     public UserBaseInfo(UserPO userPO) {
         this.userId = userPO.getUserId();
         this.username = userPO.getUsername();
@@ -106,5 +135,12 @@ public class UserBaseInfo {
         this.idCard = userPO.getIdCard();
         this.lockFlag = userPO.getLockFlag();
         this.delFlag = userPO.getDelFlag();
+        this.emailVerify = userPO.getEmailVerify();
+        this.phoneVerify = userPO.getPhoneVerify();
+        this.qqVerify = userPO.getQqVerify();
+        this.wechatVerify = userPO.getWechatVerify();
+        this.realNameVerify = userPO.getRealNameVerify();
+        this.birthDateVerify = userPO.getBirthDateVerify();
+        this.idCardVerify = userPO.getIdCardVerify();
     }
 }

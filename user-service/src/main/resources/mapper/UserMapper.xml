@@ -7,16 +7,23 @@
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="real_name" property="realName" />
+        <result column="real_name_verify" property="realNameVerify" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
         <result column="avatar" property="avatar" />
         <result column="birth_date" property="birthDate" />
+        <result column="birth_date_verify" property="birthDateVerify" />
         <result column="phone" property="phone" />
+        <result column="phone_verify" property="emailVerify"/>
         <result column="email" property="email" />
+        <result column="email_verify" property="emailVerify"/>
         <result column="qq" property="qq" />
+        <result column="qq_verify" property="qqVerify" />
         <result column="wechat" property="wechat" />
+        <result column="wechat_verify" property="wechatVerify" />
         <result column="gender" property="gender" />
         <result column="id_card" property="idCard" />
+        <result column="id_card_verify" property="idCardVerify" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="last_login_time" property="lastLoginTime" />
@@ -25,4 +32,16 @@
         <result column="lock_flag" property="lockFlag" />
         <result column="del_flag" property="delFlag" />
     </resultMap>
+    <select id="selectUserByUserName" resultType="cn.bit.pojo.po.user.UserPO">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+    <select id="selectUserByUserId" resultType="cn.bit.pojo.po.user.UserPO">
+        SELECT * FROM user WHERE user_id = #{userId}
+    </select>
+    <select id="selectAvailableUserByUserName" resultType="cn.bit.pojo.po.user.UserPO">
+        SELECT * FROM user WHERE username = #{username} AND del_flag = 0 AND lock_flag = 0
+    </select>
+    <select id="selectAvailableUserByUserId" resultType="cn.bit.pojo.po.user.UserPO">
+        SELECT * FROM user WHERE user_id = #{userId} AND del_flag = 0 AND lock_flag = 0
+    </select>
 </mapper>

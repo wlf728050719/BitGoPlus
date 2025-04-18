@@ -17,6 +17,6 @@ public class ProductController {
     @Admin
     public R<String> test(@PathVariable String data) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
-        return R.ok(data, "product-service ok,username: " + user.getUsername() + " userId: " + user.getUserId());
+        return R.ok(data, "product-service ok,username: " + user.getUsername() + " userId: " + user.getUserBaseInfo().getUserId());
     }
 }

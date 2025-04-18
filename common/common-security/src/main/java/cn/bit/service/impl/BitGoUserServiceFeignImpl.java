@@ -54,7 +54,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         if (user == null) {
             return false;
         }
-        return user.getUserId().equals(userId);
+        return user.getUserBaseInfo().getUserId().equals(userId);
     }
 
     @Override

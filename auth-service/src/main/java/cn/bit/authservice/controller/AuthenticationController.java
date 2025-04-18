@@ -32,10 +32,10 @@ public class AuthenticationController {
         @RequestParam String password) {
         // 生成 Access Token 和 Refresh Token
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        if (user.getDelFlag() != 0) {
+        if (user.getUserBaseInfo().getDelFlag() != 0) {
             return R.failed("账号被删除");
         }
-        if (user.getLockFlag() != 0) {
+        if (user.getUserBaseInfo().getLockFlag() != 0) {
             return R.failed("账号被冻结，请联系管理员解冻");
         }
         if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {

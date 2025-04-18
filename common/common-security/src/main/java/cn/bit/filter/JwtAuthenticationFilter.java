@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             BitGoUser bitGoUser = (BitGoUser) userDetails;
-            if (bitGoUser.getLockFlag() != 0 || bitGoUser.getDelFlag() != 0) {
+            if (bitGoUser.getUserBaseInfo().getLockFlag() != 0 || bitGoUser.getUserBaseInfo().getDelFlag() != 0) {
                 chain.doFilter(request, response);
                 return;
             }
