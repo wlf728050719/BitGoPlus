@@ -3,6 +3,7 @@ package cn.bit.authservice.service.impl;
 import cn.bit.authservice.service.AuthenticationService;
 import cn.bit.constant.RedisKey;
 import cn.bit.constant.SecurityConstant;
+import cn.bit.exception.BizException;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.vo.R;
 import cn.bit.service.BitGoUserService;
@@ -29,13 +30,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 生成 Access Token 和 Refresh Token
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
         if (user.getUserBaseInfo().getDelFlag() != 0) {
-            return R.failed("账号被删除");
+            throw new BizException("账号被删除");
         }
         if (user.getUserBaseInfo().getLockFlag() != 0) {
-            return R.failed("账号被冻结，请联系管理员解冻");
+            throw new BizException("账号被冻结，请联系管理员解冻");
         }
         if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
-            return R.failed("密码错误");
+            throw new BizException("密码错误");
         }
         String accessToken = jwtUtil.generateAccessToken(user);
         String refreshToken = jwtUtil.generateRefreshToken(user);
@@ -54,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (jwtUtil.validateToken(refreshToken, user)) {
             return R.ok(jwtUtil.generateAccessToken(user));
         } else {
-            return R.failed("用户登录状态已过期,请重新登录");
+            throw new BizException("用户登录状态已过期,请重新登录");
         }
     }
 }

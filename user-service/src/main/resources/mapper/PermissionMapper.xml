@@ -27,6 +27,20 @@
         user_id, role_id, tenant_id, create_time, update_time, del_flag
     </sql>
 
+    <update id="setUserTenantIdByUserIdAndRoleCode">
+        UPDATE
+            permission p
+        SET
+            p.tenant_id = #{tenantId}
+        WHERE
+            p.user_id = #{userId}
+          AND
+            p.role_id in
+            (SELECT role_id FROM dict_role WHERE role_code = #{roleCode} AND del_flag = 0)
+          AND
+            p.del_flag = 0
+    </update>
+
     <!-- 根据用户ID查询用户权限信息（返回Set集合） -->
     <select id="selectBitGoAuthorizationByUserId" resultType="cn.bit.pojo.dto.BitGoAuthorization">
         SELECT

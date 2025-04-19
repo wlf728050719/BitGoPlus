@@ -24,4 +24,9 @@ public class PermissionManagerImpl extends ServiceImpl<PermissionMapper, Permiss
     public Set<String> selectUndeletedUserRoleCodeByVerifiedEmail(String email) {
         return permissionMapper.selectUndeletedUserRoleCodeByVerifiedEmail(email);
     }
+
+    @Override
+    public boolean setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode) {
+        return permissionMapper.setUserTenantIdByUserIdAndRoleCode(userId, tenantId, roleCode);
+    }
 }

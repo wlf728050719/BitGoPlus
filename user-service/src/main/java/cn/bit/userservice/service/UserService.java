@@ -26,4 +26,6 @@ public interface UserService {
 
     R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(Long userId);
 
+    R<Boolean> setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode);
+
 }

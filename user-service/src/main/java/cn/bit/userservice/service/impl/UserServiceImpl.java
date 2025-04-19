@@ -48,12 +48,12 @@ public class UserServiceImpl implements UserService {
             .findFirst().orElseThrow(() -> new BizException("不存在对应角色"));
         // 判断用户名是否存在
         if (userManager.selectUserByUserName(userBaseInfo.getUsername()) != null) {
-            return R.failed(false, "存在同名用户");
+            throw new BizException("存在同名用户");
         }
         // 判断该邮箱下是否已有对应角色
         Set<String> roleCodes = permissionManager.selectUndeletedUserRoleCodeByVerifiedEmail(userBaseInfo.getEmail());
         if (roleCodes.contains(roleCode)) {
-            return R.failed(false, "该邮箱已有对应角色用户");
+            throw new BizException("该邮箱已有对应角色用户");
         }
         // 判断验证码是否存在
         String key = String.format(RedisKey.CODE_REGISTER_MAIL_KEY_FORMAT, userBaseInfo.getEmail());
@@ -70,7 +70,6 @@ public class UserServiceImpl implements UserService {
         return R.ok(true, "注册成功");
     }
 
-    @SuppressWarnings("checkstyle:ReturnCount")
     @Override
     @Transactional(rollbackFor = Exception.class)
     public R<Boolean> changePasswordByMail(String code, String email, String username, String password) {
@@ -80,17 +79,17 @@ public class UserServiceImpl implements UserService {
         // 检查用户是否可用
         UserPO user = userManager.selectUserByUserName(username);
         if (user == null) {
-            return R.failed(false, "不存在对应用户名用户,检查用户名是否正确");
+            throw new BizException("不存在对应用户名用户,检查用户名是否正确");
         }
         if (user.getDelFlag() == 1) {
-            return R.failed(false, "用户已被注销");
+            throw new BizException("用户已被注销");
         }
         if (user.getLockFlag() == 1) {
-            return R.failed(false, "用户已被冻结，请联系管理员解封");
+            throw new BizException("用户已被冻结，请联系管理员解封");
         }
         // 检查用户邮箱是否验证
         if (!Objects.equals(user.getEmail(), email) || user.getEmailVerify() != 1) {
-            return R.failed(false, "该用户邮箱未认证，请使用其他方式修改密码");
+            throw new BizException("该用户邮箱未认证，请使用其他方式修改密码");
         }
         // 修改密码
         user.setPassword(bCryptPasswordEncoder.encode(password));
@@ -117,7 +116,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public R<Boolean> sendRegisterCodeByEmail(String email) {
         String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
         String key = String.format(RedisKey.CODE_REGISTER_MAIL_KEY_FORMAT, email);
@@ -126,7 +124,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public R<Boolean> sendChangePasswordCodeByMail(String email) {
         String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
         String key = String.format(RedisKey.CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT, email);
@@ -147,7 +144,7 @@ public class UserServiceImpl implements UserService {
     public R<UserBaseInfo> getInfoByUsername(String username) {
         UserPO user = userManager.selectUserByUserName(username);
         if (user == null) {
-            return R.failed(null, "不存在对应用户名用户");
+            throw new BizException("不存在对应用户名用户");
         } else {
             return R.ok(new UserBaseInfo(user));
         }
@@ -158,7 +155,7 @@ public class UserServiceImpl implements UserService {
     public R<UserBaseInfo> getInfoByUserId(Long userId) {
         UserPO user = userManager.selectUserByUserId(userId);
         if (user == null) {
-            return R.failed(null, "不存在对应用户ID用户");
+            throw new BizException("不存在对应用户ID用户");
         } else {
             return R.ok(new UserBaseInfo(user));
         }
@@ -168,6 +165,12 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(Long userId) {
         return R.ok(permissionManager.selectBitGoAuthorizationByUserId(userId));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public R<Boolean> setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode) {
+        return R.ok(permissionManager.setUserTenantIdByUserIdAndRoleCode(userId, tenantId, roleCode));
     }
 
 }

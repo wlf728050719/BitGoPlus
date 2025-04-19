@@ -9,4 +9,5 @@ import java.util.Set;
 public interface PermissionManager extends IService<PermissionPO> {
     Set<BitGoAuthorization> selectBitGoAuthorizationByUserId(Long userId);
     Set<String> selectUndeletedUserRoleCodeByVerifiedEmail(String email);
+    boolean setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode);
 }
