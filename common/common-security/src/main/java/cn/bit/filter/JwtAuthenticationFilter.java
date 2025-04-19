@@ -1,10 +1,12 @@
 package cn.bit.filter;
 
+import cn.bit.constant.RedisKey;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.dto.InternalServiceAuthentication;
 import cn.bit.constant.SecurityConstant;
 import cn.bit.util.JwtUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private JwtUtil jwtUtil;
     private UserDetailsService userDetailsService;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @SuppressWarnings("checkstyle:ReturnCount")
     @Override
@@ -56,6 +59,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             BitGoUser bitGoUser = (BitGoUser) userDetails;
+            String key = String.format(RedisKey.TOKEN_KEY_FORMAT, bitGoUser.getUsername());
+            String value = (String) redisTemplate.opsForValue().get(key);
+            // 与缓存中jwt不一致禁止访问
+            if (value == null || !value.equals(jwt)) {
+                chain.doFilter(request, response);
+                return;
+            }
+            // 用户被删除或冻结时禁止访问
             if (bitGoUser.getUserBaseInfo().getLockFlag() != 0 || bitGoUser.getUserBaseInfo().getDelFlag() != 0) {
                 chain.doFilter(request, response);
                 return;

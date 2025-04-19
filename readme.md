@@ -40,6 +40,7 @@ idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键�
 2. 返回R中不带额外数据时，使用R<Boolean>,需要明确设置true,失败使用false(前后端统一)
 3. 所有接口传入对象只能为dto中定义对象,且只有dto中对象添加jsr校验(使参数校验部分统一由Controller负责)
 4. 每个服务RPC接口均命名为APIController且统一以/api路径开头，且该Controller不开启jsr校验以及身份识别(安全配置开放为内部端点,统一鉴权)
+5. 非APIController中公共接口使用/服务/open开头
 ## Mapper层
 ## Manager层
 1. 命名为持久层对象去掉尾缀后添加Manager,对应实现类再添加Impl。

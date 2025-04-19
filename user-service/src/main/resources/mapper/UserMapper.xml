@@ -44,4 +44,7 @@
     <select id="selectAvailableUserByUserId" resultType="cn.bit.pojo.po.user.UserPO">
         SELECT * FROM user WHERE user_id = #{userId} AND del_flag = 0 AND lock_flag = 0
     </select>
+    <select id="selectUsersByVerifiedEmail" resultType="cn.bit.pojo.po.user.UserPO">
+        SELECT * FROM user WHERE email = #{email} AND email_verify = 1
+    </select>
 </mapper>

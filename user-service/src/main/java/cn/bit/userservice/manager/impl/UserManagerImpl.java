@@ -1,6 +1,5 @@
 package cn.bit.userservice.manager.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,17 +27,8 @@ public class UserManagerImpl extends ServiceImpl<UserMapper, UserPO> implements 
     }
 
     @Override
-    public void updatePasswordByAvailableUsername(String username, String newPassword) {
-        UserPO userPO = selectAvailableUserByUserName(username);
-        userPO.setPassword(newPassword);
-        updateById(userPO);
-    }
-
-    @Override
-    public List<UserPO> selectUndeletedUsersByVerifiedEmail(String email) {
-        QueryWrapper<UserPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("email", email).eq("email_verify", 1).eq("del_flag", 0);
-        return userMapper.selectList(queryWrapper);
+    public List<UserPO> selectUsersByVerifiedEmail(String email) {
+        return userMapper.selectUsersByVerifiedEmail(email);
     }
 
     @Override

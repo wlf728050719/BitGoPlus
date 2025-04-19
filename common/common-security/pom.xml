@@ -52,6 +52,11 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-feign</artifactId>
         </dependency>
+        <!-- common-cache -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-cache</artifactId>
+        </dependency>
         <!-- =======内部依赖======= -->
     </dependencies>
 </project>

@@ -16,12 +16,17 @@ import cn.bit.userservice.service.UserService;
 import cn.bit.util.CodeUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,6 +37,7 @@ public class UserServiceImpl implements UserService {
     private final RoleManager roleManager;
     private final PermissionManager permissionManager;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -64,36 +70,76 @@ public class UserServiceImpl implements UserService {
         return R.ok(true, "注册成功");
     }
 
+    @SuppressWarnings("checkstyle:ReturnCount")
     @Override
-    public R<Boolean> changePasswordByMail(String username, String code, String email, String password) {
+    @Transactional(rollbackFor = Exception.class)
+    public R<Boolean> changePasswordByMail(String code, String email, String username, String password) {
         // 判断验证码是否存在
-        String key = String.format(RedisKey.CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT, email);
-        codeUtil.checkMailCode(key, code);
+        String codeKey = String.format(RedisKey.CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT, email);
+        codeUtil.checkMailCode(codeKey, code);
+        // 检查用户是否可用
         UserPO user = userManager.selectUserByUserName(username);
         if (user == null) {
-            return R.failed(false, "不存在对应用户名用户");
+            return R.failed(false, "不存在对应用户名用户,检查用户名是否正确");
         }
+        if (user.getDelFlag() == 1) {
+            return R.failed(false, "用户已被注销");
+        }
+        if (user.getLockFlag() == 1) {
+            return R.failed(false, "用户已被冻结，请联系管理员解封");
+        }
+        // 检查用户邮箱是否验证
         if (!Objects.equals(user.getEmail(), email) || user.getEmailVerify() != 1) {
             return R.failed(false, "该用户邮箱未认证，请使用其他方式修改密码");
         }
-        userManager.updatePasswordByAvailableUsername(username, bCryptPasswordEncoder.encode(password));
+        // 修改密码
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        userManager.updateById(user);
+        // 删除缓存token
+        String tokenKey = String.format(RedisKey.TOKEN_KEY_FORMAT, user.getUsername());
+        redisTemplate.delete(tokenKey);
         return R.ok(true, "密码修改成功");
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public R<List<UserBaseInfo>> getUserBaseInfosByEmail(String code, String email) {
+        // 判断验证码是否存在
+        String codeKey = String.format(RedisKey.CODE_GET_USER_BASE_INFO_MAIL_KEY_FORMAT, email);
+        codeUtil.checkMailCode(codeKey, code);
+        List<UserBaseInfo> userBaseInfos = Optional.ofNullable(userManager.selectUsersByVerifiedEmail(email))
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .filter(Objects::nonNull) // 过滤掉可能为null的UserPO
+                .map(UserBaseInfo::new)
+                .collect(Collectors.toList());
+        return R.ok(userBaseInfos);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public R<Boolean> sendRegisterCodeByEmail(String email) {
-        String lock = String.format(RedisKey.CODE_REGISTER_MAIL_LOCK_FORMAT, email);
+        String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
         String key = String.format(RedisKey.CODE_REGISTER_MAIL_KEY_FORMAT, email);
         codeUtil.sendMailCode(lock, key, email, RedisExpire.REGISTER_CODE_EXPIRE_SECONDS, "您正在注册BitGo商城用户！");
         return R.ok(true, "(注册)验证码发送成功，请及时查收邮件");
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public R<Boolean> sendChangePasswordCodeByMail(String email) {
-        String lock = String.format(RedisKey.CODE_CHANGE_PASSWORD_MAIL_LOCK_FORMAT, email);
+        String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
         String key = String.format(RedisKey.CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT, email);
         codeUtil.sendMailCode(lock, key, email, RedisExpire.CHANGE_PASSWORD_CODE_EXPIRE_SECONDS, "您正在修改BitGo商城用户密码！");
         return R.ok(true, "(修改密码)验证码发送成功，请及时查收邮件");
+    }
+
+    @Override
+    public R<Boolean> sendGetUserBaseInfoCodeByEmail(String email) {
+        String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
+        String key = String.format(RedisKey.CODE_GET_USER_BASE_INFO_MAIL_KEY_FORMAT, email);
+        codeUtil.sendMailCode(lock, key, email, RedisExpire.GET_USER_BASE_INFO_CODE_EXPIRE_SECONDS, "您正在获取BitGo商城注册用户名信息！");
+        return R.ok(true, "(注册用户名获取)验证码发送成功，请及时查收邮件");
     }
 
     @Override
@@ -123,4 +169,5 @@ public class UserServiceImpl implements UserService {
     public R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(Long userId) {
         return R.ok(permissionManager.selectBitGoAuthorizationByUserId(userId));
     }
+
 }

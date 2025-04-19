@@ -5,11 +5,13 @@ import cn.bit.exception.BizException;
 import cn.bit.exception.SysException;
 import cn.bit.mail.BitGoMailSender;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @AllArgsConstructor
 public class CodeUtil {
     private static final int CODE_LENGTH = 6;
