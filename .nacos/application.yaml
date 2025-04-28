@@ -30,3 +30,20 @@ jwt:
   accessTokenExpiration: 86400 #单位秒  1天
   refreshTokenExpiration: 2592000 #单位秒 1月
   internalTokenExpiration: 5 #单位秒 5秒
+
+seata:
+  registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
+    type: nacos # 注册中心类型 nacos
+    nacos:
+      server-addr: 127.0.0.1:8848 # nacos地址
+      namespace: "5dadfe94-237d-4367-998e-b13d172ddcfc" # namespace，默认为空
+      group: dev # 分组，默认是DEFAULT_GROUP
+      application: seata-server # seata服务名称
+      username: nacos
+      password: nacos
+  tx-service-group: seata-demo # 事务组名称
+  data-source-proxy-mode: XA
+  service:
+    vgroup-mapping: # 事务组与cluster的映射关系
+      seata-demo: BJ
+

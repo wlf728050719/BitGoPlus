@@ -10,6 +10,4 @@ public interface PermissionMapper extends BaseMapper<PermissionPO> {
     Set<BitGoAuthorization> selectBitGoAuthorizationByUserId(Long userId);
 
     Set<String> selectUndeletedUserRoleCodeByVerifiedEmail(String email);
-
-    boolean setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode);
 }

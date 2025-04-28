@@ -12,8 +12,6 @@ CREATE TABLE `dict_role` (
                              `role_code` varchar(20) NOT NULL COMMENT '角色编码(admin,customer,shopkeeper,clerk等)',
                              `description` varchar(200) DEFAULT NULL COMMENT '角色描述',
                              `del_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除标志（0-未删除，1-已删除）',
-                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                              PRIMARY KEY (`role_id`),
                              UNIQUE KEY `idx_role_code` (`role_code`)
 ) ENGINE=InnoDB COMMENT='用户角色表';
@@ -117,11 +115,11 @@ BEGIN
         CREATE TABLE IF NOT EXISTS `', table_name, '` (
           `user_id` bigint NOT NULL COMMENT ''用户ID'',
           `role_id` int NOT NULL COMMENT ''角色ID'',
-          `tenant_id` int COMMENT ''租户ID(店铺ID)'',
+          `tenant_id` bigint COMMENT ''租户ID(店铺ID)'',
           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT ''创建时间'',
           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ''更新时间'',
           `del_flag` tinyint NOT NULL DEFAULT ''0'' COMMENT ''删除标志(0-未删除,1-已删除)'',
-          PRIMARY KEY (`user_id`, `role_id`),
+          PRIMARY KEY (`user_id`),
           KEY `idx_role_id', index_suffix, '` (`role_id`)
         ) ENGINE=InnoDB COMMENT=''用户-角色关联表', i, '''');
 
@@ -147,3 +145,17 @@ CALL `create_permission_tables`(10);
 -- 9. 删除存储过程（可选）
 DROP PROCEDURE IF EXISTS `create_user_sharding_tables`;
 DROP PROCEDURE IF EXISTS `create_permission_tables`;
+
+CREATE TABLE `undo_log` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `branch_id` bigint(20) NOT NULL,
+                            `xid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `context` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `rollback_info` longblob NOT NULL,
+                            `log_status` int(11) NOT NULL,
+                            `log_created` datetime NOT NULL,
+                            `log_modified` datetime NOT NULL,
+                            `ext` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            PRIMARY KEY (`id`) USING BTREE,
+                            UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;

@@ -1,7 +1,9 @@
 package cn.bit.pojo.po.user;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -11,11 +13,10 @@ import java.time.LocalDateTime;
 @TableName(value = "permission", autoResultMap = true)
 public class PermissionPO {
     /** 用户ID */
-    @TableField("user_id")
+    @TableId(value = "user_id", type = IdType.INPUT)
     private Long userId;
 
     /** 角色ID */
-    @TableField("role_id")
     private Long roleId;
 
     /** 租户ID */

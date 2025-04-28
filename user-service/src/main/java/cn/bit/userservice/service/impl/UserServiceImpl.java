@@ -107,11 +107,8 @@ public class UserServiceImpl implements UserService {
         String codeKey = String.format(RedisKey.CODE_GET_USER_BASE_INFO_MAIL_KEY_FORMAT, email);
         codeUtil.checkMailCode(codeKey, code);
         List<UserBaseInfo> userBaseInfos = Optional.ofNullable(userManager.selectUsersByVerifiedEmail(email))
-                .orElseGet(Collections::emptyList)
-                .stream()
-                .filter(Objects::nonNull) // 过滤掉可能为null的UserPO
-                .map(UserBaseInfo::new)
-                .collect(Collectors.toList());
+            .orElseGet(Collections::emptyList).stream().filter(Objects::nonNull) // 过滤掉可能为null的UserPO
+            .map(UserBaseInfo::new).collect(Collectors.toList());
         return R.ok(userBaseInfos);
     }
 
@@ -135,7 +132,8 @@ public class UserServiceImpl implements UserService {
     public R<Boolean> sendGetUserBaseInfoCodeByEmail(String email) {
         String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
         String key = String.format(RedisKey.CODE_GET_USER_BASE_INFO_MAIL_KEY_FORMAT, email);
-        codeUtil.sendMailCode(lock, key, email, RedisExpire.GET_USER_BASE_INFO_CODE_EXPIRE_SECONDS, "您正在获取BitGo商城注册用户名信息！");
+        codeUtil.sendMailCode(lock, key, email, RedisExpire.GET_USER_BASE_INFO_CODE_EXPIRE_SECONDS,
+            "您正在获取BitGo商城注册用户名信息！");
         return R.ok(true, "(注册用户名获取)验证码发送成功，请及时查收邮件");
     }
 

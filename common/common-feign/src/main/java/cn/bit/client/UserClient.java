@@ -6,6 +6,7 @@ import cn.bit.pojo.vo.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
 
@@ -20,5 +21,8 @@ public interface UserClient {
 
     @GetMapping("/api/user/bitGoAuthorizationByUserId/{userId}")
     R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(@PathVariable("userId") Long userId);
-}
 
+    @GetMapping("/api/user/setUserTenantIdByUserIdAndRoleCode")
+    R<Boolean> setUserTenantIdByUserIdAndRoleCode(@RequestParam("userId") Long userId,
+        @RequestParam("tenantId") Long tenantId, @RequestParam("roleCode") String roleCode);
+}
