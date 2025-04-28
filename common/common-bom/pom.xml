@@ -19,10 +19,17 @@
     <mysql.connector.version>8.0.28</mysql.connector.version>
     <openfeign.version>2.2.5.RELEASE</openfeign.version>
     <gateway.version>2.2.5.RELEASE</gateway.version>
+    <seata.version>2.0.0</seata.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <!-- seata -->
+      <dependency>
+        <groupId>io.seata</groupId>
+        <artifactId>seata-spring-boot-starter</artifactId>
+        <version>${seata.version}</version>
+      </dependency>
       <!-- jwt -->
       <dependency>
         <groupId>io.jsonwebtoken</groupId>
