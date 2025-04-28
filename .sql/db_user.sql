@@ -60,7 +60,6 @@ BEGIN
           `gender` tinyint DEFAULT ''0'' COMMENT ''性别（0-未知，1-男，2-女）'',
           `id_card` varchar(18) DEFAULT NULL COMMENT ''身份证号'',
           `id_card_verify` tinyint NOT NULL DEFAULT ''0'' COMMENT ''验证标志（0-未验证，1-已验证）'',
-          `role_id` int NOT NULL DEFAULT ''2'' COMMENT ''角色ID(默认customer)'',
           `status` tinyint NOT NULL DEFAULT ''1'' COMMENT ''状态(1-正常,0-禁用)'',
           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT ''创建时间'',
           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ''更新时间'',
@@ -79,7 +78,6 @@ BEGIN
           KEY `idx_create_time', index_suffix, '` (`create_time`),
           KEY `idx_update_time', index_suffix, '` (`update_time`),
           KEY `idx_birth_date', index_suffix, '` (`birth_date`),
-          KEY `idx_role_id', index_suffix, '` (`role_id`),
           KEY `idx_status', index_suffix, '` (`status`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT=''用户分表', i, '''');
 
