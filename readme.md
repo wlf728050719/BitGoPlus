@@ -7,50 +7,127 @@
 # 目录
 
 - [项目约定](#项目约定)
-- [风格规范](#风格规范)
+- [数据库说明](#数据库说明)
 - [代码约定](#代码约定)
+- [风格规范](#风格规范)
 - [注意事项](#注意事项)
 
-```mermaid
-    graph LR
-    A[A] --> B{B}
-```
+***
 
 # 项目约定
+1. 同一手机号/同一邮箱只能注册唯一账号，注册后对应验证方式设置为true，注册默认添加角色customer，tenantId = userId
+2. 同一账号可以有多个身份，权限由身份+租户ID确认,注册完毕后可通过应聘，开店等方式获取新的角色和权限
+3. 找回密码/修改密码 可使用验证后的任意一种个人信息加验证码修改
 
-1. 同一手机号可注册多种身份账号（每种身份最多一个）用户，每个用户对应一个租户id，唯一约束:用户名、用户ID
-2. 用户登录方式 用户名+密码 / 手机号+身份+验证码
-3. 重置密码方式 用户名+新密码+验证码（单一角色重置） / 手机号+验证码（查询该手机号下所有用户名及对应身份）
-4. admin>shopkeeper>clerk>customer 低一级的用户能访问则高一级的用户一定也能访问
+***
 
-# 风格规范
+# 数据库说明
+## 整体结构
+```mermaid
+    graph LR
+    user_X[user_X] --user_id--> permission_X[permission_X]
+    dict_role[dict_role] --role_id--> permission_X[permission_X]
+    shop[shop] --shop_id--> permission_X[permission_X]
+```
+## 用户表(`user`)
+### db_user.user_X  
+| 列名                          | 类型           | 默认值              | 说明                       |
+|-----------------------------|--------------|------------------|--------------------------|
+| `user_id`                   | bigint       | 无                | 用户ID（雪花ID）               |
+| `username`                  | varchar(50)  | 无                | 用户名                      |
+| `real_name`                 | varchar(50)  | NULL             | 真实姓名                     |
+| `real_name_verify`          | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `nickname`                  | varchar(50)  | NULL             | 昵称                       |
+| `password`                  | varchar(100) | 无                | 加密后的密码                   |
+| `avatar`                    | varchar(255) | NULL             | 头像URL                    |
+| `birth_date`                | date         | NULL             | 出生日期                     |
+| `birth_date_verify`         | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `phone`                     | varchar(20)  | NULL             | 手机号                      |
+| `phone_verify`              | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `email`                     | varchar(100) | NULL             | 邮箱                       |
+| `email_verify`              | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `qq`                        | varchar(15)  | NULL             | QQ号                      |
+| `qq_verify`                 | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `wechat`                    | varchar(50)  | NULL             | 微信号                      |
+| `wechat_verify`             | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `gender`                    | tinyint      | 0                | 性别（0-未知，1-男，2-女）         |
+| `id_card`                   | varchar(18)  | NULL             | 身份证号                     |
+| `id_card_verify`            | tinyint      | 0                | 验证标志（0-未验证，1-已验证）        |
+| `status`                    | tinyint      | 1                | 状态(1-正常,0-禁用)            |
+| `create_time`               | datetime     | CREATE_TIMESTAMP | 创建时间                     |
+| `update_time`               | datetime     | UPDATE_TIMESTAMP | 更新时间                     |
+| `last_login_time`           | datetime     | NULL             | 上次登录时间                   |
+| `last_login_ip`             | varchar(50)  | NULL             | 最后登录IP                   |
+| `last_password_change_time` | datetime     | NULL             | 上次修改密码时间                 |
+| `lock_flag`                 | tinyint      | 0                | 锁定标志（0-未锁定，1-已锁定）        |
+| `del_flag`                  | tinyint      | 0                | 删除标志（0-未删除，1-已删除）        |
 
-## checkstyle使用方法:
+### 物理约束
+- 主键：`user_id`
+- 唯一索引：`username`
 
-### 安装和配置
+### 逻辑约束
+- 全部分表`username`唯一
+- 全部分表(`phone`,`phone_verify`=1)唯一
+- 全部分表(`email`,`email_verify`=1)唯一
+- 全部分表(`qq`,`qq_verify`=1)唯一
+- 全部分表(`wechat`,`wechat_verify`=1)唯一
+- 全部分表(`id_card`,`id_card_verify`)唯一
 
-idea安装`CheckStyle-IDEA`插件以及`Adapter for Eclipse Code Formatter`插件
+## 角色表
+### db_user.dict_role
+| 列名            | 类型           | 默认值   | 说明                                        |
+|---------------|--------------|-------|-------------------------------------------|
+| `role_id`     | int          | 无     | 角色ID                                      |
+| `role_code`   | varchar(20)  | 无     | 角色编码(admin, customer, shopkeeper, clerk等) |
+| `description` | varchar(200) | NULL  | 角色描述                                      |
+| `del_flag`    | tinyint      | 0     | 删除标志（0-未删除，1-已删除）                         |
 
-`工具`->`Checkstyle`->配置检查规则xml文件为根目录下/style/alibaba.xml
+### 物理约束
+- 主键：`role_id`
+- 唯一索引：`role_code`
 
-（style/suppressions.xml中为checkstyle跳过检查文件，当前配置为跳过所有资源文件，可自行配置，代码中风格问题可SuppressWarning注解抑制风格问题）
+## 权限表
+### db_user.permission_X
+| 列名            | 类型       | 默认值               | 说明                 |
+|---------------|----------|-------------------|--------------------|
+| `user_id`     | bigint   | 无                 | 用户ID               |
+| `role_id`     | int      | 无                 | 角色ID               |
+| `tenant_id`   | bigint   | NULL              | 租户ID(店铺ID)         |
+| `create_time` | datetime | CURRENT_TIMESTAMP | 创建时间               |
+| `update_time` | datetime | UPDATE_TIMESTAMP  | 更新时间               |
+| `del_flag`    | tinyint  | 0                 | 删除标志(0-未删除, 1-已删除) |
 
-`其他工具`->`Adapter for Eclipse Code Formatter`->`Use Eclipse's Code Formatter`->配置xml文件为根目录下/style/ecipse-codestyle.xml
+### 物理约束
+- 主键：`user_id`
 
-### 格式检查
+### 逻辑约束
+- 全部分表(`user_id`,`role_id`,`tenant_id`,`del_flag`=0)唯一
+- `user_id` -> `db_user.user_X.user_id`
+- `role_id` -> `db_user.dict_role.role_id`
+- `tenant_id` -> `db_product.shop.shop_id`
 
-#### 1.直接使用
+## 店铺表
+### db_product.shop
+| 列名                 | 类型           | 默认值               | 说明                 |
+|--------------------|--------------|-------------------|--------------------|
+| `shop_id`          | bigint       | 无                 | 店铺ID               |
+| `shop_name`        | varchar(50)  | 无                 | 店铺名称               |
+| `logo`             | varchar(255) | NULL              | 店铺logo             |
+| `description`      | varchar(500) | NULL              | 店铺描述               |
+| `contact_phone`    | varchar(20)  | NULL              | 联系电话               |
+| `address`          | varchar(200) | NULL              | 店铺地址               |
+| `business_license` | varchar(100) | NULL              | 营业执照号              |
+| `sort_order`       | int          | 0                 | 排序                 |
+| `status`           | tinyint      | 1                 | 状态（1-正常，0-禁用）      |
+| `create_time`      | datetime     | CURRENT_TIMESTAMP | 创建时间               |
+| `update_time`      | datetime     | UPDATE_TIMESTAMP  | 更新时间               |
+| `del_flag`         | tinyint      | 0                 | 删除标志(0-未删除, 1-已删除) |
 
-idea安装后左下角有checkstyle按钮，选择配置的代码风格对全局扫描即可
+### 物理约束
+- 主键：`shop_id`
 
-#### 2.maven使用
-
-终端输入 mvn checkstyle:check -D checkstyle.skip=false
-(文件长度问题无法使用suppressWarning解决，设置级别为warning，测试环境是否配置成功方法可尝试注释掉alibaba.xml第19行，输入上述命名报错则表明配置正确，未注释情况下build seccess)
-
-### 自动规范
-
-idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键项目->重新设置代码格式规范整个项目
+***
 
 # 代码约定
 
@@ -97,6 +174,39 @@ idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键�
 
 1. 所有service层涉及操作manager的方法均需要添加@Transactional(防止数据库脏数据)
 2. 业务层业务成功返回R.ok,其余用户异常操作时（如未授权访问/参数校验错误）均抛出异常(事务回滚)
+
+***
+
+# 风格规范
+
+## checkstyle使用方法:
+
+### 安装和配置
+
+idea安装`CheckStyle-IDEA`插件以及`Adapter for Eclipse Code Formatter`插件
+
+`工具`->`Checkstyle`->配置检查规则xml文件为根目录下/style/alibaba.xml
+
+（style/suppressions.xml中为checkstyle跳过检查文件，当前配置为跳过所有资源文件，可自行配置，代码中风格问题可SuppressWarning注解抑制风格问题）
+
+`其他工具`->`Adapter for Eclipse Code Formatter`->`Use Eclipse's Code Formatter`->配置xml文件为根目录下/style/ecipse-codestyle.xml
+
+### 格式检查
+
+#### 1.直接使用
+
+idea安装后左下角有checkstyle按钮，选择配置的代码风格对全局扫描即可
+
+#### 2.maven使用
+
+终端输入 mvn checkstyle:check -D checkstyle.skip=false
+(文件长度问题无法使用suppressWarning解决，设置级别为warning，测试环境是否配置成功方法可尝试注释掉alibaba.xml第19行，输入上述命名报错则表明配置正确，未注释情况下build seccess)
+
+### 自动规范
+
+idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键项目->重新设置代码格式规范整个项目
+
+***
 
 # 注意事项
 
