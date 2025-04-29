@@ -15,6 +15,7 @@
 ***
 
 # 项目约定
+
 1. 同一手机号/同一邮箱只能注册唯一账号，注册后对应验证方式设置为true，注册默认添加角色customer，tenantId = userId
 2. 同一账号可以有多个身份，权限由身份+租户ID确认,注册完毕后可通过应聘，开店等方式获取新的角色和权限
 3. 找回密码/修改密码 可使用验证后的任意一种个人信息加验证码修改
@@ -22,15 +23,23 @@
 ***
 
 # 数据库说明
+
+数据库无物理外键，主键只允许使用单主键
+非字典项表主键为雪花算法生成的id，且不允许使用其他unique索引，约束均需要使用代码实现
+
 ## 整体结构
+
 ```mermaid
     graph LR
     user_X[user_X] --user_id--> permission_X[permission_X]
     dict_role[dict_role] --role_id--> permission_X[permission_X]
     shop[shop] --shop_id--> permission_X[permission_X]
 ```
+
 ## 用户表(`user`)
+
 ### db_user.user_X  
+
 | 列名                          | 类型           | 默认值              | 说明                       |
 |-----------------------------|--------------|------------------|--------------------------|
 | `user_id`                   | bigint       | 无                | 用户ID（雪花ID）               |
@@ -63,8 +72,8 @@
 | `del_flag`                  | tinyint      | 0                | 删除标志（0-未删除，1-已删除）        |
 
 ### 物理约束
+
 - 主键：`user_id`
-- 唯一索引：`username`
 
 ### 逻辑约束
 - 全部分表`username`唯一
@@ -75,7 +84,9 @@
 - 全部分表(`id_card`,`id_card_verify`)唯一
 
 ## 角色表
+
 ### db_user.dict_role
+
 | 列名            | 类型           | 默认值   | 说明                                        |
 |---------------|--------------|-------|-------------------------------------------|
 | `role_id`     | int          | 无     | 角色ID                                      |
@@ -84,11 +95,14 @@
 | `del_flag`    | tinyint      | 0     | 删除标志（0-未删除，1-已删除）                         |
 
 ### 物理约束
+
 - 主键：`role_id`
 - 唯一索引：`role_code`
 
 ## 权限表
+
 ### db_user.permission_X
+
 | 列名            | 类型       | 默认值               | 说明                 |
 |---------------|----------|-------------------|--------------------|
 | `user_id`     | bigint   | 无                 | 用户ID               |
@@ -98,17 +112,17 @@
 | `update_time` | datetime | UPDATE_TIMESTAMP  | 更新时间               |
 | `del_flag`    | tinyint  | 0                 | 删除标志(0-未删除, 1-已删除) |
 
-### 物理约束
-- 主键：`user_id`
-
 ### 逻辑约束
+
 - 全部分表(`user_id`,`role_id`,`tenant_id`,`del_flag`=0)唯一
 - `user_id` -> `db_user.user_X.user_id`
 - `role_id` -> `db_user.dict_role.role_id`
 - `tenant_id` -> `db_product.shop.shop_id`
 
 ## 店铺表
+
 ### db_product.shop
+
 | 列名                 | 类型           | 默认值               | 说明                 |
 |--------------------|--------------|-------------------|--------------------|
 | `shop_id`          | bigint       | 无                 | 店铺ID               |
@@ -125,6 +139,7 @@
 | `del_flag`         | tinyint      | 0                 | 删除标志(0-未删除, 1-已删除) |
 
 ### 物理约束
+
 - 主键：`shop_id`
 
 ***
@@ -158,12 +173,17 @@
 
 ## Controller层
 
-1. 返回R中不带额外数据时，使用R<Boolean>,需要明确设置true(前后端统一)
+1. Controller层负责参数的校验，以及将Service层的输出封装为R
 2. 所有接口传入对象只能为dto中定义对象,且只有dto中对象添加jsr校验(使参数校验部分统一由Controller负责)
 3. 每个服务RPC接口均命名为APIController且统一以/api路径开头，且该Controller不开启jsr校验以及身份识别(安全配置开放为内部端点,统一鉴权)
-4. 非APIController中公共接口使用/服务/open开头
+4. 非APIController中对外开放接口使用/服务/open开头
 
 ## Mapper层
+
+1. Mapper层负责直接操作数据库，其方法名应明确指出操作对象条件
+2. Mapper层使用BaseMapper<PO类>，可以直接从数据库中获取DTO类，但DTO类无法使用Mybatis Plus特性，但除了查询其余操作必须使用PO类(优化查询)
+3. del_flag = 1的数据视为删除(非主键查询时需要添加undeleted),lock_flag = 1的数据视为冻结(非主键查询添加available)
+4. 通过id主键获取的数据一定唯一或空，不需要添加undeleted或available
 
 ## Manager层
 
@@ -211,4 +231,5 @@ idea已经自动整合规范文件 ctrl+alt+l即可规范选中代码或右键�
 # 注意事项
 
 ## 用户服务
+
 1. 用户登录校验优先使用缓存数据，当用户数据更新时需要及时更新缓存

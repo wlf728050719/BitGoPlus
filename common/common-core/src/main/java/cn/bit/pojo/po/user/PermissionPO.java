@@ -12,11 +12,16 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "permission", autoResultMap = true)
 public class PermissionPO {
+
+    @TableId(value = "permission_id", type = IdType.INPUT)
+    private Long permissionId;
+
     /** 用户ID */
-    @TableId(value = "user_id", type = IdType.INPUT)
+    @TableField("user_id")
     private Long userId;
 
     /** 角色ID */
+    @TableField("role_id")
     private Long roleId;
 
     /** 租户ID */

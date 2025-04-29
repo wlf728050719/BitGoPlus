@@ -1,7 +1,6 @@
 package cn.bit.productservice.controller;
 
 import cn.bit.annotation.Admin;
-import cn.bit.annotation.Shopkeeper;
 import cn.bit.pojo.dto.BitGoUser;
 import cn.bit.pojo.dto.ShopBaseInfo;
 import cn.bit.pojo.vo.R;
@@ -30,7 +29,6 @@ public class ProductController {
     }
 
     @PostMapping("/createShop")
-    @Shopkeeper
     public R<Boolean> createShop(@RequestBody ShopBaseInfo shopBaseInfo) {
         BitGoUser user = (BitGoUser) SecurityUtils.getUser();
         return productService.createShop(user.getUserBaseInfo().getUserId(), shopBaseInfo);

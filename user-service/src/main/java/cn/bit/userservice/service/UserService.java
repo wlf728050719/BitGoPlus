@@ -2,30 +2,23 @@ package cn.bit.userservice.service;
 
 import cn.bit.pojo.dto.BitGoAuthorization;
 import cn.bit.pojo.dto.UserBaseInfo;
-import cn.bit.pojo.vo.R;
 
-import java.util.List;
 import java.util.Set;
 
 public interface UserService {
-    R<Boolean> registerByEmail(String code, String roleCode, UserBaseInfo user);
+    Boolean addPermission(String roleCode, Long tenantId, Long userId);
 
-    R<Boolean> changePasswordByMail(String code, String email, String username, String password);
+    Boolean registerByEmail(String code, UserBaseInfo user);
 
-    R<List<UserBaseInfo>> getUserBaseInfosByEmail(String code, String email);
+    Boolean changePasswordByMail(String code, String email, String password);
 
-    R<Boolean> sendRegisterCodeByEmail(String email);
+    Boolean sendRegisterCodeByEmail(String email);
 
-    R<Boolean> sendChangePasswordCodeByMail(String email);
+    Boolean sendChangePasswordCodeByMail(String email);
 
-    R<Boolean> sendGetUserBaseInfoCodeByEmail(String email);
+    UserBaseInfo getUndeletedUserBaseInfoByUsername(String username);
 
-    R<UserBaseInfo> getInfoByUsername(String username);
+    UserBaseInfo getInfoByUserId(Long userId);
 
-    R<UserBaseInfo> getInfoByUserId(Long userId);
-
-    R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(Long userId);
-
-    R<Boolean> setUserTenantIdByUserIdAndRoleCode(Long userId, Long tenantId, String roleCode);
-
+    Set<BitGoAuthorization> getAvailableBitGoAuthorizationByUserId(Long userId);
 }

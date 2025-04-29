@@ -14,7 +14,6 @@ public interface RedisKey {
     // 二级前缀
     String REGISTER_PREFIX = "Register";
     String CHANGE_PASSWORD_PREFIX = "ChangePassword";
-    String GET_USER_BASE_INFO_PREFIX = "GetUserBaseInfo";
     String LOCK_PREFIX = "Lock";
     // 键格式
     // token
@@ -32,7 +31,5 @@ public interface RedisKey {
     // changePwd
     String CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT =
         NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + CHANGE_PASSWORD_PREFIX + SEPARATOR + "Mail-%s";
-    // getUsername
-    String CODE_GET_USER_BASE_INFO_MAIL_KEY_FORMAT =
-        NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + GET_USER_BASE_INFO_PREFIX + SEPARATOR + "Mail-%s";
+
 }

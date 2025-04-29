@@ -7,6 +7,7 @@ import cn.bit.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,25 +20,25 @@ import java.util.Set;
 public class APIController {
     private UserService userService;
 
-    @GetMapping("/infoByUsername/{username}")
-    public R<UserBaseInfo> getInfoByUsername(@PathVariable("username") String username) {
-        return userService.getInfoByUsername(username);
+    @GetMapping("/undeletedInfoByUsername/{username}")
+    public R<UserBaseInfo> getUndeletedInfoByUsername(@PathVariable("username") String username) {
+        return R.ok(userService.getUndeletedUserBaseInfoByUsername(username));
     }
 
     @GetMapping("/infoByUserId/{userId}")
     public R<UserBaseInfo> getInfoByUserId(@PathVariable("userId") Long userId) {
-        return userService.getInfoByUserId(userId);
+        return R.ok(userService.getInfoByUserId(userId));
     }
 
     @GetMapping("/bitGoAuthorizationByUserId/{userId}")
     public R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(@PathVariable("userId") Long userId) {
-        return userService.getBitGoAuthorizationByUserId(userId);
+        return R.ok(userService.getAvailableBitGoAuthorizationByUserId(userId));
     }
 
-    @GetMapping("/setUserTenantIdByUserIdAndRoleCode")
-    public R<Boolean> setUserTenantIdByUserIdAndRoleCode(@RequestParam("userId") Long userId,
-        @RequestParam("tenantId") Long tenantId, @RequestParam("roleCode") String roleCode) {
-        return userService.setUserTenantIdByUserIdAndRoleCode(userId, tenantId, roleCode);
+    @PostMapping("/addPermission")
+    public R<Boolean> addPermission(@RequestParam("userId") Long userId, @RequestParam("tenantId") Long tenantId,
+        @RequestParam("roleCode") String roleCode) {
+        return R.ok(userService.addPermission(roleCode, tenantId, userId));
     }
 
 }

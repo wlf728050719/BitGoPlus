@@ -1,16 +1,23 @@
 package cn.bit.userservice.manager;
 
+import cn.bit.pojo.dto.UserBaseInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.bit.pojo.po.user.UserPO;
 
-import java.util.List;
-
 public interface UserManager extends IService<UserPO> {
     Long insert(UserPO userPO);
-    UserPO selectUserByUserName(String userName);
-    UserPO selectUserByUserId(Long userId);
-    UserPO selectAvailableUserByUserName(String userName);
-    UserPO selectAvailableUserByUserId(Long userId);
-    List<UserPO> selectUsersByVerifiedEmail(String email);
+
+    UserPO selectUserPOByUserId(Long userId);
+
+    UserPO selectUndeletedUserPOByVerifiedEmail(String email);
+
+    UserPO selectUndeletedUserPOByUserName(String userName);
+
+    UserBaseInfo selectUndeletedBaseUserInfoByUserId(Long userId);
+
+    UserBaseInfo selectAvailableBaseUserInfoByUserName(String userName);
+
+    UserBaseInfo selectAvailableBaseUserInfoByUserId(Long userId);
+
 }

@@ -29,12 +29,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public R<Map<String, String>> createAuthenticationToken(String username, String password) {
         // 生成 Access Token 和 Refresh Token
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        if (user.getUserBaseInfo().getDelFlag() != 0) {
-            throw new BizException("账号被删除");
-        }
-        if (user.getUserBaseInfo().getLockFlag() != 0) {
-            throw new BizException("账号被冻结，请联系管理员解冻");
-        }
         if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
             throw new BizException("密码错误");
         }

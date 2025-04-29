@@ -69,7 +69,6 @@ BEGIN
           `lock_flag` tinyint NOT NULL DEFAULT ''0'' COMMENT ''锁定标志（0-未锁定，1-已锁定）'',
           `del_flag` tinyint NOT NULL DEFAULT ''0'' COMMENT ''删除标志（0-未删除，1-已删除）'',
           PRIMARY KEY (`user_id`),
-          UNIQUE KEY `idx_username', index_suffix, '` (`username`),
           KEY `idx_phone', index_suffix, '` (`phone`),
           KEY `idx_email', index_suffix, '` (`email`),
           KEY `idx_nickname', index_suffix, '` (`nickname`),
@@ -117,7 +116,6 @@ BEGIN
           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT ''创建时间'',
           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT ''更新时间'',
           `del_flag` tinyint NOT NULL DEFAULT ''0'' COMMENT ''删除标志(0-未删除,1-已删除)'',
-          PRIMARY KEY (`user_id`),
           KEY `idx_role_id', index_suffix, '` (`role_id`)
         ) ENGINE=InnoDB COMMENT=''用户-角色关联表', i, '''');
 

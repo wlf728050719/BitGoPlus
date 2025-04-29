@@ -20,8 +20,7 @@ public class ProductServiceImpl implements ProductService {
     @GlobalTransactional(rollbackFor = Exception.class)
     public R<Boolean> createShop(Long userId, ShopBaseInfo shopBaseInfo) {
         Long tenantId = shopManager.insertShop(shopBaseInfo.newShopPO());
-
-        userClient.setUserTenantIdByUserIdAndRoleCode(userId, tenantId, SecurityConstant.ROLE_SHOPKEEPER);
+        userClient.addPermission(userId, tenantId, SecurityConstant.ROLE_SHOPKEEPER);
         return R.ok(true, "店铺创建成功");
     }
 }

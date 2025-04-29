@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Set;
 
-
 @Service("BitGoUserService")
 @AllArgsConstructor
 public class BitGoUserServiceFeignImpl implements BitGoUserService {
@@ -27,26 +26,6 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         return getBitGoUserFromRPC(username);
-    }
-
-    public BitGoUser getBitGoUserFromRPC(String username) {
-        // 获取用户基本信息
-        R<UserBaseInfo> userResponse = userClient.getInfoByUsername(username);
-        if (userResponse == null) {
-            throw new SysException("get response from user-service failed");
-        }
-        if (userResponse.getData() == null) {
-            throw new BizException("用户名不存在");
-        }
-        UserBaseInfo user = userResponse.getData();
-
-        // 获取用户角色信息
-        R<Set<BitGoAuthorization>> roleResponse = userClient.getBitGoAuthorizationByUserId(user.getUserId());
-        if (roleResponse == null) {
-            throw new SysException("get response from user-service failed");
-        }
-        // 构建BitGoUser对象
-        return new BitGoUser(user, roleResponse.getData());
     }
 
     @Override
@@ -72,6 +51,28 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         return checkRoleAndTenantId(user, tenantId, SecurityConstant.ROLE_CLERK);
     }
 
+    private BitGoUser getBitGoUserFromRPC(String username) {
+        // 获取用户基本信息
+        R<UserBaseInfo> userResponse = userClient.getUndeletedInfoByUsername(username);
+        if (userResponse == null) {
+            throw new SysException("get response from user-service failed");
+        }
+        if (userResponse.getData() == null) {
+            throw new BizException("用户名不存在");
+        }
+        UserBaseInfo user = userResponse.getData();
+        if (user.getLockFlag() == 1) {
+            throw new BizException("用户已被冻结，请联系管理员解封");
+        }
+        // 获取用户角色信息
+        R<Set<BitGoAuthorization>> roleResponse = userClient.getBitGoAuthorizationByUserId(user.getUserId());
+        if (roleResponse == null) {
+            throw new SysException("get response from user-service failed");
+        }
+        // 构建BitGoUser对象
+        return new BitGoUser(user, roleResponse.getData());
+    }
+
     private boolean checkRoleAndTenantId(BitGoUser user, Long tenantId, String roleCode) {
         if (user == null) {
             return false;
@@ -81,23 +82,20 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
         // 检查是否有匹配的角色
-        return authorities.stream()
-                .filter(auth -> auth instanceof BitGoAuthorization)
-                .map(auth -> (BitGoAuthorization) auth)
-                .anyMatch(auth -> {
-                    // 1. 先检查角色是否匹配
-                    boolean roleMatches = auth.getRoleCode().equals(roleCode);
-                    // 2. 如果角色不匹配，直接返回 false
-                    if (!roleMatches) {
-                        return false;
-                    }
-                    // 3. 如果角色匹配，且不需要检查租户（tenantId == null），则直接返回 true
-                    if (tenantId == null) {
-                        return true;
-                    }
-                    // 4. 如果需要检查租户，则检查该角色的租户是否匹配
-                    return tenantId.equals(auth.getTenantId());
-                });
+        return authorities.stream().filter(auth -> auth instanceof BitGoAuthorization)
+            .map(auth -> (BitGoAuthorization) auth).anyMatch(auth -> {
+                // 1. 先检查角色是否匹配
+                boolean roleMatches = auth.getRoleCode().equals(roleCode);
+                // 2. 如果角色不匹配，直接返回 false
+                if (!roleMatches) {
+                    return false;
+                }
+                // 3. 如果角色匹配，且不需要检查租户（tenantId == null），则直接返回 true
+                if (tenantId == null) {
+                    return true;
+                }
+                // 4. 如果需要检查租户，则检查该角色的租户是否匹配
+                return tenantId.equals(auth.getTenantId());
+            });
     }
-
 }

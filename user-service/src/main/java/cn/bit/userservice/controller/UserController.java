@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -39,37 +38,26 @@ public class UserController {
     }
 
     @PostMapping("/open/register/email")
-    public R<Boolean> registerByEmail(@RequestParam @Valid @NotNull String code, @RequestParam String roleCode,
+    public R<Boolean> registerByEmail(@RequestParam @Valid @NotNull String code,
         @RequestBody @Valid UserBaseInfo userBaseInfo) {
-        return userService.registerByEmail(code, roleCode, userBaseInfo);
+        return R.ok(userService.registerByEmail(code, userBaseInfo), "注册成功");
     }
 
     @PostMapping("/open/register/sendCode/email")
     public R<Boolean> sendRegisterCodeByEmail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
-        return userService.sendRegisterCodeByEmail(email);
+        return R.ok(userService.sendRegisterCodeByEmail(email), "邮件发送成功,请及时查收");
     }
 
     @PutMapping("/open/changePwd/email")
     public R<Boolean> changePasswordByEmail(@RequestParam @Valid @NotNull String code,
         @RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email,
-        @RequestParam @Valid @ValidString(StringEnum.USERNAME_STRING) String username,
         @RequestParam @Valid @ValidString(StringEnum.PASSWORD_STRING) String password) {
-        return userService.changePasswordByMail(code, email, username, password);
+        return R.ok(userService.changePasswordByMail(code, email, password), "密码修改成功");
     }
 
     @PostMapping("/open/changePwd/sendCode/email")
     public R<Boolean>
         sendChangePasswordCodeByEmail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
-        return userService.sendChangePasswordCodeByMail(email);
-    }
-
-    @GetMapping("/open/getUserBaseInfo/email")
-    public R<List<UserBaseInfo>> getUserBaseInfo(String code, @RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING)String email) {
-        return userService.getUserBaseInfosByEmail(code, email);
-    }
-
-    @PostMapping("/open/getUserBaseInfo/sendCode/email")
-    public R<Boolean> sendGetBaseInfoCodeByMail(@RequestParam @Valid @ValidString(StringEnum.EMAIL_STRING) String email) {
-        return userService.sendGetUserBaseInfoCodeByEmail(email);
+        return R.ok(userService.sendChangePasswordCodeByMail(email), "邮件发送成功,请及时查收");
     }
 }

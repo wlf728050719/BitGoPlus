@@ -1,5 +1,6 @@
 package cn.bit.userservice.manager.impl;
 
+import cn.bit.pojo.dto.UserBaseInfo;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,8 +10,6 @@ import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
 import cn.bit.userservice.mapper.UserMapper;
 import cn.bit.userservice.manager.UserManager;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -22,32 +21,37 @@ public class UserManagerImpl extends ServiceImpl<UserMapper, UserPO> implements 
     public Long insert(UserPO userPO) {
         Long id = idGenerator.nextId();
         userPO.setUserId(id);
-        userMapper.insert(userPO);
+        save(userPO);
         return id;
     }
 
     @Override
-    public List<UserPO> selectUsersByVerifiedEmail(String email) {
-        return userMapper.selectUsersByVerifiedEmail(email);
+    public UserPO selectUserPOByUserId(Long userId) {
+        return userMapper.selectUserPOByUserId(userId);
     }
 
     @Override
-    public UserPO selectUserByUserName(String userName) {
-        return userMapper.selectUserByUserName(userName);
+    public UserPO selectUndeletedUserPOByVerifiedEmail(String email) {
+        return userMapper.selectUndeletedUserPOByVerifiedEmail(email);
     }
 
     @Override
-    public UserPO selectUserByUserId(Long userId) {
-        return userMapper.selectUserByUserId(userId);
+    public UserPO selectUndeletedUserPOByUserName(String userName) {
+        return userMapper.selectUndeletedUserPOByUserName(userName);
     }
 
     @Override
-    public UserPO selectAvailableUserByUserName(String userName) {
-        return userMapper.selectAvailableUserByUserName(userName);
+    public UserBaseInfo selectUndeletedBaseUserInfoByUserId(Long userId) {
+        return userMapper.selectUndeletedBaseUserInfoByUserId(userId);
     }
 
     @Override
-    public UserPO selectAvailableUserByUserId(Long userId) {
-        return userMapper.selectAvailableUserByUserId(userId);
+    public UserBaseInfo selectAvailableBaseUserInfoByUserName(String userName) {
+        return userMapper.selectAvailableBaseUserInfoByUserName(userName);
+    }
+
+    @Override
+    public UserBaseInfo selectAvailableBaseUserInfoByUserId(Long userId) {
+        return userMapper.selectAvailableBaseUserInfoByUserId(userId);
     }
 }
