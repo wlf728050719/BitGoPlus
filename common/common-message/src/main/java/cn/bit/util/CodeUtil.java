@@ -22,7 +22,7 @@ public class CodeUtil {
         if (Boolean.TRUE.equals(redisTemplate.hasKey(lock))) {
             String lockTimeStr = (String) redisTemplate.opsForValue().get(lock);
             if (lockTimeStr == null) {
-                throw new SysException("Cache Error");
+                throw new SysException("cache error");
             }
             long lockTime = Long.parseLong(lockTimeStr);
             long currentTime = System.currentTimeMillis();

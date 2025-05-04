@@ -1,45 +1,46 @@
 package cn.bit.util;
 
-
+import cn.bit.exception.BizException;
+import cn.bit.exception.SysException;
+import cn.bit.pojo.dto.BitGoAuthorization;
+import cn.bit.pojo.dto.BitGoUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 
-/**
- * 安全工具类
- *
- * @author L.cm
- */
+import java.util.Collection;
+
 @UtilityClass
 public class SecurityUtils {
-
-    /**
-     * 获取Authentication
-     */
-    public Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
     /**
      * 获取用户
      */
-    public User getUser(Authentication authentication) {
+    public BitGoUser getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getPrincipal() == null) {
-            return null;
+            throw new BizException("用户未登录,请登录后访问");
         }
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof User) {
-            return (User) principal;
+        if (!(authentication.getPrincipal() instanceof BitGoUser)) {
+            throw new SysException("user permission parsing error");
         }
-        return null;
+        return (BitGoUser) authentication.getPrincipal();
     }
 
     /**
-     * 获取用户
+     * 判断用户租户ID以及角色是否合法
+     * @param tenantId 租户ID
+     * @param roleCode 角色
      */
-    public User getUser() {
-        Authentication authentication = getAuthentication();
-        return getUser(authentication);
+    public void checkTenantId(Long tenantId, String roleCode) {
+        BitGoUser user = getUser();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        // 遍历权限，查找匹配的角色和租户ID
+        boolean isMatch = authorities.stream().filter(auth -> auth instanceof BitGoAuthorization)
+            .map(auth -> (BitGoAuthorization) auth).anyMatch(auth -> auth.getRoleCode().equals(roleCode)
+                && (auth.getTenantId() != null && auth.getTenantId().equals(tenantId)));
+        if (!isMatch) {
+            throw new BizException("未授权的访问");
+        }
     }
 }

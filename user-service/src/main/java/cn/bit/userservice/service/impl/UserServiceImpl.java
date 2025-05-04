@@ -24,6 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
+/**
+ * <p>用户服务</p>
+ * Date:2025/04/29 20:20:51
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -35,6 +43,12 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 通过邮件注册账户
+     * @param code 验证码
+     * @param userBaseInfo 用户基本信息
+     * @return {@link Boolean }
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean registerByEmail(String code, UserBaseInfo userBaseInfo) {
@@ -59,6 +73,13 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 用户新增权限
+     * @param roleCode 角色码
+     * @param tenantId 租户ID
+     * @param userId 用户ID
+     * @return {@link Boolean }
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean addPermission(String roleCode, Long tenantId, Long userId) {
@@ -93,6 +114,13 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 邮箱+验证码修改密码
+     * @param code 验证码
+     * @param email 邮箱
+     * @param password 密码
+     * @return {@link Boolean }
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean changePasswordByMail(String code, String email, String password) {
@@ -116,6 +144,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 邮件发送注册验证码
+     * @param email 邮箱
+     * @return {@link Boolean }
+     */
     @Override
     public Boolean sendRegisterCodeByEmail(String email) {
         String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
@@ -124,6 +157,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 邮件发送修改密码验证码
+     * @param email 邮箱
+     * @return {@link Boolean }
+     */
     @Override
     public Boolean sendChangePasswordCodeByMail(String email) {
         String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
@@ -132,6 +170,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 通过用户名获取未被删除的用户基本信息
+     * @param username 用户名
+     * @return {@link UserBaseInfo }
+     */
     @Override
     public UserBaseInfo getUndeletedUserBaseInfoByUsername(String username) {
         UserPO userPO = userManager.selectUndeletedUserPOByUserName(username);
@@ -141,6 +184,11 @@ public class UserServiceImpl implements UserService {
         return new UserBaseInfo(userPO);
     }
 
+    /**
+     * 通过用户ID获取用户基本信息
+     * @param userId 用户ID
+     * @return {@link UserBaseInfo }
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserBaseInfo getInfoByUserId(Long userId) {
@@ -152,6 +200,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 通过用户ID获取可用的用户权限
+     * @param userId 用户ID
+     * @return {@link Set }<{@link BitGoAuthorization }>
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Set<BitGoAuthorization> getAvailableBitGoAuthorizationByUserId(Long userId) {

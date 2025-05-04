@@ -29,26 +29,18 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
     }
 
     @Override
-    public boolean checkUser(BitGoUser user, Long userId) {
-        if (user == null) {
-            return false;
-        }
-        return user.getUserBaseInfo().getUserId().equals(userId);
-    }
-
-    @Override
     public boolean checkAdmin(BitGoUser user) {
-        return checkRoleAndTenantId(user, null, SecurityConstant.ROLE_ADMIN);
+        return checkRole(user, SecurityConstant.ROLE_ADMIN);
     }
 
     @Override
-    public boolean checkShopKeeper(BitGoUser user, Long tenantId) {
-        return checkRoleAndTenantId(user, tenantId, SecurityConstant.ROLE_SHOPKEEPER);
+    public boolean checkShopKeeper(BitGoUser user) {
+        return checkRole(user, SecurityConstant.ROLE_SHOPKEEPER);
     }
 
     @Override
-    public boolean checkClerk(BitGoUser user, Long tenantId) {
-        return checkRoleAndTenantId(user, tenantId, SecurityConstant.ROLE_CLERK);
+    public boolean checkClerk(BitGoUser user) {
+        return checkRole(user, SecurityConstant.ROLE_CLERK);
     }
 
     private BitGoUser getBitGoUserFromRPC(String username) {
@@ -73,29 +65,14 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         return new BitGoUser(user, roleResponse.getData());
     }
 
-    private boolean checkRoleAndTenantId(BitGoUser user, Long tenantId, String roleCode) {
+    private boolean checkRole(BitGoUser user, String roleCode) {
         if (user == null) {
             return false;
         }
-
         // 获取用户的所有授权信息
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-
         // 检查是否有匹配的角色
         return authorities.stream().filter(auth -> auth instanceof BitGoAuthorization)
-            .map(auth -> (BitGoAuthorization) auth).anyMatch(auth -> {
-                // 1. 先检查角色是否匹配
-                boolean roleMatches = auth.getRoleCode().equals(roleCode);
-                // 2. 如果角色不匹配，直接返回 false
-                if (!roleMatches) {
-                    return false;
-                }
-                // 3. 如果角色匹配，且不需要检查租户（tenantId == null），则直接返回 true
-                if (tenantId == null) {
-                    return true;
-                }
-                // 4. 如果需要检查租户，则检查该角色的租户是否匹配
-                return tenantId.equals(auth.getTenantId());
-            });
+            .map(auth -> (BitGoAuthorization) auth).anyMatch(auth -> auth.getRoleCode().equals(roleCode));
     }
 }

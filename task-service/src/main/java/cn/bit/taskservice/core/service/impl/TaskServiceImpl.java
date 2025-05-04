@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import cn.bit.pojo.dto.TaskBaseInfo;
 import cn.bit.pojo.po.task.TaskPO;
+import cn.bit.taskservice.core.service.TaskService;
 import org.springframework.stereotype.Service;
 
 import cn.bit.taskservice.core.enums.TaskStatus;
@@ -18,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class TaskService implements cn.bit.taskservice.core.service.TaskService {
+public class TaskServiceImpl implements TaskService {
     private final TaskManager taskManager;
-    private final TaskPool taskPool;
+    private final TaskPoolImpl taskPoolImpl;
 
     /**
      * 从数据库中反序列化任务数据，保证服务器重启后恢复任务池状态
@@ -34,7 +35,7 @@ public class TaskService implements cn.bit.taskservice.core.service.TaskService 
         if (tasks != null && !tasks.isEmpty()) {
             for (TaskPO taskPO : tasks) {
                 if (TaskStatus.RUNNING.getCode().equals(taskPO.getStatus())) {
-                    taskPool.addTask(taskPO);
+                    taskPoolImpl.addTask(taskPO);
                 }
             }
             log.info("初始化加载{}项任务", tasks.size());
@@ -89,7 +90,7 @@ public class TaskService implements cn.bit.taskservice.core.service.TaskService 
         if (!TaskStatus.PAUSE.getCode().equals(temp.getStatus())) {
             throw new TaskRepositoryException("只能启动暂停中任务", taskBaseInfo);
         }
-        taskPool.addTask(temp);
+        taskPoolImpl.addTask(temp);
         temp.setStatus(TaskStatus.RUNNING.getCode());
         taskManager.updateTaskStatus(temp);
         log.info("启动任务{}", temp);
@@ -108,7 +109,7 @@ public class TaskService implements cn.bit.taskservice.core.service.TaskService 
         if (!TaskStatus.RUNNING.getCode().equals(temp.getStatus())) {
             throw new TaskRepositoryException("只能暂停运行中任务", taskBaseInfo);
         }
-        taskPool.pauseTask(temp);
+        taskPoolImpl.pauseTask(temp);
         temp.setStatus(TaskStatus.PAUSE.getCode());
         taskManager.updateTaskStatus(temp);
         log.info("暂停任务{}", temp);

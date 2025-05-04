@@ -27,6 +27,13 @@
 数据库无物理外键，主键只允许使用单主键
 非字典项表主键为雪花算法生成的id，且不允许使用其他unique索引，约束均需要使用代码实现
 
+## 表
+
+- [db_user.user_X](#用户表)
+- [db_user.dict_role](#角色字典)
+- [db_user.permission_X](#权限表)
+- [db_product.shop](#店铺表)
+
 ## 整体结构
 
 ```mermaid
@@ -36,7 +43,7 @@
     shop[shop] --shop_id--> permission_X[permission_X]
 ```
 
-## 用户表(`user`)
+## 用户表
 
 ### db_user.user_X  
 
@@ -83,7 +90,7 @@
 - 全部分表(`wechat`,`wechat_verify`=1)唯一
 - 全部分表(`id_card`,`id_card_verify`)唯一
 
-## 角色表
+## 角色字典
 
 ### db_user.dict_role
 
@@ -103,14 +110,18 @@
 
 ### db_user.permission_X
 
-| 列名            | 类型       | 默认值               | 说明                 |
-|---------------|----------|-------------------|--------------------|
-| `user_id`     | bigint   | 无                 | 用户ID               |
-| `role_id`     | int      | 无                 | 角色ID               |
-| `tenant_id`   | bigint   | NULL              | 租户ID(店铺ID)         |
-| `create_time` | datetime | CURRENT_TIMESTAMP | 创建时间               |
-| `update_time` | datetime | UPDATE_TIMESTAMP  | 更新时间               |
-| `del_flag`    | tinyint  | 0                 | 删除标志(0-未删除, 1-已删除) |
+| 列名              | 类型       | 默认值               | 说明                 |
+|-----------------|----------|-------------------|--------------------|
+| `permission_id` | bigint   | 无                 | 权限ID               |
+| `user_id`       | bigint   | 无                 | 用户ID               |
+| `role_id`       | int      | 无                 | 角色ID               |
+| `tenant_id`     | bigint   | NULL              | 租户ID(店铺ID)         |
+| `create_time`   | datetime | CURRENT_TIMESTAMP | 创建时间               |
+| `update_time`   | datetime | UPDATE_TIMESTAMP  | 更新时间               |
+| `del_flag`      | tinyint  | 0                 | 删除标志(0-未删除, 1-已删除) |
+
+### 物理约束
+- 主键：`permission_id`
 
 ### 逻辑约束
 

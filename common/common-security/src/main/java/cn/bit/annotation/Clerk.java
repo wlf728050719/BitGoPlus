@@ -9,7 +9,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("@BitGoUserService.checkAdmin(authentication.principal) or "
-    + "@BitGoUserService.checkShopKeeper(authentication.principal, #tenantId) or"
-    + "@BitGoUserService.checkClerk(authentication.principal, #tenantId)")
+@PreAuthorize("@BitGoUserService.checkClerk(authentication.principal)")
 public @interface Clerk {}

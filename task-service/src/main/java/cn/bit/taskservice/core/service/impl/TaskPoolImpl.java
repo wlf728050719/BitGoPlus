@@ -2,6 +2,7 @@ package cn.bit.taskservice.core.service.impl;
 
 import cn.bit.exception.SysException;
 import cn.bit.pojo.po.task.TaskPO;
+import cn.bit.taskservice.core.service.TaskPool;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class TaskPool implements cn.bit.taskservice.core.service.TaskPool {
+public class TaskPoolImpl implements TaskPool {
     private final Scheduler scheduler;
 
     public static JobKey getJobKey(@NonNull TaskPO taskPO) {

@@ -11,6 +11,14 @@ import javax.validation.Payload;
 import cn.bit.jsr303.enums.FileEnum;
 import cn.bit.jsr303.validator.FileValidator;
 
+/**
+ * <p>验证文件类型，大小是否符合要求，只设置枚举时使用对应枚举文件类型配置大小限制以及后缀名限制</p>
+ * Date:2025/05/04 14:59:42
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FileValidator.class)

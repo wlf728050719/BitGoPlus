@@ -4,23 +4,70 @@ CREATE DATABASE IF NOT EXISTS `db_product`
 
 USE `db_product`;
 
-CREATE TABLE `product_category` (
-                                    `category_id` bigint NOT NULL COMMENT '分类ID（雪花ID）',
-                                    `category_name` varchar(50) NOT NULL COMMENT '分类名称',
-                                    `parent_id` bigint DEFAULT NULL COMMENT '父分类ID',
-                                    `level` tinyint NOT NULL COMMENT '分类层级（1-一级，2-二级等）',
-                                    `sort_order` int DEFAULT '0' COMMENT '排序权重',
-                                    `icon` varchar(255) DEFAULT NULL COMMENT '分类图标',
-                                    `description` varchar(500) DEFAULT NULL COMMENT '分类描述',
-                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                    `del_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除标志',
-                                    PRIMARY KEY (`category_id`),
-                                    KEY `idx_parent_id` (`parent_id`),
-                                    KEY `idx_level` (`level`),
-                                    KEY `idx_sort_order` (`sort_order`)
+CREATE TABLE `dict_product_category` (
+                                         `category_id` bigint NOT NULL COMMENT '分类ID',
+                                         `category_name` varchar(50) NOT NULL COMMENT '分类名称',
+                                         `parent_id` bigint DEFAULT NULL COMMENT '父分类ID',
+                                         `level` tinyint NOT NULL COMMENT '分类层级（1-一级，2-二级等）',
+                                         `sort_order` int DEFAULT '0' COMMENT '排序权重',
+                                         `icon` varchar(255) DEFAULT NULL COMMENT '分类图标',
+                                         `description` varchar(500) DEFAULT NULL COMMENT '分类描述',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                         `del_flag` tinyint NOT NULL DEFAULT '0' COMMENT '删除标志',
+                                         PRIMARY KEY (`category_id`),
+                                         KEY `idx_parent_id` (`parent_id`),
+                                         KEY `idx_level` (`level`),
+                                         KEY `idx_sort_order` (`sort_order`)
 ) ENGINE=InnoDB COMMENT='产品分类表';
 
+-- 插入一级分类
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (101, '电子产品', NULL, 1, 10, '', '各类电子设备和配件'),
+    (102, '服装服饰', NULL, 1, 20, '', '男女服装、鞋帽配饰'),
+    (103, '家居用品', NULL, 1, 30, '', '家具家居家纺用品'),
+    (104, '食品饮料', NULL, 1, 40, '', '各类食品和饮料');
+
+-- 插入电子产品的二级分类
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (101001, '智能手机', 101, 2, 11, '', '各类品牌智能手机'),
+    (101002, '笔记本电脑', 101, 2, 12, '', '商务本、游戏本等'),
+    (101003, '数码相机', 101, 2, 13, '', '单反、微单、卡片机'),
+    (101004, '耳机音响', 101, 2, 14, '', '蓝牙耳机、音响设备');
+
+-- 插入服装服饰的二级分类
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (102001, '男装', 102, 2, 21, '', '男士上衣、裤子等'),
+    (102002, '女装', 102, 2, 22, '', '女士上衣、裙子等'),
+    (102003, '童装', 102, 2, 23, '', '儿童服装'),
+    (102004, '运动服饰', 102, 2, 24, '', '运动服装和配件');
+
+-- 插入家居用品的二级分类
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (103001, '家具', 103, 2, 31, '', '沙发、床、桌椅等'),
+    (103002, '家纺', 103, 2, 32, '', '床上用品、窗帘等'),
+    (103003, '厨房用品', 103, 2, 33, '', '厨具餐具等'),
+    (103004, '装饰品', 103, 2, 34, '', '家居装饰摆件');
+
+-- 插入食品饮料的二级分类
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (104001, '休闲零食', 104, 2, 41, '', '饼干、糖果、坚果等'),
+    (104002, '酒水饮料', 104, 2, 42, '', '各类酒水和饮料'),
+    (104003, '生鲜食品', 104, 2, 43, '', '蔬菜水果肉类等'),
+    (104004, '粮油调味', 104, 2, 44, '', '米面油和调味品');
+
+-- 插入智能手机的三级分类示例
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+VALUES
+    (101001000001, '苹果手机', 101001, 3, 111, '', 'iPhone系列'),
+    (101001000002, '华为手机', 101001, 3, 112, '', '华为系列手机'),
+    (101001000003, '小米手机', 101001, 3, 113, '', '小米系列手机'),
+    (101001000004, '三星手机', 101001, 3, 114, '', '三星系列手机');
 -- 新增品牌表
 CREATE TABLE `product_brand` (
                                  `brand_id` bigint NOT NULL COMMENT '品牌ID',
@@ -38,21 +85,21 @@ CREATE TABLE `product_brand` (
 
 -- 修改为店铺表
 CREATE TABLE `shop` (
-                                `shop_id` bigint NOT NULL COMMENT '店铺ID',
-                                `shop_name` varchar(50) NOT NULL COMMENT '店铺名称',
-                                `logo` varchar(255) DEFAULT NULL COMMENT '店铺logo',
-                                `description` varchar(500) DEFAULT NULL COMMENT '店铺描述',
-                                `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系电话',
-                                `address` varchar(200) DEFAULT NULL COMMENT '店铺地址',
-                                `business_license` varchar(100) DEFAULT NULL COMMENT '营业执照号',
-                                `sort_order` int DEFAULT '0' COMMENT '排序',
-                                `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态（1-正常，0-禁用）',
-                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                `del_flag` tinyint NOT NULL DEFAULT '0',
-                                PRIMARY KEY (`shop_id`),
-                                KEY `idx_shop_name` (`shop_name`),
-                                KEY `idx_status` (`status`)
+                        `shop_id` bigint NOT NULL COMMENT '店铺ID',
+                        `shop_name` varchar(50) NOT NULL COMMENT '店铺名称',
+                        `logo` varchar(255) DEFAULT NULL COMMENT '店铺logo',
+                        `description` varchar(500) DEFAULT NULL COMMENT '店铺描述',
+                        `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系电话',
+                        `address` varchar(200) DEFAULT NULL COMMENT '店铺地址',
+                        `business_license` varchar(100) DEFAULT NULL COMMENT '营业执照号',
+                        `sort_order` int DEFAULT '0' COMMENT '排序',
+                        `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态（1-正常，0-禁用）',
+                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        `del_flag` tinyint NOT NULL DEFAULT '0',
+                        PRIMARY KEY (`shop_id`),
+                        KEY `idx_shop_name` (`shop_name`),
+                        KEY `idx_status` (`status`)
 ) ENGINE=InnoDB COMMENT='店铺表';
 
 CREATE TABLE `product_spu` (
@@ -214,3 +261,19 @@ DELIMITER ;
 
 CALL `create_inventory_log_sharding_tables`(10);
 DROP PROCEDURE IF EXISTS `create_inventory_log_sharding_tables`;
+
+-- seata_demo.undo_log definition
+
+CREATE TABLE `undo_log` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `branch_id` bigint(20) NOT NULL,
+                            `xid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `context` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `rollback_info` longblob NOT NULL,
+                            `log_status` int(11) NOT NULL,
+                            `log_created` datetime NOT NULL,
+                            `log_modified` datetime NOT NULL,
+                            `ext` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            PRIMARY KEY (`id`) USING BTREE,
+                            UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;

@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/test/{data}")
     @Admin
     public R<String> test(@PathVariable String data) {
-        BitGoUser user = (BitGoUser) SecurityUtils.getUser();
+        BitGoUser user =  SecurityUtils.getUser();
         return R.ok(data,
             "user-service ok,username: " + user.getUsername() + "userId: " + user.getUserBaseInfo().getUserId());
     }

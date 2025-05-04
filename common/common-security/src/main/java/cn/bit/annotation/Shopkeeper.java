@@ -19,6 +19,5 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("@BitGoUserService.checkAdmin(authentication.principal) "
-    + "or @BitGoUserService.checkShopKeeper(authentication.principal, #tenantId)")
+@PreAuthorize("@BitGoUserService.checkAdmin(authentication.principal)")
 public @interface Shopkeeper {}

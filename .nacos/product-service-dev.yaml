@@ -25,8 +25,8 @@ spring:
           actual-data-nodes: ds-product.shop
         product_brand:
           actual-data-nodes: ds-product.product_brand
-        product_category:
-          actual-data-nodes: ds-product.product_category
+        dict_product_category:
+          actual-data-nodes: ds-product.dict_product_category
         product_spu:
           actual-data-nodes: ds-product.product_spu
         product_sku:

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.bit.pojo.vo.R;
-import cn.bit.taskservice.core.service.impl.TaskService;
+import cn.bit.taskservice.core.service.impl.TaskServiceImpl;
 import lombok.AllArgsConstructor;
 
 import javax.validation.Valid;
@@ -26,46 +26,46 @@ import javax.validation.Valid;
 @Validated
 public class TaskController {
 
-    private TaskService taskService;
+    private TaskServiceImpl taskServiceImpl;
     @GetMapping("/test/{data}")
     @Admin
     public R<String> test(@PathVariable String data) {
-        BitGoUser user = (BitGoUser) SecurityUtils.getUser();
+        BitGoUser user = SecurityUtils.getUser();
         return R.ok(data, "task-service ok,username: " + user.getUsername() + " userId: " + user.getUserBaseInfo().getUserId());
     }
 
     @PostMapping("/add")
     @Admin
     public R<Boolean> add(@RequestBody @Valid TaskBaseInfo taskBaseInfo) {
-        taskService.addTask(taskBaseInfo);
+        taskServiceImpl.addTask(taskBaseInfo);
         return R.ok(true, "添加任务成功");
     }
 
     @PutMapping("/update")
     @Admin
     public R<Boolean> update(@RequestBody @Valid TaskBaseInfo taskBaseInfo) {
-        taskService.updateTask(taskBaseInfo);
+        taskServiceImpl.updateTask(taskBaseInfo);
         return R.ok(true, "任务更新成功");
     }
 
     @PutMapping("/start")
     @Admin
     public R<Boolean> start(@RequestBody @Valid TaskBaseInfo taskBaseInfo) {
-        taskService.startTask(taskBaseInfo);
+        taskServiceImpl.startTask(taskBaseInfo);
         return R.ok(true, "任务启动成功");
     }
 
     @PutMapping("/pause")
     @Admin
     public R<Boolean> pause(@RequestBody @Valid TaskBaseInfo taskBaseInfo) {
-        taskService.pauseTask(taskBaseInfo);
+        taskServiceImpl.pauseTask(taskBaseInfo);
         return R.ok(true, "任务暂停成功");
     }
 
     @DeleteMapping("/delete")
     @Admin
     public R<Boolean> delete(@RequestBody @Valid TaskBaseInfo taskBaseInfo) {
-        taskService.deleteTask(taskBaseInfo);
+        taskServiceImpl.deleteTask(taskBaseInfo);
         return R.ok(true, "任务删除成功");
     }
 }
