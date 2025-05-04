@@ -1,8 +1,8 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.pojo.dto.BitGoAuthorization;
-import cn.bit.pojo.po.user.PermissionPO;
-import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
+import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.po.user.PermissionPO;
+import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import cn.bit.userservice.manager.PermissionManager;
 import cn.bit.userservice.mapper.PermissionMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

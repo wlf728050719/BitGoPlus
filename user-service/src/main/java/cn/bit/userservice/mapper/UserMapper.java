@@ -1,9 +1,9 @@
 package cn.bit.userservice.mapper;
 
-import cn.bit.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.UserBaseInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import cn.bit.pojo.po.user.UserPO;
+import cn.bit.core.pojo.po.user.UserPO;
 
 public interface UserMapper extends BaseMapper<UserPO> {
     UserPO selectUserPOByUserId(Long userId);

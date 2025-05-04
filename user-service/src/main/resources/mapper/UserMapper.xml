@@ -3,7 +3,7 @@
 <mapper namespace="cn.bit.userservice.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="UserPOMap" type="cn.bit.pojo.po.user.UserPO">
+    <resultMap id="UserPOMap" type="cn.bit.core.pojo.po.user.UserPO">
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="real_name" property="realName" />
@@ -33,7 +33,7 @@
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
-    <resultMap id="UserBaseInfoMap" type="cn.bit.pojo.dto.UserBaseInfo">
+    <resultMap id="UserBaseInfoMap" type="cn.bit.core.pojo.dto.UserBaseInfo">
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="real_name" property="realName" />

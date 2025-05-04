@@ -1,9 +1,9 @@
 package cn.bit.taskservice.controller;
 
-import cn.bit.annotation.Admin;
-import cn.bit.pojo.dto.BitGoUser;
-import cn.bit.pojo.dto.TaskBaseInfo;
-import cn.bit.util.SecurityUtils;
+import cn.bit.security.annotation.Admin;
+import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.TaskBaseInfo;
+import cn.bit.security.util.SecurityUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.bit.pojo.vo.R;
+import cn.bit.core.pojo.vo.R;
 import cn.bit.taskservice.core.service.impl.TaskServiceImpl;
 import lombok.AllArgsConstructor;
 

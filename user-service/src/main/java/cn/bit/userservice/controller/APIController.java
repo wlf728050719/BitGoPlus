@@ -1,8 +1,8 @@
 package cn.bit.userservice.controller;
 
-import cn.bit.pojo.dto.BitGoAuthorization;
-import cn.bit.pojo.dto.UserBaseInfo;
-import cn.bit.pojo.vo.R;
+import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.vo.R;
 import cn.bit.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

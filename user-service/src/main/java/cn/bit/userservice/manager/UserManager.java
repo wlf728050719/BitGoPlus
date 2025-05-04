@@ -1,9 +1,9 @@
 package cn.bit.userservice.manager;
 
-import cn.bit.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.UserBaseInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import cn.bit.pojo.po.user.UserPO;
+import cn.bit.core.pojo.po.user.UserPO;
 
 public interface UserManager extends IService<UserPO> {
     Long insert(UserPO userPO);

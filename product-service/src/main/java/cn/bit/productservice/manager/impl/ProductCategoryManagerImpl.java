@@ -1,9 +1,9 @@
 package cn.bit.productservice.manager.impl;
 
-import cn.bit.pojo.po.product.ProductCategoryDictItem;
+import cn.bit.core.pojo.po.product.ProductCategoryDictItem;
 import cn.bit.productservice.manager.ProductCategoryManager;
 import cn.bit.productservice.mapper.ProductCategoryMapper;
-import cn.bit.constant.RedisKey;
+import cn.bit.core.constant.RedisKey;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

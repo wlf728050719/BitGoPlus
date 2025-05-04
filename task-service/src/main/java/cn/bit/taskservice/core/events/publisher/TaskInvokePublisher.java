@@ -1,6 +1,6 @@
 package cn.bit.taskservice.core.events.publisher;
 
-import cn.bit.pojo.po.task.TaskPO;
+import cn.bit.core.pojo.po.task.TaskPO;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.context.ApplicationEventPublisher;

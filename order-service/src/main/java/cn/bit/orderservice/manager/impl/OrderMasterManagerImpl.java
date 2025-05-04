@@ -2,8 +2,8 @@ package cn.bit.orderservice.manager.impl;
 
 import cn.bit.orderservice.manager.OrderMasterManager;
 import cn.bit.orderservice.mapper.OrderMasterMapper;
-import cn.bit.pojo.po.order.OrderMasterPO;
-import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
+import cn.bit.core.pojo.po.order.OrderMasterPO;
+import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

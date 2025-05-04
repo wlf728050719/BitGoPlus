@@ -3,7 +3,7 @@ package cn.bit.taskservice.core.handler.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import cn.bit.pojo.po.task.TaskPO;
+import cn.bit.core.pojo.po.task.TaskPO;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 

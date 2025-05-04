@@ -1,13 +1,13 @@
 package cn.bit.authservice.service.impl;
 
 import cn.bit.authservice.service.AuthenticationService;
-import cn.bit.constant.RedisKey;
-import cn.bit.constant.SecurityConstant;
-import cn.bit.exception.BizException;
-import cn.bit.pojo.dto.BitGoUser;
-import cn.bit.pojo.vo.R;
-import cn.bit.service.BitGoUserService;
-import cn.bit.util.JwtUtil;
+import cn.bit.core.constant.RedisKey;
+import cn.bit.core.constant.SecurityConstant;
+import cn.bit.core.exception.BizException;
+import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.vo.R;
+import cn.bit.security.service.BitGoUserService;
+import cn.bit.security.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,7 +1,7 @@
 package cn.bit.taskservice.core.exception;
 
-import cn.bit.exception.BizException;
-import cn.bit.pojo.dto.TaskBaseInfo;
+import cn.bit.core.exception.BizException;
+import cn.bit.core.pojo.dto.TaskBaseInfo;
 import lombok.Getter;
 
 @Getter

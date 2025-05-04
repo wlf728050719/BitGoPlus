@@ -3,7 +3,7 @@
 <mapper namespace="cn.bit.userservice.mapper.PermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="PermissionPO" type="cn.bit.pojo.po.user.PermissionPO">
+    <resultMap id="PermissionPO" type="cn.bit.core.pojo.po.user.PermissionPO">
         <result column="user_id" property="userId"/>
         <result column="role_id" property="roleId"/>
         <result column="tenant_id" property="tenantId"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <!-- 角色字典项结果映射 -->
-    <resultMap id="RoleDictItemResultMap" type="cn.bit.pojo.po.user.RoleDictItem">
+    <resultMap id="RoleDictItemResultMap" type="cn.bit.core.pojo.po.user.RoleDictItem">
         <result column="role_id" property="roleId"/>
         <result column="role_code" property="roleCode"/>
         <result column="description" property="description"/>
@@ -26,7 +26,7 @@
     </sql>
 
     <!-- 根据用户ID查询用户权限信息（返回Set集合） -->
-    <select id="selectAvailableBitGoAuthorizationByUserId" resultType="cn.bit.pojo.dto.BitGoAuthorization">
+    <select id="selectAvailableBitGoAuthorizationByUserId" resultType="cn.bit.core.pojo.dto.BitGoAuthorization">
         SELECT
             dr.role_code,
             p.tenant_id

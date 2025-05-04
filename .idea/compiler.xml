@@ -8,13 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-security" />
+        <module name="common-feign" />
+        <module name="common-oss" />
+        <module name="product-service" />
+        <module name="user-service" />
         <module name="common-data" />
         <module name="auth-service" />
         <module name="common-message" />
-        <module name="common-feign" />
-        <module name="product-service" />
         <module name="task-service" />
-        <module name="user-service" />
         <module name="order-service" />
         <module name="gateway" />
         <module name="common-core" />

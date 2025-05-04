@@ -1,6 +1,6 @@
 package cn.bit.taskservice.core.service;
 
-import cn.bit.pojo.dto.TaskBaseInfo;
+import cn.bit.core.pojo.dto.TaskBaseInfo;
 
 public interface TaskService {
     void init();

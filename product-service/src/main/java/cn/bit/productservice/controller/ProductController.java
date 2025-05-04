@@ -1,13 +1,13 @@
 package cn.bit.productservice.controller;
 
-import cn.bit.annotation.Admin;
+import cn.bit.security.annotation.Admin;
 
-import cn.bit.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.BitGoUser;
 
-import cn.bit.pojo.dto.ShopBaseInfo;
-import cn.bit.pojo.vo.R;
+import cn.bit.core.pojo.dto.ShopBaseInfo;
+import cn.bit.core.pojo.vo.R;
 import cn.bit.productservice.service.ProductService;
-import cn.bit.util.SecurityUtils;
+import cn.bit.security.util.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

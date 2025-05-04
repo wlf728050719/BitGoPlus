@@ -1,5 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.bit.mybatis.handler.BitGoMetaObjectHandler,\
-  cn.bit.mybatis.handler.CustomLocalDateTimeTypeHandler,\
-  cn.bit.snowflake.config.SnowflakeAutoConfiguration
+  cn.bit.data.mybatis.handler.BitGoMetaObjectHandler,\
+  cn.bit.data.mybatis.handler.CustomLocalDateTimeTypeHandler,\
+  cn.bit.data.snowflake.config.SnowflakeAutoConfiguration
 

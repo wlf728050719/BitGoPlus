@@ -1,10 +1,10 @@
 package cn.bit.orderservice.controller;
 
-import cn.bit.annotation.Admin;
+import cn.bit.security.annotation.Admin;
 import cn.bit.orderservice.service.OrderMasterService;
-import cn.bit.pojo.dto.BitGoUser;
-import cn.bit.pojo.vo.R;
-import cn.bit.util.SecurityUtils;
+import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.vo.R;
+import cn.bit.security.util.SecurityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,10 +2,10 @@ package cn.bit.taskservice.core.manager.impl;
 
 import java.util.List;
 
-import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
+import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import org.springframework.stereotype.Service;
 
-import cn.bit.pojo.po.task.TaskLogPO;
+import cn.bit.core.pojo.po.task.TaskLogPO;
 import cn.bit.taskservice.core.mapper.TaskLogMapper;
 import cn.bit.taskservice.core.manager.TaskLogManager;
 import lombok.AllArgsConstructor;

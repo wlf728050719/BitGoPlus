@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- cn.bit.util.CodeUtil,\
- cn.bit.mail.BitGoMailSender
+ cn.bit.message.util.CodeUtil,\
+ cn.bit.message.mail.BitGoMailSender

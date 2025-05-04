@@ -3,8 +3,8 @@ package cn.bit.authservice.controller;
 import java.util.Map;
 
 import cn.bit.authservice.service.AuthenticationService;
-import cn.bit.constant.SecurityConstant;
-import cn.bit.pojo.vo.R;
+import cn.bit.core.constant.SecurityConstant;
+import cn.bit.core.pojo.vo.R;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;

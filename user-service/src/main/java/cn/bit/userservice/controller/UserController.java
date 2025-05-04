@@ -1,13 +1,13 @@
 package cn.bit.userservice.controller;
 
-import cn.bit.annotation.Admin;
-import cn.bit.jsr303.annotation.ValidString;
-import cn.bit.jsr303.enums.StringEnum;
-import cn.bit.pojo.dto.BitGoUser;
-import cn.bit.pojo.dto.UserBaseInfo;
-import cn.bit.pojo.vo.R;
+import cn.bit.security.annotation.Admin;
+import cn.bit.core.jsr303.annotation.ValidString;
+import cn.bit.core.jsr303.enums.StringEnum;
+import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.vo.R;
 import cn.bit.userservice.service.UserService;
-import cn.bit.util.SecurityUtils;
+import cn.bit.security.util.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package cn.bit.authservice.service;
 
-import cn.bit.pojo.vo.R;
+import cn.bit.core.pojo.vo.R;
 
 import java.util.Map;
 

@@ -8,8 +8,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import cn.bit.pojo.po.task.TaskPO;
-import cn.bit.pojo.po.task.TaskLogPO;
+import cn.bit.core.pojo.po.task.TaskPO;
+import cn.bit.core.pojo.po.task.TaskLogPO;
 import cn.bit.taskservice.core.enums.Result;
 import cn.bit.taskservice.core.events.event.TaskInvokeEvent;
 import cn.bit.taskservice.core.exception.TaskInvokeException;

@@ -1,9 +1,9 @@
 package cn.bit.productservice.manager.impl;
 
-import cn.bit.pojo.po.product.ShopPO;
+import cn.bit.core.pojo.po.product.ShopPO;
 import cn.bit.productservice.manager.ShopManager;
 import cn.bit.productservice.mapper.ShopMapper;
-import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
+import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

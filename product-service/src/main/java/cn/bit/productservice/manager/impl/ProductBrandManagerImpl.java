@@ -1,6 +1,6 @@
 package cn.bit.productservice.manager.impl;
 
-import cn.bit.pojo.po.product.ProductBrandPO;
+import cn.bit.core.pojo.po.product.ProductBrandPO;
 import cn.bit.productservice.manager.ProductBrandManager;
 import cn.bit.productservice.mapper.ProductBrandMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

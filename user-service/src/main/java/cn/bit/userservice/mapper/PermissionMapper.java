@@ -1,7 +1,7 @@
 package cn.bit.userservice.mapper;
 
-import cn.bit.pojo.dto.BitGoAuthorization;
-import cn.bit.pojo.po.user.PermissionPO;
+import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.po.user.PermissionPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Set;

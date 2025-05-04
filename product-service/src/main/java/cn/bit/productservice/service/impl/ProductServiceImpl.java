@@ -1,9 +1,9 @@
 package cn.bit.productservice.service.impl;
 
-import cn.bit.client.UserClient;
-import cn.bit.constant.SecurityConstant;
-import cn.bit.pojo.dto.ShopBaseInfo;
-import cn.bit.pojo.vo.R;
+import cn.bit.feign.client.UserClient;
+import cn.bit.core.constant.SecurityConstant;
+import cn.bit.core.pojo.dto.ShopBaseInfo;
+import cn.bit.core.pojo.vo.R;
 import cn.bit.productservice.manager.ShopManager;
 import cn.bit.productservice.service.ProductService;
 import io.seata.spring.annotation.GlobalTransactional;

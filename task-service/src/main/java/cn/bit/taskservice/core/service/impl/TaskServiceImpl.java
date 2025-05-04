@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import cn.bit.pojo.dto.TaskBaseInfo;
-import cn.bit.pojo.po.task.TaskPO;
+import cn.bit.core.pojo.dto.TaskBaseInfo;
+import cn.bit.core.pojo.po.task.TaskPO;
 import cn.bit.taskservice.core.service.TaskService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package cn.bit.userservice.service;
 
-import cn.bit.pojo.dto.BitGoAuthorization;
-import cn.bit.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.dto.UserBaseInfo;
 
 import java.util.Set;
 

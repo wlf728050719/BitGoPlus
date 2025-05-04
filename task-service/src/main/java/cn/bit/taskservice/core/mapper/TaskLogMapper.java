@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import cn.bit.pojo.po.task.TaskLogPO;
+import cn.bit.core.pojo.po.task.TaskLogPO;
 
 @Mapper
 public interface TaskLogMapper {

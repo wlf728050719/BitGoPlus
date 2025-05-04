@@ -1,12 +1,12 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.UserBaseInfo;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.bit.pojo.po.user.UserPO;
-import cn.bit.snowflake.core.DistributedSnowflakeIdGenerator;
+import cn.bit.core.pojo.po.user.UserPO;
+import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import cn.bit.userservice.mapper.UserMapper;
 import cn.bit.userservice.manager.UserManager;
 import lombok.AllArgsConstructor;

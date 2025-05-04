@@ -1,7 +1,7 @@
 package cn.bit.authservice;
 
-import cn.bit.client.UserClient;
-import cn.bit.config.FeignConfiguration;
+import cn.bit.feign.client.UserClient;
+import cn.bit.feign.config.FeignConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

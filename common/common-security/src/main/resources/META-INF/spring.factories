@@ -1,6 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.bit.config.BCryptPasswordEncoderAutoConfiguration,\
-  cn.bit.config.JwtAutoConfiguration,\
-  cn.bit.service.impl.BitGoUserServiceFeignImpl,\
-  cn.bit.config.MicroserviceSecurityConfig,\
-  cn.bit.config.FeignSecurityConfiguration
+  cn.bit.security.config.BCryptPasswordEncoderAutoConfiguration,\
+  cn.bit.security.config.JwtAutoConfiguration,\
+  cn.bit.security.service.impl.BitGoUserServiceFeignImpl,\
+  cn.bit.security.config.MicroserviceSecurityConfig,\
+  cn.bit.security.config.FeignSecurityConfiguration

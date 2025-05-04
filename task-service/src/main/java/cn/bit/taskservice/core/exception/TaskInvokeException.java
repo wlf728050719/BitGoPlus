@@ -1,6 +1,6 @@
 package cn.bit.taskservice.core.exception;
 
-import cn.bit.exception.SysException;
+import cn.bit.core.exception.SysException;
 import lombok.Getter;
 
 @Getter

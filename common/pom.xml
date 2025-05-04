@@ -25,5 +25,6 @@
         <module>common-data</module>
         <module>common-security</module>
         <module>common-message</module>
+        <module>common-oss</module>
     </modules>
 </project>
