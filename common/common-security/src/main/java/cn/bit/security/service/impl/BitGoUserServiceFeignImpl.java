@@ -45,7 +45,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
 
     private BitGoUser getBitGoUserFromRPC(String username) {
         // 获取用户基本信息
-        R<UserBaseInfo> userResponse = userClient.getUndeletedInfoByUsername(username);
+        R<UserBaseInfo> userResponse = userClient.getUndeletedUserBaseInfoByUsername(username);
         if (userResponse == null) {
             throw new SysException("get response from user-service failed");
         }

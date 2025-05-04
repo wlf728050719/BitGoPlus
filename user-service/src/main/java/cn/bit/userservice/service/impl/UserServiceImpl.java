@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         UserPO userPO = userBaseInfo.newUserPO();
         userPO.setPassword(bCryptPasswordEncoder.encode(userPO.getPassword()));
         userPO.setEmailVerify(1);
-        Long userId = userManager.insert(userPO);
+        Long userId = userManager.insertUser(userPO);
         // 默认添加customer权限
         addPermission(SecurityConstant.ROLE_CUSTOMER, userId, userId);
         return true;
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
         permissionPO.setRoleId(roleDictItem.getRoleId());
         permissionPO.setTenantId(tenantId);
         permissionPO.setUserId(userId);
-        permissionManager.insert(permissionPO);
+        permissionManager.insertPermission(permissionPO);
         return true;
     }
 
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过用户名获取未被删除的用户基本信息
+     * 通过用户名获取未被删除的用户基本信息(未脱敏)
      * @param username 用户名
      * @return {@link UserBaseInfo }
      */
@@ -185,13 +185,13 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过用户ID获取用户基本信息
+     * 通过用户ID获取用户基本信息(未脱敏)
      * @param userId 用户ID
      * @return {@link UserBaseInfo }
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserBaseInfo getInfoByUserId(Long userId) {
+    public UserBaseInfo getUserBaseInfoByUserId(Long userId) {
         UserPO user = userManager.selectUserPOByUserId(userId);
         if (user == null) {
             throw new BizException("不存在对应用户ID用户");

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cn.bit.core.pojo.po.user.UserPO;
 
 public interface UserManager extends IService<UserPO> {
-    Long insert(UserPO userPO);
+    Long insertUser(UserPO userPO);
 
     UserPO selectUserPOByUserId(Long userId);
 

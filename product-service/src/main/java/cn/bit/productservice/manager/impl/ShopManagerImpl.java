@@ -11,13 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class ShopManagerImpl extends ServiceImpl<ShopMapper, ShopPO> implements ShopManager {
-    private ShopMapper shopMapper;
     private final DistributedSnowflakeIdGenerator idGenerator;
     @Override
     public Long insertShop(ShopPO shopPO) {
         Long id = idGenerator.nextId();
         shopPO.setShopId(id);
-        shopMapper.insert(shopPO);
+        save(shopPO);
         return id;
     }
 }

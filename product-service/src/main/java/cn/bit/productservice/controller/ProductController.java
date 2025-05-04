@@ -1,5 +1,6 @@
 package cn.bit.productservice.controller;
 
+import cn.bit.core.pojo.dto.ProductBrandBaseInfo;
 import cn.bit.security.annotation.Admin;
 
 import cn.bit.core.pojo.dto.BitGoUser;
@@ -11,11 +12,14 @@ import cn.bit.security.util.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/product")
@@ -35,7 +39,11 @@ public class ProductController {
     @PostMapping("/createShop")
     public R<Boolean> createShop(@RequestBody ShopBaseInfo shopBaseInfo) {
         BitGoUser user = SecurityUtils.getUser();
-        return productService.createShop(user.getUserBaseInfo().getUserId(), shopBaseInfo);
+        return R.ok(productService.createShop(user.getUserBaseInfo().getUserId(), shopBaseInfo), "店铺创建成功");
     }
 
+    @PostMapping("/addBrand")
+    public R<Boolean> addBrand(@ModelAttribute @Valid ProductBrandBaseInfo productBrandBaseInfo) {
+        return R.ok(productService.addBrand(productBrandBaseInfo), "品牌添加成功");
+    }
 }

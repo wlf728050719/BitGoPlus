@@ -14,11 +14,11 @@ import java.util.Set;
 @FeignClient(value = "user-service")
 public interface UserClient {
 
-    @GetMapping("/api/user/undeletedInfoByUsername/{username}")
-    R<UserBaseInfo> getUndeletedInfoByUsername(@PathVariable("username") String username);
+    @GetMapping("/api/user/undeletedUserBaseInfoByUsername/{username}")
+    R<UserBaseInfo> getUndeletedUserBaseInfoByUsername(@PathVariable("username") String username);
 
-    @GetMapping("/api/user/infoByUserId/{userId}")
-    R<UserBaseInfo> getInfoByUserId(@PathVariable("userId") Long userId);
+    @GetMapping("/api/user/userBaseInfoByUserId/{userId}")
+    R<UserBaseInfo> getUserBaseInfoByUserId(@PathVariable("userId") Long userId);
 
     @GetMapping("/api/user/bitGoAuthorizationByUserId/{userId}")
     R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(@PathVariable("userId") Long userId);

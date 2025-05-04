@@ -18,7 +18,7 @@ public interface UserService {
 
     UserBaseInfo getUndeletedUserBaseInfoByUsername(String username);
 
-    UserBaseInfo getInfoByUserId(Long userId);
+    UserBaseInfo getUserBaseInfoByUserId(Long userId);
 
     Set<BitGoAuthorization> getAvailableBitGoAuthorizationByUserId(Long userId);
 }

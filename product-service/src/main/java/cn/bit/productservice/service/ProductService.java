@@ -1,8 +1,9 @@
 package cn.bit.productservice.service;
 
+import cn.bit.core.pojo.dto.ProductBrandBaseInfo;
 import cn.bit.core.pojo.dto.ShopBaseInfo;
-import cn.bit.core.pojo.vo.R;
 
 public interface ProductService {
-    R<Boolean> createShop(Long userId, ShopBaseInfo shopBaseInfo);
+    Boolean createShop(Long userId, ShopBaseInfo shopBaseInfo);
+    Boolean addBrand(ProductBrandBaseInfo productBrandBaseInfo);
 }

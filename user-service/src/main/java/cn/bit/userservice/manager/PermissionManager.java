@@ -7,6 +7,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.Set;
 
 public interface PermissionManager extends IService<PermissionPO> {
-    Long insert(PermissionPO permissionPO);
+    Long insertPermission(PermissionPO permissionPO);
     Set<BitGoAuthorization> selectAvailableBitGoAuthorizationByUserId(Long userId);
 }

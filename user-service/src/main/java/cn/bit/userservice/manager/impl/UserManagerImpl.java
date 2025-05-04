@@ -18,7 +18,7 @@ public class UserManagerImpl extends ServiceImpl<UserMapper, UserPO> implements 
     private final DistributedSnowflakeIdGenerator idGenerator;
 
     @Override
-    public Long insert(UserPO userPO) {
+    public Long insertUser(UserPO userPO) {
         Long id = idGenerator.nextId();
         userPO.setUserId(id);
         save(userPO);

@@ -17,7 +17,7 @@ public class PermissionManagerImpl extends ServiceImpl<PermissionMapper, Permiss
     private final PermissionMapper permissionMapper;
     private final DistributedSnowflakeIdGenerator idGenerator;
     @Override
-    public Long insert(PermissionPO permissionPO) {
+    public Long insertPermission(PermissionPO permissionPO) {
         Long id = idGenerator.nextId();
         permissionPO.setPermissionId(id);
         save(permissionPO);

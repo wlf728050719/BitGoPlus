@@ -20,10 +20,18 @@
     <openfeign.version>2.2.5.RELEASE</openfeign.version>
     <gateway.version>2.2.5.RELEASE</gateway.version>
     <seata.version>2.0.0</seata.version>
+    <oss.version>2.2.0.RELEASE</oss.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <!-- oss -->
+      <!-- 阿里云对象存储 -->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+        <version>${oss.version}</version>
+      </dependency>
       <!-- seata -->
       <dependency>
         <groupId>io.seata</groupId>
@@ -105,6 +113,11 @@
       <dependency>
         <groupId>cn.bit</groupId>
         <artifactId>common-message</artifactId>
+        <version>${bitgo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.bit</groupId>
+        <artifactId>common-oss</artifactId>
         <version>${bitgo.version}</version>
       </dependency>
     </dependencies>

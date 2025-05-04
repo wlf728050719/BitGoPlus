@@ -20,14 +20,14 @@ import java.util.Set;
 public class APIController {
     private UserService userService;
 
-    @GetMapping("/undeletedInfoByUsername/{username}")
-    public R<UserBaseInfo> getUndeletedInfoByUsername(@PathVariable("username") String username) {
+    @GetMapping("/undeletedUserBaseInfoByUsername/{username}")
+    public R<UserBaseInfo> getUndeletedUserBaseInfoByUsername(@PathVariable("username") String username) {
         return R.ok(userService.getUndeletedUserBaseInfoByUsername(username));
     }
 
-    @GetMapping("/infoByUserId/{userId}")
-    public R<UserBaseInfo> getInfoByUserId(@PathVariable("userId") Long userId) {
-        return R.ok(userService.getInfoByUserId(userId));
+    @GetMapping("/userBaseInfoByUserId/{userId}")
+    public R<UserBaseInfo> getUserBaseInfoByUserId(@PathVariable("userId") Long userId) {
+        return R.ok(userService.getUserBaseInfoByUserId(userId));
     }
 
     @GetMapping("/bitGoAuthorizationByUserId/{userId}")

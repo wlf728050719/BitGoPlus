@@ -85,6 +85,11 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
+        <!-- common-oss -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-oss</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
