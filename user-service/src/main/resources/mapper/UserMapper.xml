@@ -33,7 +33,7 @@
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
-    <resultMap id="UserBaseInfoMap" type="cn.bit.core.pojo.dto.UserBaseInfo">
+    <resultMap id="UserBaseInfoMap" type="cn.bit.core.pojo.dto.user.UserBaseInfo">
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="real_name" property="realName" />

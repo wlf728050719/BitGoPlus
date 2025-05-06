@@ -2,8 +2,8 @@ package cn.bit.security.util;
 
 import cn.bit.core.exception.BizException;
 import cn.bit.core.exception.SysException;
-import cn.bit.core.pojo.dto.BitGoAuthorization;
-import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
+import cn.bit.core.pojo.dto.security.BitGoUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

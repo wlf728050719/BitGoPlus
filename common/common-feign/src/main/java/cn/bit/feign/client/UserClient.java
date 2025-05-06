@@ -1,7 +1,7 @@
 package cn.bit.feign.client;
 
-import cn.bit.core.pojo.dto.BitGoAuthorization;
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import cn.bit.core.pojo.vo.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

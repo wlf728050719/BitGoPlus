@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager;
 
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.bit.core.pojo.po.user.UserPO;

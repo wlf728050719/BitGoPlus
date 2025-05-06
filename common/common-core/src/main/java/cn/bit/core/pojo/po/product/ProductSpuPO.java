@@ -42,12 +42,12 @@ public class ProductSpuPO {
     private Long shopId;
 
     /** 主图URL */
-    @TableField("main_image")
-    private String mainImage;
+    @TableField("main_image_url")
+    private String mainImageUrl;
 
     /** 子图URL（JSON数组格式） */
-    @TableField("sub_images")
-    private String subImages;
+    @TableField("sub_images_url")
+    private String subImagesUrl;
 
     /** 产品描述（富文本） */
     @TableField("description")

@@ -1,9 +1,15 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.product;
 
+import cn.bit.core.jsr303.annotation.ValidFile;
+import cn.bit.core.jsr303.annotation.ValidString;
+import cn.bit.core.jsr303.enums.FileEnum;
+import cn.bit.core.jsr303.enums.StringEnum;
 import cn.bit.core.pojo.po.product.ShopPO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @Data
@@ -14,21 +20,30 @@ public class ShopBaseInfo {
     private Long shopId;
 
     /** 店铺名称 */
+    @NotNull
     private String shopName;
 
     /** 店铺logo */
-    private String logo;
+    @Null
+    private String logoUrl;
+
+    @ValidFile(fileEnum = FileEnum.IMAGE_FILE)
+    private MultipartFile logoImg;
 
     /** 店铺描述 */
     private String description;
 
     /** 联系电话 */
+    @NotNull
+    @ValidString(StringEnum.PHONE_STRING)
     private String contactPhone;
 
     /** 店铺地址 */
+    @NotNull
     private String address;
 
     /** 营业执照号 */
+    @NotNull
     private String businessLicense;
 
     /** 排序 */
@@ -47,7 +62,7 @@ public class ShopBaseInfo {
         ShopPO shopPO = new ShopPO();
         shopPO.setShopId(shopId);
         shopPO.setShopName(shopName);
-        shopPO.setLogo(logo);
+        shopPO.setLogoUrl(logoUrl);
         shopPO.setDescription(description);
         shopPO.setContactPhone(contactPhone);
         shopPO.setAddress(address);
@@ -61,7 +76,7 @@ public class ShopBaseInfo {
     public ShopBaseInfo(ShopPO shopPO) {
         this.shopId = shopPO.getShopId();
         this.shopName = shopPO.getShopName();
-        this.logo = shopPO.getLogo();
+        this.logoUrl = shopPO.getLogoUrl();
         this.description = shopPO.getDescription();
         this.contactPhone = shopPO.getContactPhone();
         this.address = shopPO.getAddress();

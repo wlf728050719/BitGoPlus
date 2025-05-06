@@ -1,8 +1,8 @@
 package cn.bit.taskservice.controller;
 
 import cn.bit.security.annotation.Admin;
-import cn.bit.core.pojo.dto.BitGoUser;
-import cn.bit.core.pojo.dto.TaskBaseInfo;
+import cn.bit.core.pojo.dto.security.BitGoUser;
+import cn.bit.core.pojo.dto.task.TaskBaseInfo;
 import cn.bit.security.util.SecurityUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;

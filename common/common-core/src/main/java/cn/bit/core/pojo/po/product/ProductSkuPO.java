@@ -55,8 +55,8 @@ public class ProductSkuPO {
     private Integer warnStock;
 
     /** SKU图片 */
-    @TableField("image")
-    private String image;
+    @TableField("image_url")
+    private String imageUrl;
 
     /** 商品重量（kg） */
     @TableField("weight")

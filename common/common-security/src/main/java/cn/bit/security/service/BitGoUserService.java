@@ -1,6 +1,6 @@
 package cn.bit.security.service;
 
-import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.security.BitGoUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface BitGoUserService extends UserDetailsService {

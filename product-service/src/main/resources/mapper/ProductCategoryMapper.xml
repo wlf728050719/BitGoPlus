@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bit.productservice.mapper.ProductCategoryMapper">
+
+    <!-- Base Result Map -->
+    <resultMap id="ProductCategoryDictItemMap" type="cn.bit.core.pojo.po.product.ProductCategoryDictItem">
+        <id column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="level" property="level"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="icon" property="iconUrl"/>
+        <result column="description" property="description"/>
+        <result column="del_flag" property="delFlag"/>
+    </resultMap>
+
+    <!-- SQL Columns -->
+    <sql id="Base_Column_List">
+        category_id, category_name, parent_id, level, sort_order, icon, description, del_flag
+    </sql>
+
+    <select id="getAvailableProductCategoryDict" resultMap="ProductCategoryDictItemMap">
+        SELECT <include refid="Base_Column_List"/> FROM dict_product_category WHERE del_flag = 0
+    </select>
+</mapper>

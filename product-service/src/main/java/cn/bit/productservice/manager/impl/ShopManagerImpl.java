@@ -12,11 +12,23 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ShopManagerImpl extends ServiceImpl<ShopMapper, ShopPO> implements ShopManager {
     private final DistributedSnowflakeIdGenerator idGenerator;
+
     @Override
     public Long insertShop(ShopPO shopPO) {
         Long id = idGenerator.nextId();
         shopPO.setShopId(id);
         save(shopPO);
         return id;
+    }
+
+    @Override
+    public ShopPO getAvailableShop(Long shopId) {
+        ShopPO shopPO = getById(shopId);
+        return (shopPO != null && shopPO.getDelFlag() == 0) ? shopPO : null;
+    }
+
+    @Override
+    public boolean checkAvailableShopId(Long id) {
+        return getById(id) != null;
     }
 }

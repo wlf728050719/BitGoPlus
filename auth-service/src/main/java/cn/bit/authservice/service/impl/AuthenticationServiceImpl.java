@@ -4,7 +4,7 @@ import cn.bit.authservice.service.AuthenticationService;
 import cn.bit.core.constant.RedisKey;
 import cn.bit.core.constant.SecurityConstant;
 import cn.bit.core.exception.BizException;
-import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.security.BitGoUser;
 import cn.bit.core.pojo.vo.R;
 import cn.bit.security.service.BitGoUserService;
 import cn.bit.security.util.JwtUtil;
@@ -46,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public R<String> refreshToken(String refreshToken) {
         String username = jwtUtil.extractData(refreshToken);
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        if (jwtUtil.validateToken(refreshToken, user)) {
+        if (jwtUtil.validateUserToken(refreshToken, user)) {
             return R.ok(jwtUtil.generateAccessToken(user));
         } else {
             throw new BizException("用户登录状态已过期,请重新登录");

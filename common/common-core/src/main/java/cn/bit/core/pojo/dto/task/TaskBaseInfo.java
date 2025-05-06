@@ -1,4 +1,4 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.task;
 
 import cn.bit.core.pojo.po.task.TaskPO;
 import lombok.Data;

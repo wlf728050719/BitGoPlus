@@ -6,5 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.Set;
 
 public interface ProductCategoryManager extends IService<ProductCategoryDictItem> {
-    Set<ProductCategoryDictItem> getProductCategoryDict();
+    Set<ProductCategoryDictItem> getAvailableProductCategoryDict();
+    ProductCategoryDictItem getAvailableProductCategoryDictItemById(Long categoryId);
+    boolean checkAvailableProductCategoryDictItemId(Long categoryId);
 }

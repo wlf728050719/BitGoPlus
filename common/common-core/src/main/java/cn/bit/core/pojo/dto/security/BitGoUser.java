@@ -1,6 +1,7 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.security;
 
 
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

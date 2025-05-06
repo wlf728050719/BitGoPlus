@@ -1,6 +1,6 @@
 package cn.bit.userservice.mapper;
 
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import cn.bit.core.pojo.po.user.UserPO;

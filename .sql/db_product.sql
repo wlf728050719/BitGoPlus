@@ -10,7 +10,7 @@ CREATE TABLE `dict_product_category` (
                                          `parent_id` bigint DEFAULT NULL COMMENT '父分类ID',
                                          `level` tinyint NOT NULL COMMENT '分类层级（1-一级，2-二级等）',
                                          `sort_order` int DEFAULT '0' COMMENT '排序权重',
-                                         `icon` varchar(255) DEFAULT NULL COMMENT '分类图标',
+                                         `icon_url` varchar(255) DEFAULT NULL COMMENT '分类图标地址',
                                          `description` varchar(500) DEFAULT NULL COMMENT '分类描述',
                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -22,7 +22,7 @@ CREATE TABLE `dict_product_category` (
 ) ENGINE=InnoDB COMMENT='产品分类表';
 
 -- 插入一级分类
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (101, '电子产品', NULL, 1, 10, '', '各类电子设备和配件'),
     (102, '服装服饰', NULL, 1, 20, '', '男女服装、鞋帽配饰'),
@@ -30,7 +30,7 @@ VALUES
     (104, '食品饮料', NULL, 1, 40, '', '各类食品和饮料');
 
 -- 插入电子产品的二级分类
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (101001, '智能手机', 101, 2, 11, '', '各类品牌智能手机'),
     (101002, '笔记本电脑', 101, 2, 12, '', '商务本、游戏本等'),
@@ -38,7 +38,7 @@ VALUES
     (101004, '耳机音响', 101, 2, 14, '', '蓝牙耳机、音响设备');
 
 -- 插入服装服饰的二级分类
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (102001, '男装', 102, 2, 21, '', '男士上衣、裤子等'),
     (102002, '女装', 102, 2, 22, '', '女士上衣、裙子等'),
@@ -46,7 +46,7 @@ VALUES
     (102004, '运动服饰', 102, 2, 24, '', '运动服装和配件');
 
 -- 插入家居用品的二级分类
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (103001, '家具', 103, 2, 31, '', '沙发、床、桌椅等'),
     (103002, '家纺', 103, 2, 32, '', '床上用品、窗帘等'),
@@ -54,7 +54,7 @@ VALUES
     (103004, '装饰品', 103, 2, 34, '', '家居装饰摆件');
 
 -- 插入食品饮料的二级分类
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (104001, '休闲零食', 104, 2, 41, '', '饼干、糖果、坚果等'),
     (104002, '酒水饮料', 104, 2, 42, '', '各类酒水和饮料'),
@@ -62,7 +62,7 @@ VALUES
     (104004, '粮油调味', 104, 2, 44, '', '米面油和调味品');
 
 -- 插入智能手机的三级分类示例
-INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon`, `description`)
+INSERT INTO `dict_product_category` (`category_id`, `category_name`, `parent_id`, `level`, `sort_order`, `icon_url`, `description`)
 VALUES
     (101001000001, '苹果手机', 101001, 3, 111, '', 'iPhone系列'),
     (101001000002, '华为手机', 101001, 3, 112, '', '华为系列手机'),
@@ -72,7 +72,7 @@ VALUES
 CREATE TABLE `product_brand` (
                                  `brand_id` bigint NOT NULL COMMENT '品牌ID',
                                  `brand_name` varchar(50) NOT NULL COMMENT '品牌名称',
-                                 `logo` varchar(255) DEFAULT NULL COMMENT '品牌logo',
+                                 `logo_url` varchar(255) DEFAULT NULL COMMENT '品牌logo地址',
                                  `description` varchar(500) DEFAULT NULL COMMENT '品牌描述',
                                  `website` varchar(100) DEFAULT NULL COMMENT '品牌官网',
                                  `sort_order` int DEFAULT '0' COMMENT '排序',
@@ -87,7 +87,7 @@ CREATE TABLE `product_brand` (
 CREATE TABLE `shop` (
                         `shop_id` bigint NOT NULL COMMENT '店铺ID',
                         `shop_name` varchar(50) NOT NULL COMMENT '店铺名称',
-                        `logo` varchar(255) DEFAULT NULL COMMENT '店铺logo',
+                        `logo_url` varchar(255) DEFAULT NULL COMMENT '店铺logo地址',
                         `description` varchar(500) DEFAULT NULL COMMENT '店铺描述',
                         `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系电话',
                         `address` varchar(200) DEFAULT NULL COMMENT '店铺地址',
@@ -109,8 +109,8 @@ CREATE TABLE `product_spu` (
                                `category_id` bigint NOT NULL COMMENT '分类ID',
                                `brand_id` bigint DEFAULT NULL COMMENT '品牌ID',
                                `shop_id` bigint DEFAULT NULL COMMENT '店铺ID',
-                               `main_image` varchar(255) DEFAULT NULL COMMENT '主图URL',
-                               `sub_images` text COMMENT '子图URL（JSON数组）',
+                               `main_image_url` varchar(255) DEFAULT NULL COMMENT '主图URL',
+                               `sub_images_url` text COMMENT '子图URL（JSON数组）',
                                `description` text COMMENT '产品描述',
                                `spec_template` text COMMENT '规格模板（JSON格式）',
                                `sales` int DEFAULT '0' COMMENT '总销量',
@@ -143,7 +143,7 @@ BEGIN
           `market_price` decimal(10,2) DEFAULT NULL COMMENT ''市场价'',
           `stock` int NOT NULL DEFAULT ''0'' COMMENT ''库存'',
           `warn_stock` int DEFAULT ''0'' COMMENT ''预警库存'',
-          `image` varchar(255) DEFAULT NULL COMMENT ''SKU图片'',
+          `image_url` varchar(255) DEFAULT NULL COMMENT ''SKU图片地址'',
           `weight` decimal(10,2) DEFAULT NULL COMMENT ''重量（kg）'',
           `volume` decimal(10,2) DEFAULT NULL COMMENT ''体积（m³）'',
           `status` tinyint NOT NULL DEFAULT ''1'' COMMENT ''状态（1-启用，0-禁用）'',
@@ -197,38 +197,6 @@ DELIMITER ;
 
 CALL `create_attr_sharding_tables`(10);
 DROP PROCEDURE IF EXISTS `create_attr_sharding_tables`;
-
-DELIMITER //
-CREATE PROCEDURE `create_image_sharding_tables`(IN table_count INT)
-BEGIN
-    DECLARE i INT DEFAULT 0;
-    WHILE i < table_count DO
-            SET @sql = CONCAT('
-        CREATE TABLE IF NOT EXISTS `product_image_', i, '` (
-          `image_id` bigint NOT NULL COMMENT ''图片ID'',
-          `spu_id` bigint NOT NULL COMMENT ''SPU ID'',
-          `sku_id` bigint DEFAULT NULL COMMENT ''SKU ID（NULL表示SPU通用图片）'',
-          `image_url` varchar(255) NOT NULL COMMENT ''图片URL'',
-          `sort_order` int DEFAULT ''0'' COMMENT ''排序'',
-          `is_main` tinyint DEFAULT ''0'' COMMENT ''是否主图（1-是，0-否）'',
-          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-          `del_flag` tinyint NOT NULL DEFAULT ''0'',
-          PRIMARY KEY (`image_id`),
-          KEY `idx_spu_id_', i, '` (`spu_id`),
-          KEY `idx_sku_id_', i, '` (`sku_id`),
-          KEY `idx_sort_order_', i, '` (`sort_order`)
-        ) ENGINE=InnoDB COMMENT=''产品图片分表', i, '''');
-            PREPARE stmt FROM @sql;
-            EXECUTE stmt;
-            DEALLOCATE PREPARE stmt;
-            SET i = i + 1;
-        END WHILE;
-END//
-DELIMITER ;
-
-CALL `create_image_sharding_tables`(10);
-DROP PROCEDURE IF EXISTS `create_image_sharding_tables`;
 
 DELIMITER //
 CREATE PROCEDURE `create_inventory_log_sharding_tables`(IN table_count INT)

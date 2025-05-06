@@ -1,4 +1,4 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.user;
 
 import cn.bit.core.jsr303.annotation.ValidString;
 import cn.bit.core.jsr303.enums.StringEnum;

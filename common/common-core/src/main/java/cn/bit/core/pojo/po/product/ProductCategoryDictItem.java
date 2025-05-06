@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@TableName(value = "product_category", autoResultMap = true)
+@TableName(value = "dict_product_category", autoResultMap = true)
 public class ProductCategoryDictItem {
     /** 分类ID（雪花ID） */
     @TableId(value = "category_id")
@@ -35,10 +35,14 @@ public class ProductCategoryDictItem {
     private Integer sortOrder;
 
     /** 分类图标URL */
-    @TableField("icon")
-    private String icon;
+    @TableField("icon_url")
+    private String iconUrl;
 
     /** 分类描述 */
     @TableField("description")
     private String description;
+
+    /** 删除标志（0-未删除，1-已删除） */
+    @TableField("del_flag")
+    private Integer delFlag;
 }

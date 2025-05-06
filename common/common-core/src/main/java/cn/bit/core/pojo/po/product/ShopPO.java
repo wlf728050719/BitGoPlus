@@ -26,8 +26,8 @@ public class ShopPO {
     private String shopName;
 
     /** 店铺logo */
-    @TableField("logo")
-    private String logo;
+    @TableField("logo_url")
+    private String logoUrl;
 
     /** 店铺描述 */
     @TableField("description")

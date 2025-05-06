@@ -1,4 +1,4 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.security;
 
 import cn.bit.core.constant.SecurityConstant;
 import lombok.Data;
@@ -11,6 +11,6 @@ public class BitGoAuthorization implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return SecurityConstant.ROLE_PREFIX + roleCode;
+        return SecurityConstant.ROLE_PREFIX + roleCode + tenantId;
     }
 }

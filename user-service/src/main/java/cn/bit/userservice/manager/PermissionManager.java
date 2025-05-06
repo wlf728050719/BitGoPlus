@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager;
 
-import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
 import cn.bit.core.pojo.po.user.PermissionPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 

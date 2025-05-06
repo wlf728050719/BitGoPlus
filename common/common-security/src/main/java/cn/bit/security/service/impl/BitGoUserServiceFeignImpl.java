@@ -1,13 +1,13 @@
 package cn.bit.security.service.impl;
 
 import cn.bit.core.constant.SecurityConstant;
-import cn.bit.core.pojo.dto.BitGoAuthorization;
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import cn.bit.security.service.BitGoUserService;
 import cn.bit.core.exception.BizException;
 import cn.bit.core.exception.SysException;
 import cn.bit.feign.client.UserClient;
-import cn.bit.core.pojo.dto.BitGoUser;
+import cn.bit.core.pojo.dto.security.BitGoUser;
 import cn.bit.core.pojo.vo.R;
 import lombok.AllArgsConstructor;
 
@@ -71,6 +71,7 @@ public class BitGoUserServiceFeignImpl implements BitGoUserService {
         }
         // 获取用户的所有授权信息
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+
         // 检查是否有匹配的角色
         return authorities.stream().filter(auth -> auth instanceof BitGoAuthorization)
             .map(auth -> (BitGoAuthorization) auth).anyMatch(auth -> auth.getRoleCode().equals(roleCode));

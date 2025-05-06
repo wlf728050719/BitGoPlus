@@ -26,7 +26,7 @@
     </sql>
 
     <!-- 根据用户ID查询用户权限信息（返回Set集合） -->
-    <select id="selectAvailableBitGoAuthorizationByUserId" resultType="cn.bit.core.pojo.dto.BitGoAuthorization">
+    <select id="selectAvailableBitGoAuthorizationByUserId" resultType="cn.bit.core.pojo.dto.security.BitGoAuthorization">
         SELECT
             dr.role_code,
             p.tenant_id

@@ -1,4 +1,4 @@
-package cn.bit.core.pojo.dto;
+package cn.bit.core.pojo.dto.product;
 
 
 import cn.bit.core.jsr303.annotation.ValidFile;
@@ -26,7 +26,7 @@ public class ProductBrandBaseInfo {
 
     /** 品牌logo图片 */
     @ValidFile(fileEnum = FileEnum.IMAGE_FILE)
-    private MultipartFile brandImg;
+    private MultipartFile logoImg;
 
     /** 品牌描述 */
     private String description;
@@ -46,7 +46,7 @@ public class ProductBrandBaseInfo {
         ProductBrandPO productBrandPO = new ProductBrandPO();
         productBrandPO.setBrandId(brandId);
         productBrandPO.setBrandName(brandName);
-        productBrandPO.setLogo(logo);
+        productBrandPO.setLogoUrl(logo);
         productBrandPO.setDescription(description);
         productBrandPO.setWebsite(website);
         productBrandPO.setSortOrder(sortOrder);

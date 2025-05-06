@@ -8,16 +8,28 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @AllArgsConstructor
-public class ProductBrandManagerImpl extends ServiceImpl<ProductBrandMapper, ProductBrandPO> implements ProductBrandManager {
+public class ProductBrandManagerImpl extends ServiceImpl<ProductBrandMapper, ProductBrandPO>
+    implements ProductBrandManager {
     private final DistributedSnowflakeIdGenerator idGenerator;
+
     @Override
     public Long insertProductBrand(ProductBrandPO productBrandPO) {
         Long id = idGenerator.nextId();
         productBrandPO.setBrandId(id);
         save(productBrandPO);
         return id;
+    }
+
+    @Override
+    public ProductBrandPO getAvailableProductBrandById(Long id) {
+        ProductBrandPO productBrandPO = getById(id);
+        return (productBrandPO != null && productBrandPO.getDelFlag() == 0) ? productBrandPO : null;
+    }
+
+    @Override
+    public boolean checkAvailableProductBrandId(Long id) {
+        return getAvailableProductBrandById(id) != null;
     }
 }

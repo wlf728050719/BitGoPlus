@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.core.pojo.dto.BitGoAuthorization;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
 import cn.bit.core.pojo.po.user.PermissionPO;
 import cn.bit.data.snowflake.core.DistributedSnowflakeIdGenerator;
 import cn.bit.userservice.manager.PermissionManager;

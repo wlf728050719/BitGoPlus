@@ -1,7 +1,7 @@
 package cn.bit.userservice.controller;
 
-import cn.bit.core.pojo.dto.BitGoAuthorization;
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.security.BitGoAuthorization;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import cn.bit.core.pojo.vo.R;
 import cn.bit.userservice.service.UserService;
 import lombok.AllArgsConstructor;

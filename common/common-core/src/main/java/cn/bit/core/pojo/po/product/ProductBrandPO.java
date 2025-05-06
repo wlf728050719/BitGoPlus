@@ -26,8 +26,8 @@ public class ProductBrandPO {
     private String brandName;
 
     /** 品牌logo URL */
-    @TableField("logo")
-    private String logo;
+    @TableField("logo_url")
+    private String logoUrl;
 
     /** 品牌描述 */
     @TableField("description")

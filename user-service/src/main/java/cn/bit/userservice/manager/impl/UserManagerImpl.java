@@ -1,6 +1,6 @@
 package cn.bit.userservice.manager.impl;
 
-import cn.bit.core.pojo.dto.UserBaseInfo;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
