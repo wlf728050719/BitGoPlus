@@ -196,6 +196,7 @@
 2. Mapper层使用BaseMapper<PO类>，可以直接从数据库中获取DTO类，但DTO类无法使用Mybatis Plus特性，但除了查询其余操作必须使用PO类(优化查询)
 3. del_flag = 1的数据视为删除(非主键查询时需要添加undeleted),lock_flag = 1的数据视为冻结(非主键查询添加available)
 4. 通过id主键获取的数据一定唯一或空，不需要添加undeleted或available
+5. 方法以update/select/insert/delete命名
 
 ## Manager层
 

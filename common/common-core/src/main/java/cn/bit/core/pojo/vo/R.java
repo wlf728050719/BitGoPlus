@@ -5,6 +5,15 @@ import java.io.Serializable;
 import cn.bit.core.constant.ResponseCode;
 import lombok.Data;
 
+/**
+ * <p>响应类</p>
+ * Date:2025/05/07 20:29:40
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
+@SuppressWarnings("checkstyle:JavadocType")
 @Data
 public class R<T> implements Serializable {
     private int code;

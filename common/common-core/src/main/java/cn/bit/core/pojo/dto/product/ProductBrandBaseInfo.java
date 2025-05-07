@@ -10,6 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
+/**
+ * <p>商品品牌基本信息</p>
+ * Date:2025/05/07 20:25:25
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Data
 public class ProductBrandBaseInfo {
     /** 品牌ID */
@@ -25,7 +33,7 @@ public class ProductBrandBaseInfo {
     private String logo;
 
     /** 品牌logo图片 */
-    @ValidFile(fileEnum = FileEnum.IMAGE_FILE)
+    @ValidFile(value = FileEnum.IMAGE_FILE)
     private MultipartFile logoImg;
 
     /** 品牌描述 */

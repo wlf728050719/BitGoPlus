@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import cn.bit.core.pojo.po.user.UserPO;
 
+import java.util.List;
+
 public interface UserMapper extends BaseMapper<UserPO> {
     UserPO selectUserPOByUserId(Long userId);
 
     UserPO selectUndeletedUserPOByVerifiedEmail(String email);
 
-    UserPO selectUndeletedUserPOByUserName(String userName);
+    List<UserPO> selectUserPOsByUserName(String userName);
 
     UserBaseInfo selectUndeletedBaseUserInfoByUserId(Long userId);
 

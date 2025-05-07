@@ -1,19 +1,29 @@
 package cn.bit.core.constant;
 
+/**
+ * <p>Redis键</p>
+ * Date:2025/05/07 20:17:05
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @SuppressWarnings("checkstyle:InterfaceIsType")
 public interface RedisKey {
     // 键分隔符
     String SEPARATOR = ":";
     // 命名空间
-    String NAMESPACE = "BitGO";
+    String NAMESPACE = "BitGO"; // 命名空间
     // 一级前缀
-    String DICT_PREFIX = "Dict";
-    String SNOWFLAKE_PREFIX = "Snowflake";
-    String CODE_PREFIX = "Code";
-    String TOKEN_PREFIX = "Token";
+    String DICT_PREFIX = "Dict"; // 字典项
+    String SNOWFLAKE_PREFIX = "Snowflake"; // 雪花算法
+    String CODE_PREFIX = "Code"; // 验证码
+    String TOKEN_PREFIX = "Token"; // accessToken
+    String COUNT_PREFIX = "Count"; // 计数
     // 二级前缀
     String REGISTER_PREFIX = "Register";
     String CHANGE_PASSWORD_PREFIX = "ChangePassword";
+    String PASSWORD_ERROR_COUNT = "PasswordErrorCount";
     String LOCK_PREFIX = "Lock";
     // 键格式
     // token
@@ -31,5 +41,7 @@ public interface RedisKey {
     // changePwd
     String CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT =
         NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + CHANGE_PASSWORD_PREFIX + SEPARATOR + "Mail-%s";
-
+    // passwordError
+    String PASSWORD_ERROR_COUNT_KEY_FORMAT =
+        NAMESPACE + SEPARATOR + COUNT_PREFIX + SEPARATOR + PASSWORD_ERROR_COUNT + SEPARATOR + "Username-%s";
 }

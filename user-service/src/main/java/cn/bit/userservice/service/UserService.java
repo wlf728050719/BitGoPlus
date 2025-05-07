@@ -3,6 +3,7 @@ package cn.bit.userservice.service;
 import cn.bit.core.pojo.dto.security.BitGoAuthorization;
 import cn.bit.core.pojo.dto.user.UserBaseInfo;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -16,9 +17,10 @@ public interface UserService {
 
     Boolean sendChangePasswordCodeByMail(String email);
 
-    UserBaseInfo getUndeletedUserBaseInfoByUsername(String username);
+    List<UserBaseInfo> getUserBaseInfosByUsername(String username);
 
     UserBaseInfo getUserBaseInfoByUserId(Long userId);
 
-    Set<BitGoAuthorization> getAvailableBitGoAuthorizationByUserId(Long userId);
+    Set<BitGoAuthorization> getAvailableBitGoAuthorizationsByUserId(Long userId);
 }
+

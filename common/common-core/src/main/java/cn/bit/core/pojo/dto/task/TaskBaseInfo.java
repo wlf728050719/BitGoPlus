@@ -7,6 +7,15 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+
+/**
+ * <p>任务基本信息</p>
+ * Date:2025/05/07 20:28:22
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Data
 public class TaskBaseInfo {
     /** 任务名称 */

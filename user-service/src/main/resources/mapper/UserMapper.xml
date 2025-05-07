@@ -102,10 +102,10 @@
         WHERE user_id = #{userId} AND <include refid="Available"/>
     </select>
 
-    <select id="selectUndeletedUserPOByUserName" resultMap="UserPOMap">
+    <select id="selectUserPOsByUserName" resultMap="UserPOMap">
         SELECT <include refid="All_Column_List"/>
         FROM user
-        WHERE username = #{username} AND <include refid="Undeleted"/>
+        WHERE username = #{username}
     </select>
 
     <select id="selectUserPOByUserId" resultMap="UserPOMap">

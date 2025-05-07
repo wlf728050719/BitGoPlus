@@ -1,6 +1,7 @@
 package cn.bit.authservice.service.impl;
 
 import cn.bit.authservice.service.AuthenticationService;
+import cn.bit.core.constant.RedisExpire;
 import cn.bit.core.constant.RedisKey;
 import cn.bit.core.constant.SecurityConstant;
 import cn.bit.core.exception.BizException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
@@ -24,32 +26,73 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 使用用户名+密码获取token
+     * 
+     * @param username 用户名
+     * @param password 密码
+     * @return R({access_token:xx,refresh_token,xx})
+     * @throws BizException 短时多次密码错误业务异常
+     */
     @SuppressWarnings("checkstyle:ReturnCount")
     @Override
-    public R<Map<String, String>> createAuthenticationToken(String username, String password) {
-        // 生成 Access Token 和 Refresh Token
-        BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
-            throw new BizException("密码错误");
+    public R<Map<String, String>> createAuthenticationToken(String username, String password) throws BizException {
+        // 构建密码错误次数的Redis key
+        String passwordErrorKey = String.format(RedisKey.PASSWORD_ERROR_COUNT_KEY_FORMAT, username);
+        // 获取当前错误次数（如果key不存在则返回0）
+        String errorCountStr = (String) redisTemplate.opsForValue().get(passwordErrorKey);
+        int errorCount = errorCountStr != null ? Integer.parseInt(errorCountStr) : 0;
+        // 初始化超时时间
+        Long expireTime = RedisExpire.PASSWORD_ERROR_EXPIRE_SECONDS;
+        // 判断错误次数是否超过上限
+        if (errorCount >= SecurityConstant.MAX_PASSWORD_ERROR_COUNT) {
+            // 获取key的剩余时间
+            String expireMessage = null;
+            expireTime = redisTemplate.getExpire(passwordErrorKey, TimeUnit.SECONDS);
+            if (expireTime != null && expireTime >= 60) {
+                expireMessage = expireTime / 60 + "分钟后再试";
+            } else if (expireTime != null) {
+                expireMessage = expireTime + "秒后再试";
+            }
+            throw new BizException("密码错误次数过多，请" + expireMessage);
         }
-        String accessToken = jwtUtil.generateAccessToken(user);
-        String refreshToken = jwtUtil.generateRefreshToken(user);
-        String key = String.format(RedisKey.TOKEN_KEY_FORMAT, user.getUsername());
-        redisTemplate.opsForValue().set(key, accessToken);
+
+        // 获取用户信息
+        BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
+        // 验证密码
+        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            String newErrorCountStr = String.valueOf(errorCount + 1);
+            // 设置错误次数，并设置过期时间（如果key不存在）
+            redisTemplate.opsForValue().set(passwordErrorKey, newErrorCountStr, expireTime, TimeUnit.SECONDS);
+            throw new BizException("密码错误，剩余尝试次数: " + (SecurityConstant.MAX_PASSWORD_ERROR_COUNT - errorCount - 1));
+        }
+        // 密码正确，清除错误计数（如果存在）
+        if (errorCount > 0) {
+            redisTemplate.delete(passwordErrorKey);
+        }
+        // 生成token
+        String accessToken = jwtUtil.generateAccessToken(user.getUsername());
+        String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
+        String tokenKey = String.format(RedisKey.TOKEN_KEY_FORMAT, user.getUsername());
+        // 存储token到Redis
+        redisTemplate.opsForValue().set(tokenKey, accessToken, jwtUtil.getAccessTokenExpiration(), TimeUnit.SECONDS);
         Map<String, String> result = new HashMap<>();
         result.put(SecurityConstant.ACCESS_TOKEN, accessToken);
         result.put(SecurityConstant.REFRESH_TOKEN, refreshToken);
         return R.ok(result);
     }
 
+    /**
+     * 使用refreshToken获取新的accessToken
+     * 
+     * @param refreshToken refreshToken
+     * @return R(accessToken)
+     */
     @Override
     public R<String> refreshToken(String refreshToken) {
         String username = jwtUtil.extractData(refreshToken);
+        // 判断是否存在对应用户
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        if (jwtUtil.validateUserToken(refreshToken, user)) {
-            return R.ok(jwtUtil.generateAccessToken(user));
-        } else {
-            throw new BizException("用户登录状态已过期,请重新登录");
-        }
+        return R.ok(jwtUtil.generateAccessToken(user.getUsername()));
     }
 }

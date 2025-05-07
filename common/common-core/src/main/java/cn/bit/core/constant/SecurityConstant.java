@@ -1,5 +1,13 @@
 package cn.bit.core.constant;
 
+/**
+ * <p>安全常量</p>
+ * Date:2025/05/07 20:17:47
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @SuppressWarnings("checkstyle:InterfaceIsType")
 public interface SecurityConstant {
     String ROLE_PREFIX = "ROLE_";
@@ -18,4 +26,6 @@ public interface SecurityConstant {
     String ROLE_CUSTOMER = "customer";
     String ROLE_SHOPKEEPER = "shopkeeper";
     String ROLE_CLERK = "clerk";
+    //密码错误最大次数
+    int MAX_PASSWORD_ERROR_COUNT = 5;
 }

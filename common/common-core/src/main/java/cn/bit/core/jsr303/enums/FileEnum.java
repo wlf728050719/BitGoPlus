@@ -4,6 +4,14 @@ import cn.bit.core.jsr303.constant.JSRConfigPrefix;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * <p>文件枚举</p>
+ * Date:2025/05/07 20:24:46
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Getter
 @AllArgsConstructor
 public enum FileEnum {

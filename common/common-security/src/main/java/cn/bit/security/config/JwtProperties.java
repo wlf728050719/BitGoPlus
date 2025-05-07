@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class JwtProperties {
     private String secret; //密钥
-    private Long accessTokenExpiration; //access token超时时间
-    private Long refreshTokenExpiration; //refresh token超时时间
-    private Long internalTokenExpiration; //internal token超时时间
+    private Long accessTokenExpiration; //access token超时时间(单位秒)
+    private Long refreshTokenExpiration; //refresh token超时时间(单位秒)
+    private Long internalTokenExpiration; //internal token超时时间(单位秒)
 }

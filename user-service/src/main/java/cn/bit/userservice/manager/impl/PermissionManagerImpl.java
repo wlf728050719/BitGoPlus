@@ -25,8 +25,8 @@ public class PermissionManagerImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public Set<BitGoAuthorization> selectAvailableBitGoAuthorizationByUserId(Long userId) {
-        return permissionMapper.selectAvailableBitGoAuthorizationByUserId(userId);
+    public Set<BitGoAuthorization> selectAvailableBitGoAuthorizationsByUserId(Long userId) {
+        return permissionMapper.selectAvailableBitGoAuthorizationsByUserId(userId);
     }
 
 }

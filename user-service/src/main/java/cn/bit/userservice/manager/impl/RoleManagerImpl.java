@@ -16,7 +16,7 @@ import java.util.Set;
 public class RoleManagerImpl extends ServiceImpl<RoleMapper, RoleDictItem> implements RoleManager {
     @Override
     @Cacheable(value = RedisKey.NAMESPACE, keyGenerator = "DictCacheGenerator")
-    public Set<RoleDictItem> getRoleDict() {
+    public Set<RoleDictItem> selectRoleDict() {
         return new HashSet<>(this.list());
     }
 }

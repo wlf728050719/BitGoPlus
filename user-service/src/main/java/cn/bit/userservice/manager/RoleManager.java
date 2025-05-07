@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface RoleManager extends IService<RoleDictItem> {
 
-    Set<RoleDictItem> getRoleDict();
+    Set<RoleDictItem> selectRoleDict();
 }

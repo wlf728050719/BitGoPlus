@@ -1,5 +1,13 @@
 package cn.bit.core.jsr303.constant;
 
+/**
+ * <p>jsr303配置文件对应前缀</p>
+ * Date:2025/05/07 20:24:23
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class JSRConfigPrefix {
     // String Enum
     public static final String ANY_STRING_PREFIX = "any-string";

@@ -19,7 +19,7 @@
         category_id, category_name, parent_id, level, sort_order, icon, description, del_flag
     </sql>
 
-    <select id="getAvailableProductCategoryDict" resultMap="ProductCategoryDictItemMap">
+    <select id="selectAvailableProductCategoryDict" resultMap="ProductCategoryDictItemMap">
         SELECT <include refid="Base_Column_List"/> FROM dict_product_category WHERE del_flag = 0
     </select>
 </mapper>

@@ -6,5 +6,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import java.util.Set;
 
 public interface ProductCategoryMapper extends BaseMapper<ProductCategoryDictItem> {
-    Set<ProductCategoryDictItem> getAvailableProductCategoryDict();
+    Set<ProductCategoryDictItem> selectAvailableProductCategoryDict();
 }

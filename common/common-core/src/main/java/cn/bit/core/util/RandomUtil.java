@@ -4,6 +4,14 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Random;
 
+/**
+ * <p>随机数生成工具</p>
+ * Date:2025/05/07 20:30:47
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @UtilityClass
 public class RandomUtil {
     public String getRandomNumberString(int length) {

@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -31,7 +30,7 @@ public class ProductCategoryManagerImpl extends ServiceImpl<ProductCategoryMappe
     @Override
     @Cacheable(value = RedisKey.NAMESPACE, keyGenerator = "DictCacheGenerator")
     public Set<ProductCategoryDictItem> getAvailableProductCategoryDict() {
-        return productCategoryMapper.getAvailableProductCategoryDict();
+        return productCategoryMapper.selectAvailableProductCategoryDict();
     }
 
     /** 获取指定id的有效商品分类字典项 */

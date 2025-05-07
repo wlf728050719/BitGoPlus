@@ -11,6 +11,10 @@ import java.util.Arrays;
 
 @Configuration
 public class CacheConfig extends CachingConfigurerSupport {
+    /**
+     * 字典项缓存键生成
+     * @return key
+     */
     @Override
     @Bean("DictCacheGenerator")
     public KeyGenerator keyGenerator() {

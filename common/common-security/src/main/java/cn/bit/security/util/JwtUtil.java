@@ -3,8 +3,8 @@ package cn.bit.security.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Getter;
 import lombok.NonNull;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -14,9 +14,12 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private final String secret;
-    private final Long accessTokenExpiration;
-    private final Long refreshTokenExpiration;
-    private final Long internalTokenExpiration;
+    @Getter
+    private final Long accessTokenExpiration; //accessToken超时时间（单位秒）
+    @Getter
+    private final Long refreshTokenExpiration; //refreshToken超时时间（单位秒）
+    @Getter
+    private final Long internalTokenExpiration; //internalToken超时时间（单位秒）
 
     public JwtUtil(@NonNull String secret, @NonNull Long accessTokenExpiration, @NonNull Long refreshTokenExpiration,
         @NonNull Long internalTokenExpiration) {
@@ -26,41 +29,55 @@ public class JwtUtil {
         this.internalTokenExpiration = internalTokenExpiration;
     }
 
-    public String generateAccessToken(UserDetails userDetails) {
+    /**
+     * 生成access token
+     * 
+     * @param username 用户名
+     * @return token
+     */
+    public String generateAccessToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername(), accessTokenExpiration);
+        return createToken(claims, username, accessTokenExpiration);
     }
 
+    /**
+     * 生成internal token
+     * 
+     * @param serviceName 服务名
+     * @return token
+     */
     public String generateInternalToken(String serviceName) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, serviceName, internalTokenExpiration);
     }
 
-    public String generateRefreshToken(UserDetails userDetails) {
+    /**
+     * 生成refresh token
+     * 
+     * @param username 用户名
+     * @return token
+     */
+    public String generateRefreshToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername(), refreshTokenExpiration);
+        return createToken(claims, username, refreshTokenExpiration);
     }
 
-    private String createToken(Map<String, Object> claims, String subject, Long expiration) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-            .signWith(SignatureAlgorithm.HS256, secret).compact();
-    }
-
-    public Boolean validateUserToken(String token, UserDetails userDetails) {
-        final String data = extractData(token);
-        return (data.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    public Boolean validateInternalToken(String token, String serviceName) {
-        final String data = extractData(token);
-        return (data.equals(serviceName) && !isTokenExpired(token));
-    }
-
+    /**
+     * 提取token中加密字段
+     * 
+     * @param token token
+     * @return username/serviceName
+     */
     public String extractData(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    /**
+     * 提取token中过期时间
+     * 
+     * @param token token
+     * @return 过期时间
+     */
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -74,15 +91,9 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    public Date getAccessTokenExpiration() {
-        return new Date(System.currentTimeMillis() + accessTokenExpiration * 1000);
-    }
-
-    public Date getRefreshTokenExpiration() {
-        return new Date(System.currentTimeMillis() + refreshTokenExpiration * 1000);
+    private String createToken(Map<String, Object> claims, String subject, Long expiration) {
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 }

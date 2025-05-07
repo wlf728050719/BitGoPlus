@@ -11,6 +11,15 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Null;
 import java.util.Date;
 
+
+/**
+ * <p>用户基本信息</p>
+ * Date:2025/05/07 20:28:45
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Data
 @NoArgsConstructor
 public class UserBaseInfo {

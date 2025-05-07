@@ -65,6 +65,11 @@ public class JSRConfig {
                 DefaultValue.DEFAULT_COMPRESSED_FILE_EXTENSIONS, DefaultValue.DEFAULT_FILE_NAME_PATTERN));
     }
 
+    /**
+     * 获取指定枚举对应的正则限制，优先使用配置
+     * @param stringEnum 字符串枚举
+     * @return 对应正则表达式
+     */
     public String getRegex(StringEnum stringEnum) {
         if (regexMap == null || regexMap.get(stringEnum.getPrefix()) == null) {
             String defaultRegex = defaultRegexMap.get(stringEnum.getPrefix());
@@ -79,6 +84,11 @@ public class JSRConfig {
         }
     }
 
+    /**
+     * 获取指定枚举对应文件限制类，优先使用配置
+     * @param fileEnum 文件枚举
+     * @return 文件限制类
+     */
     public FileLimit getFileLimit(FileEnum fileEnum) {
         if (fileLimitMap == null || fileLimitMap.get(fileEnum.getPrefix()) == null) {
             FileLimit defaultFileLimit = defaultFileLimitMap.get(fileEnum.getPrefix());

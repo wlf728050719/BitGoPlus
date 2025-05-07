@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -20,9 +21,9 @@ import java.util.Set;
 public class APIController {
     private UserService userService;
 
-    @GetMapping("/undeletedUserBaseInfoByUsername/{username}")
-    public R<UserBaseInfo> getUndeletedUserBaseInfoByUsername(@PathVariable("username") String username) {
-        return R.ok(userService.getUndeletedUserBaseInfoByUsername(username));
+    @GetMapping("/userBaseInfosByUsername/{username}")
+    public R<List<UserBaseInfo>> getUserBaseInfosByUsername(@PathVariable("username") String username) {
+        return R.ok(userService.getUserBaseInfosByUsername(username));
     }
 
     @GetMapping("/userBaseInfoByUserId/{userId}")
@@ -30,9 +31,9 @@ public class APIController {
         return R.ok(userService.getUserBaseInfoByUserId(userId));
     }
 
-    @GetMapping("/bitGoAuthorizationByUserId/{userId}")
-    public R<Set<BitGoAuthorization>> getBitGoAuthorizationByUserId(@PathVariable("userId") Long userId) {
-        return R.ok(userService.getAvailableBitGoAuthorizationByUserId(userId));
+    @GetMapping("/bitGoAuthorizationsByUserId/{userId}")
+    public R<Set<BitGoAuthorization>> getBitGoAuthorizationsByUserId(@PathVariable("userId") Long userId) {
+        return R.ok(userService.getAvailableBitGoAuthorizationsByUserId(userId));
     }
 
     @PostMapping("/addPermission")

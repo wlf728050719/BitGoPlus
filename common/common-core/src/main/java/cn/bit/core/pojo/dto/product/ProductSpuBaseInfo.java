@@ -9,6 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
+/**
+ * <p>商品Spu基本信息</p>
+ * Date:2025/05/07 20:25:49
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Data
 public class ProductSpuBaseInfo {
     /** SPU ID */
@@ -40,7 +48,7 @@ public class ProductSpuBaseInfo {
     private String mainImageUrl;
 
     /** 主图 */
-    @ValidFile(fileEnum = FileEnum.IMAGE_FILE)
+    @ValidFile(value = FileEnum.IMAGE_FILE)
     private MultipartFile mainImage;
 
     /** 子图URL（JSON数组格式） */

@@ -12,7 +12,7 @@ import cn.bit.core.jsr303.enums.FileEnum;
 import cn.bit.core.jsr303.validator.FileValidator;
 
 /**
- * <p>验证文件类型，大小是否符合要求，只设置枚举时使用对应枚举文件类型配置大小限制以及后缀名限制</p>
+ * <p>验证文件类型，大小是否符合规范，只设置枚举时使用对应枚举文件类型配置大小限制以及后缀名限制</p>
  * Date:2025/05/04 14:59:42
  *
  * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
@@ -32,7 +32,7 @@ public @interface ValidFile {
 
     boolean useEnum() default true; // 默认优先使用枚举
 
-    FileEnum fileEnum() default FileEnum.ANY_FILE;
+    FileEnum value() default FileEnum.ANY_FILE;
 
     long maxSize() default 5L * 1024 * 1024 * 1024; // 文件最大字节大小
 

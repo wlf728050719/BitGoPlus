@@ -33,7 +33,7 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
     public void initialize(ValidFile constraintAnnotation) {
         boolean useEnum = constraintAnnotation.useEnum();
         if (useEnum) {
-            FileEnum fileEnum = constraintAnnotation.fileEnum();
+            FileEnum fileEnum = constraintAnnotation.value();
             if (fileEnum == FileEnum.ANY_FILE) {
                 log.warn("use any file");
             }

@@ -22,7 +22,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>用户服务</p>
@@ -43,9 +45,11 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private RedisTemplate<String, Object> redisTemplate;
 
+
     /**
      * 通过邮件注册账户
-     * @param code 验证码
+     *
+     * @param code         验证码
      * @param userBaseInfo 用户基本信息
      * @return {@link Boolean }
      */
@@ -53,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public Boolean registerByEmail(String code, UserBaseInfo userBaseInfo) {
         // 判断用户名是否存在
-        if (userManager.selectUndeletedUserPOByUserName(userBaseInfo.getUsername()) != null) {
+        if (userManager.selectUserPOsByUserName(userBaseInfo.getUsername()) != null) {
             throw new BizException("存在同名用户");
         }
         // 判断邮箱是否被验证过
@@ -75,18 +79,19 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户新增权限
+     *
      * @param roleCode 角色码
      * @param tenantId 租户ID
-     * @param userId 用户ID
+     * @param userId   用户ID
      * @return {@link Boolean }
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean addPermission(String roleCode, Long tenantId, Long userId) {
         // 判断是否存在对应角色
-        Set<RoleDictItem> roleDictItemSet = roleManager.getRoleDict();
+        Set<RoleDictItem> roleDictItemSet = roleManager.selectRoleDict();
         RoleDictItem roleDictItem = roleDictItemSet.stream().filter(item -> roleCode.equals(item.getRoleCode()))
-            .findFirst().orElseThrow(() -> new SysException("role not found: " + roleCode));
+                .findFirst().orElseThrow(() -> new SysException("role not found: " + roleCode));
         // 判断用户状态是否可用
         UserPO userPO = userManager.selectUserPOByUserId(userId);
         if (userPO == null) {
@@ -99,10 +104,10 @@ public class UserServiceImpl implements UserService {
             throw new BizException("用户已被冻结，请联系管理员解封");
         }
         // 判断用户是否已有对应权限
-        Set<BitGoAuthorization> authorizationSet = permissionManager.selectAvailableBitGoAuthorizationByUserId(userId);
+        Set<BitGoAuthorization> authorizationSet = permissionManager.selectAvailableBitGoAuthorizationsByUserId(userId);
         BitGoAuthorization bitGoAuthorization = authorizationSet.stream()
-            .filter(item -> roleCode.equals(item.getRoleCode()) && tenantId.equals(item.getTenantId())).findFirst()
-            .orElse(null);
+                .filter(item -> roleCode.equals(item.getRoleCode()) && tenantId.equals(item.getTenantId())).findFirst()
+                .orElse(null);
         if (bitGoAuthorization != null) {
             throw new BizException("用户已有对应租户角色权限");
         }
@@ -116,8 +121,9 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 邮箱+验证码修改密码
-     * @param code 验证码
-     * @param email 邮箱
+     *
+     * @param code     验证码
+     * @param email    邮箱
      * @param password 密码
      * @return {@link Boolean }
      */
@@ -146,6 +152,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 邮件发送注册验证码
+     *
      * @param email 邮箱
      * @return {@link Boolean }
      */
@@ -159,6 +166,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 邮件发送修改密码验证码
+     *
      * @param email 邮箱
      * @return {@link Boolean }
      */
@@ -170,22 +178,16 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    /**
-     * 通过用户名获取未被删除的用户基本信息(未脱敏)
-     * @param username 用户名
-     * @return {@link UserBaseInfo }
-     */
+
     @Override
-    public UserBaseInfo getUndeletedUserBaseInfoByUsername(String username) {
-        UserPO userPO = userManager.selectUndeletedUserPOByUserName(username);
-        if (userPO == null) {
-            return null;
-        }
-        return new UserBaseInfo(userPO);
+    public List<UserBaseInfo> getUserBaseInfosByUsername(String username) {
+        List<UserPO> userPOList = userManager.selectUserPOsByUserName(username);
+        return userPOList.stream().map(UserBaseInfo::new).collect(Collectors.toList());
     }
 
     /**
      * 通过用户ID获取用户基本信息(未脱敏)
+     *
      * @param userId 用户ID
      * @return {@link UserBaseInfo }
      */
@@ -193,11 +195,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public UserBaseInfo getUserBaseInfoByUserId(Long userId) {
         UserPO user = userManager.selectUserPOByUserId(userId);
-        if (user == null) {
-            throw new BizException("不存在对应用户ID用户");
-        } else {
-            return new UserBaseInfo(user);
-        }
+        return new UserBaseInfo(user);
     }
 
     /**
@@ -207,7 +205,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<BitGoAuthorization> getAvailableBitGoAuthorizationByUserId(Long userId) {
-        return permissionManager.selectAvailableBitGoAuthorizationByUserId(userId);
+    public Set<BitGoAuthorization> getAvailableBitGoAuthorizationsByUserId(Long userId) {
+        return permissionManager.selectAvailableBitGoAuthorizationsByUserId(userId);
     }
 }

@@ -7,6 +7,14 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.Collection;
 
+/**
+ * <p>内部权限类</p>
+ * Date:2025/05/07 20:28:00
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class InternalServiceAuthentication extends AbstractAuthenticationToken {
 
     private final String serviceName;

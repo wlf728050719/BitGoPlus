@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface PermissionManager extends IService<PermissionPO> {
     Long insertPermission(PermissionPO permissionPO);
-    Set<BitGoAuthorization> selectAvailableBitGoAuthorizationByUserId(Long userId);
+    Set<BitGoAuthorization> selectAvailableBitGoAuthorizationsByUserId(Long userId);
 }

@@ -2,6 +2,14 @@ package cn.bit.core.jsr303.constant;
 
 import lombok.Getter;
 
+/**
+ * <p>jsr303默认配置值</p>
+ * Date:2025/05/07 20:23:51
+ *
+ * @author <a href="mailto:18086270070@163.com">Luofei Wang</a>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Getter
 public class DefaultValue {
     // String
