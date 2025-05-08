@@ -24,15 +24,15 @@ import java.util.Set;
 public interface UserClient {
 
     /**
-     * 通过用户名获取对应未脱敏用户基本信息列表(包含已经删除用户)
+     * 通过用户名获取对应用户基本信息列表(未脱敏+已删除)
      * @param username 用户名
-     * @return R(未脱敏用户基本信息列表/null)
+     * @return R(用户基本信息列表/null)
      */
     @GetMapping("/api/user/userBaseInfosByUsername/{username}")
     R<List<UserBaseInfo>> getUserBaseInfosByUsername(@PathVariable("username") String username);
 
     /**
-     * 通过用户ID获取对应未脱敏用户基本信息(包含已删除用户)
+     * 通过用户ID获取对应用户基本信息(未脱敏+已删除)
      * @param userId 用户ID
      * @return R(用户基本信息/null)
      */
@@ -57,4 +57,12 @@ public interface UserClient {
     @PostMapping("/api/user/addPermission")
     R<Boolean> addPermission(@RequestParam("userId") Long userId, @RequestParam("tenantId") Long tenantId,
         @RequestParam("roleCode") String roleCode);
+
+    /**
+     * 根据邮箱获取对应已验证邮箱用户基本信息(未脱敏+未删除)
+     * @param email 邮箱
+     * @return R(用户基本信息)
+     */
+    @GetMapping("/api/user/userBaseInfoByVerifiedEmail/{email}")
+    R<UserBaseInfo> getUserBaseInfoByVerifiedEmail(@PathVariable("email") String email);
 }

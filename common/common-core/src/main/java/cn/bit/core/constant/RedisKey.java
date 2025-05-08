@@ -23,6 +23,7 @@ public interface RedisKey {
     // 二级前缀
     String REGISTER_PREFIX = "Register";
     String CHANGE_PASSWORD_PREFIX = "ChangePassword";
+    String LOGIN_PREFIX = "Login";
     String PASSWORD_ERROR_COUNT = "PasswordErrorCount";
     String LOCK_PREFIX = "Lock";
     // 键格式
@@ -41,6 +42,9 @@ public interface RedisKey {
     // changePwd
     String CODE_CHANGE_PASSWORD_MAIL_KEY_FORMAT =
         NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + CHANGE_PASSWORD_PREFIX + SEPARATOR + "Mail-%s";
+    // login
+    String CODE_LOGIN_MAIL_KEY_FORMAT =
+            NAMESPACE + SEPARATOR + CODE_PREFIX + SEPARATOR + LOGIN_PREFIX + SEPARATOR + "Mail-%s";
     // passwordError
     String PASSWORD_ERROR_COUNT_KEY_FORMAT =
         NAMESPACE + SEPARATOR + COUNT_PREFIX + SEPARATOR + PASSWORD_ERROR_COUNT + SEPARATOR + "Username-%s";

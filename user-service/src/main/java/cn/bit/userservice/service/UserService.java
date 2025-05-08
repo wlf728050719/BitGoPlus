@@ -21,6 +21,7 @@ public interface UserService {
 
     UserBaseInfo getUserBaseInfoByUserId(Long userId);
 
+    UserBaseInfo getUserBaseInfoByVerifiedEmail(String email);
+
     Set<BitGoAuthorization> getAvailableBitGoAuthorizationsByUserId(Long userId);
 }
-

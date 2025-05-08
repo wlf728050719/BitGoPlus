@@ -10,8 +10,9 @@ package cn.bit.core.constant;
  */
 @SuppressWarnings("checkstyle:InterfaceIsType")
 public interface RedisExpire {
-    Long CODE_LOCK_EXPIRE_SECONDS = 10L;
-    Long REGISTER_CODE_EXPIRE_SECONDS = 300L;
-    Long CHANGE_PASSWORD_CODE_EXPIRE_SECONDS = 300L;
-    Long PASSWORD_ERROR_EXPIRE_SECONDS = 300L;
+    Long CODE_LOCK_EXPIRE_SECONDS = 10L; //验证码重复发送间隔
+    Long REGISTER_CODE_EXPIRE_SECONDS = 300L; //注册验证码超时时间
+    Long CHANGE_PASSWORD_CODE_EXPIRE_SECONDS = 300L; //修改密码验证码超时时间
+    Long PASSWORD_ERROR_EXPIRE_SECONDS = 300L; //密码多次错误缓冲时间
+    Long LOGIN_CODE_EXPIRE_SECONDS = 300L; //登录验证码超时时间
 }

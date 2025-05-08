@@ -55,6 +55,11 @@
             <groupId>cn.bit</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
+        <!-- common-message -->
+        <dependency>
+            <groupId>cn.bit</groupId>
+            <artifactId>common-message</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

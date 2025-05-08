@@ -5,10 +5,15 @@ import cn.bit.core.constant.RedisExpire;
 import cn.bit.core.constant.RedisKey;
 import cn.bit.core.constant.SecurityConstant;
 import cn.bit.core.exception.BizException;
+import cn.bit.core.exception.SysException;
 import cn.bit.core.pojo.dto.security.BitGoUser;
+import cn.bit.core.pojo.dto.user.UserBaseInfo;
 import cn.bit.core.pojo.vo.R;
+import cn.bit.feign.client.UserClient;
+import cn.bit.message.util.CodeUtil;
 import cn.bit.security.service.BitGoUserService;
 import cn.bit.security.util.JwtUtil;
+
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+    private final UserClient userClient;
+    private final CodeUtil codeUtil;
     private final JwtUtil jwtUtil;
     private final BitGoUserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -31,12 +38,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * 
      * @param username 用户名
      * @param password 密码
-     * @return R({access_token:xx,refresh_token,xx})
+     * @return {access_token:xx,refresh_token,xx}
      * @throws BizException 短时多次密码错误业务异常
      */
     @SuppressWarnings("checkstyle:ReturnCount")
     @Override
-    public R<Map<String, String>> createAuthenticationToken(String username, String password) throws BizException {
+    public Map<String, String> loginByUsernameAndPassword(String username, String password) throws BizException {
         // 构建密码错误次数的Redis key
         String passwordErrorKey = String.format(RedisKey.PASSWORD_ERROR_COUNT_KEY_FORMAT, username);
         // 获取当前错误次数（如果key不存在则返回0）
@@ -70,29 +77,76 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (errorCount > 0) {
             redisTemplate.delete(passwordErrorKey);
         }
-        // 生成token
-        String accessToken = jwtUtil.generateAccessToken(user.getUsername());
-        String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
-        String tokenKey = String.format(RedisKey.TOKEN_KEY_FORMAT, user.getUsername());
-        // 存储token到Redis
-        redisTemplate.opsForValue().set(tokenKey, accessToken, jwtUtil.getAccessTokenExpiration(), TimeUnit.SECONDS);
-        Map<String, String> result = new HashMap<>();
-        result.put(SecurityConstant.ACCESS_TOKEN, accessToken);
-        result.put(SecurityConstant.REFRESH_TOKEN, refreshToken);
-        return R.ok(result);
+        return deliverUserToken(username);
+    }
+
+    /**
+     * 发送邮件登录验证码
+     * 
+     * @param email 邮箱
+     * @return true
+     */
+    @Override
+    public Boolean sendLoginCodeByEmail(String email) {
+        String lock = String.format(RedisKey.CODE_MAIL_LOCK, email);
+        String key = String.format(RedisKey.CODE_LOGIN_MAIL_KEY_FORMAT, email);
+        codeUtil.sendMailCode(lock, key, email, RedisExpire.LOGIN_CODE_EXPIRE_SECONDS, "您正在登录BitGo商城用户！");
+        return true;
+    }
+
+    /**
+     * 使用邮箱和验证码登录
+     * @param email 邮箱
+     * @param code 验证码
+     * @return {access_token:xx,refresh_token,xx}
+     */
+    @Override
+    public Map<String, String> loginByEmailAndCode(String email, String code) {
+        String key = String.format(RedisKey.CODE_LOGIN_MAIL_KEY_FORMAT, email);
+        codeUtil.checkMailCode(key, code);
+        R<UserBaseInfo> response = userClient.getUserBaseInfoByVerifiedEmail(email);
+        if (response == null) {
+            throw new SysException("get response from user-service failed");
+        }
+        UserBaseInfo userBaseInfo = response.getData();
+        if (userBaseInfo == null) {
+            throw new BizException("不存在对应邮箱用户或邮箱未被验证，请使用其他方式登录");
+        }
+        if (userBaseInfo.getLockFlag() == 1) {
+            throw new BizException("用户已被冻结，请联系管理员解封");
+        }
+        return deliverUserToken(userBaseInfo.getUsername());
     }
 
     /**
      * 使用refreshToken获取新的accessToken
      * 
      * @param refreshToken refreshToken
-     * @return R(accessToken)
+     * @return accessToken
      */
     @Override
-    public R<String> refreshToken(String refreshToken) {
+    public String refreshToken(String refreshToken) {
         String username = jwtUtil.extractData(refreshToken);
         // 判断是否存在对应用户
         BitGoUser user = (BitGoUser) userService.loadUserByUsername(username);
-        return R.ok(jwtUtil.generateAccessToken(user.getUsername()));
+        return jwtUtil.generateAccessToken(user.getUsername());
+    }
+
+    /**
+     * 分发token(生成accessToken和refreshToken并缓存accessToken)
+     * @param username 用户名
+     * @return {access_token:xx,refresh_token,xx}
+     */
+    private Map<String, String> deliverUserToken(String username) {
+        // 生成token
+        String accessToken = jwtUtil.generateAccessToken(username);
+        String refreshToken = jwtUtil.generateRefreshToken(username);
+        String tokenKey = String.format(RedisKey.TOKEN_KEY_FORMAT, username);
+        // 存储token到Redis
+        redisTemplate.opsForValue().set(tokenKey, accessToken, jwtUtil.getAccessTokenExpiration(), TimeUnit.SECONDS);
+        Map<String, String> result = new HashMap<>();
+        result.put(SecurityConstant.ACCESS_TOKEN, accessToken);
+        result.put(SecurityConstant.REFRESH_TOKEN, refreshToken);
+        return result;
     }
 }

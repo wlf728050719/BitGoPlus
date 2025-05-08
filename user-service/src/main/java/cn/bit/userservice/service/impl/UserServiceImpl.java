@@ -178,7 +178,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
+    /**
+     * 根据用户名获取对应用户基本信息列表(未脱敏+已删除)
+     * @param username 用户名
+     * @return 用户基本信息列表
+     */
     @Override
     public List<UserBaseInfo> getUserBaseInfosByUsername(String username) {
         List<UserPO> userPOList = userManager.selectUserPOsByUserName(username);
@@ -186,7 +190,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过用户ID获取用户基本信息(未脱敏)
+     * 通过用户ID获取用户基本信息(未脱敏+已删除)
      *
      * @param userId 用户ID
      * @return {@link UserBaseInfo }
@@ -199,7 +203,18 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过用户ID获取可用的用户权限
+     * 根据邮箱获取对应已验证邮箱用户基本信息(未脱敏+未删除)
+     * @param email 邮箱
+     * @return 用户基本信息
+     */
+    @Override
+    public UserBaseInfo getUserBaseInfoByVerifiedEmail(String email) {
+        UserPO userPO = userManager.selectUndeletedUserPOByVerifiedEmail(email);
+        return new UserBaseInfo(userPO);
+    }
+
+    /**
+     * 通过用户ID获取可用的用户权限(未删除)
      * @param userId 用户ID
      * @return {@link Set }<{@link BitGoAuthorization }>
      */

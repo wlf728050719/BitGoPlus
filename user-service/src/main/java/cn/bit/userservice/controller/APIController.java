@@ -42,4 +42,9 @@ public class APIController {
         return R.ok(userService.addPermission(roleCode, tenantId, userId));
     }
 
+    @GetMapping("/userBaseInfoByVerifiedEmail/{email}")
+    public R<UserBaseInfo> getUserBaseInfoByVerifiedEmail(@PathVariable("email") String email) {
+        return R.ok(userService.getUserBaseInfoByVerifiedEmail(email));
+    }
+
 }
