@@ -1,6 +1,7 @@
 package cn.bit.message.util;
 
 import cn.bit.core.constant.RedisExpire;
+import cn.bit.core.constant.SecurityConstant;
 import cn.bit.core.exception.BizException;
 import cn.bit.core.exception.SysException;
 import cn.bit.core.util.RandomUtil;
@@ -15,9 +16,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @AllArgsConstructor
 public class CodeUtil {
-    private static final int CODE_LENGTH = 6;
-    private final BitGoMailSender sender;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final BitGoMailSender bitGoMailSender;
 
     private Long lockExpireLeft(String lock) {
         if (Boolean.TRUE.equals(redisTemplate.hasKey(lock))) {
@@ -39,12 +39,12 @@ public class CodeUtil {
     }
 
     public void sendMailCode(String lock, String key, String email, Long keyExpireSeconds, String message) {
-        String code = RandomUtil.getRandomNumberString(CODE_LENGTH);
+        String code = RandomUtil.getRandomNumberString(SecurityConstant.CODE_LENGTH);
         long leftTime = lockExpireLeft(lock);
         if (leftTime > 0) {
             throw new BizException("验证码发送频繁，请等待" + leftTime / 1000 + "秒后再次发送");
         } else {
-            sender.send(email, "BitGo", message + "验证码为: " + code + " 。");
+            bitGoMailSender.send(this, email, "BitGo", message + "验证码为" + code);
             redisTemplate.opsForValue().set(key, code, keyExpireSeconds, TimeUnit.SECONDS);
             redisTemplate.opsForValue().set(lock, String.valueOf(System.currentTimeMillis()),
                 RedisExpire.CODE_LOCK_EXPIRE_SECONDS, TimeUnit.SECONDS);

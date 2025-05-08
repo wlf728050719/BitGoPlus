@@ -28,4 +28,6 @@ public interface SecurityConstant {
     String ROLE_CLERK = "clerk";
     //密码错误最大次数
     int MAX_PASSWORD_ERROR_COUNT = 5;
+    //验证码长度
+    int CODE_LENGTH = 6;
 }
