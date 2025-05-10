@@ -1,39 +1,4 @@
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: user-service
-          uri:
-            lb://user-service
-          predicates:
-            - name: Path
-              args:
-                _genkey_0: /user/**
-        - id: order-service
-          uri:
-            lb://order-service
-          predicates:
-            - name: Path
-              args:
-                _genkey_0: /order/**
-        - id: task-service
-          uri:
-            lb://task-service
-          predicates:
-            - name: Path
-              args:
-                _genkey_0: /task/**
-        - id: auth-service
-          uri:
-            lb://auth-service
-          predicates:
-            - name: Path
-              args:
-                _genkey_0: /auth/**
-        - id: product-service
-          uri:
-            lb://product-service
-          predicates:
-            - name: Path
-              args:
-                _genkey_0: /product/**
+dynamic-route:
+  dataId: gateway-routes.json
+  group: dev
+  timeOutMs: 5000
